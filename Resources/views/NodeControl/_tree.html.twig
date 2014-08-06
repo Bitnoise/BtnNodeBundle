@@ -1,6 +1,5 @@
 <li id="{{ node.id }}">
     <a href="{{ url('cp_edit_node', {'id': node.id}) }}" data-remote="formContainer" class="node-title">{{ node.title }}</a> |
-
         {% if node.provider %}
             {{ node.provider }}
         {% else %}

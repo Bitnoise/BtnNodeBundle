@@ -1,0 +1,4 @@
+btn_nodes:
+    resource: "@BtnNodesBundle/Controller/"
+    type:     annotation
+    prefix:   /

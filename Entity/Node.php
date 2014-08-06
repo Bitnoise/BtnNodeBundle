@@ -129,8 +129,7 @@ class Node implements NodeInterface
     private $ogDescription;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Btn\MediaBundle\Entity\MediaFile")
-     * @ORM\JoinColumn(name="og_image_id", referencedColumnName="id", onDelete="CASCADE")
+    * @ORM\Column(name="og_image", type="string", nullable=true)
      */
     private $ogImage;
 
@@ -640,10 +639,10 @@ class Node implements NodeInterface
     /**
      * Set ogImage
      *
-     * @param  \Btn\MediaBundle\Entity\MediaFile $image
+     * @param  string $image
      * @return Node
      */
-    public function setOgImage(\Btn\MediaBundle\Entity\MediaFile $ogImage = null)
+    public function setOgImage($ogImage = null)
     {
         $this->ogImage = $ogImage;
 
@@ -653,7 +652,7 @@ class Node implements NodeInterface
     /**
      * Get ogImage
      *
-     * @return \Btn\MediaBundle\Entity\MediaFile
+     * @return string
      */
     public function getOgImage()
     {

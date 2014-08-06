@@ -17,19 +17,31 @@ use Btn\NodesBundle\Form\NodeType;
 class NodeControlController extends BaseController
 {
     /**
-     * Lists all Nodes - easy view
+     * Lists all Nodes.
      *
-     * @Route("/manage", name="cp_nodes_website")
+     * @Route("/", name="cp_nodes")
      * @Template()
      */
-    public function websiteAction()
+    public function indexAction()
     {
-        $em       = $this->getDoctrine()->getManager();
-        $repo     = $em->getRepository('BtnNodesBundle:Node');
+        return array();
+    }
+
+    /**
+     * Lists all Nodes.
+     *
+     * @Route("/tree", name="cp_nodes_tree")
+     * @Template()
+     */
+    public function treeAction()
+    {
+        $em   = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('BtnNodesBundle:Node');
         $topNodes = $repo->getRootNodes();
 
         return array('topNodes' => $topNodes);
     }
+
 
     /**
      * List all nodes for modal picker
@@ -51,24 +63,10 @@ class NodeControlController extends BaseController
     }
 
     /**
-     * Lists all Nodes.
-     *
-     * @Route("/", name="cp_nodes")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em   = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('BtnNodesBundle:Node');
-        $topNodes = $repo->getRootNodes();
-
-        return array('topNodes' => $topNodes);
-    }
-
-    /**
      * Add new node
      *
      * @Route("/add", name="cp_add_node")
+     * @Template()
      */
     public function addAction(Request $request)
     {
@@ -84,13 +82,11 @@ class NodeControlController extends BaseController
         $result = $this->processForm($node, $form, $request);
 
         //prepare content
-        $content = $this->renderView('BtnNodesBundle:NodeControl:_form.html.twig', array(
+        return array(
             'form'   => $form->createView(),
             'node'   => $node,
             'parent' => $parent
-        ));
-
-        return $this->resolveView($result, $content);
+        );
     }
 
     /**
@@ -107,7 +103,7 @@ class NodeControlController extends BaseController
         $msg = $this->get('translator')->trans('node.removed');
         $this->get('session')->getFlashBag()->add('success', $msg);
 
-        return $this->redirect($this->generateUrl('cp_nodes_website'));
+        return $this->redirect($this->generateUrl('cp_nodes'));
     }
 
     /**
@@ -126,12 +122,10 @@ class NodeControlController extends BaseController
         $result = $this->processForm($node, $form, $request);
 
         //prepare content
-        $content = $this->renderView('BtnNodesBundle:NodeControl:_form.html.twig', array(
+        return array(
             'form' => $form->createView(),
             'node' => $node
-        ));
-
-        return $this->resolveView($result, $content);
+        );
     }
 
     /**

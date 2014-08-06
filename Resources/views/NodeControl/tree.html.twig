@@ -1,0 +1,10 @@
+<div id="tree" class="top-offset">
+    <ul>
+        {% for node in topNodes %}
+            {% include 'BtnNodesBundle:NodeControl:_tree.html.twig' %}
+        {% endfor %}
+    </ul>
+</div>
+<div class="top-offset">
+    <a href="{{ url('cp_add_node') }}" class="btn btn-primary btn-sm">{% trans %}node.create_new_menu{% endtrans %}</a>
+</div>

@@ -1,3 +1,6 @@
+parameters:
+    btn.nodes.availableRoutes: []
+
 services:
     btn_menu.voter:
         class: Btn\NodesBundle\Voter\Voter

@@ -1,3 +1,6 @@
+#new one
+btn_control.add_subpage: 'Add subpage'
+
 node:
     website_structure: Website structure
     create_new_menu: Create New Menu
