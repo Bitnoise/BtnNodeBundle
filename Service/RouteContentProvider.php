@@ -2,7 +2,6 @@
 
 namespace Btn\NodesBundle\Service;
 
-use Btn\NodesBundle\Service\NodeContentProviderInterface;
 use Btn\NodesBundle\Form\RouteContentType;
 
 /**

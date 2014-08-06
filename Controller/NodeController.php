@@ -3,11 +3,8 @@
 namespace Btn\NodesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Btn\BaseBundle\Controller\BaseController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Btn\NodesBundle\Entity\Node;
 
 /**
@@ -26,10 +23,8 @@ class NodeController extends BaseController
             //if node contains valid url - redirect
             $link = $node->getLink();
             if (!empty($link)) {
-
                 return $this->redirect($link);
             }
-
 
             // $route = '/' . $node->getRoute();
             // $match = $this->get('router')->match($route);
@@ -51,7 +46,6 @@ class NodeController extends BaseController
                 $response = $this->forward($match['_controller'], array_merge($match, $context));
 
                 //something here?
-
                 return $response;
             }
         }

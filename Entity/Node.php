@@ -209,7 +209,7 @@ class Node implements NodeInterface
     /**
      * Set lft
      *
-     * @param integer $lft
+     * @param  integer $lft
      * @return Node
      */
     public function setLft($lft)
@@ -232,7 +232,7 @@ class Node implements NodeInterface
     /**
      * Set lvl
      *
-     * @param integer $lvl
+     * @param  integer $lvl
      * @return Node
      */
     public function setLvl($lvl)
@@ -255,7 +255,7 @@ class Node implements NodeInterface
     /**
      * Set rgt
      *
-     * @param integer $rgt
+     * @param  integer $rgt
      * @return Node
      */
     public function setRgt($rgt)
@@ -278,7 +278,7 @@ class Node implements NodeInterface
     /**
      * Set root
      *
-     * @param integer $root
+     * @param  integer $root
      * @return Node
      */
     public function setRoot($root)
@@ -301,7 +301,7 @@ class Node implements NodeInterface
     /**
      * Set route
      *
-     * @param string $route
+     * @param  string $route
      * @return Node
      */
     public function setRoute($route)
@@ -324,7 +324,7 @@ class Node implements NodeInterface
     /**
      * Set routeParameters
      *
-     * @param string $routeParameters
+     * @param  string $routeParameters
      * @return Node
      */
     public function setRouteParameters($routeParameters)
@@ -347,7 +347,7 @@ class Node implements NodeInterface
     /**
      * Add children
      *
-     * @param \Btn\NodesBundle\Entity\Node $children
+     * @param  \Btn\NodesBundle\Entity\Node $children
      * @return Node
      */
     public function addChildren(\Btn\NodesBundle\Entity\Node $children)
@@ -366,7 +366,6 @@ class Node implements NodeInterface
     {
         $this->children->removeElement($children);
     }
-
 
     /**
      * @return string
@@ -392,7 +391,7 @@ class Node implements NodeInterface
     /**
      * Set url
      *
-     * @param string $url
+     * @param  string $url
      * @return Node
      */
     public function setUrl($url)
@@ -431,7 +430,7 @@ class Node implements NodeInterface
     /**
      * Set controlRoute
      *
-     * @param string $controlRoute
+     * @param  string $controlRoute
      * @return Node
      */
     public function setControlRoute($controlRoute)
@@ -454,7 +453,7 @@ class Node implements NodeInterface
     /**
      * Set provider
      *
-     * @param string $provider
+     * @param  string $provider
      * @return Node
      */
     public function setProvider($provider)
@@ -503,7 +502,7 @@ class Node implements NodeInterface
     /**
      * Set routeParameters
      *
-     * @param string $routeParameters
+     * @param  string $routeParameters
      * @return Node
      */
     public function setControlRouteParameters($routeParameters)
@@ -526,7 +525,7 @@ class Node implements NodeInterface
     /**
      * Set metaTitle
      *
-     * @param string $metaTitle
+     * @param  string $metaTitle
      * @return Node
      */
     public function setMetaTitle($metaTitle)
@@ -549,7 +548,7 @@ class Node implements NodeInterface
     /**
      * Set metaDescription
      *
-     * @param string $metaDescription
+     * @param  string $metaDescription
      * @return Node
      */
     public function setMetaDescription($metaDescription)
@@ -572,7 +571,7 @@ class Node implements NodeInterface
     /**
      * Set metaKeywords
      *
-     * @param string $metaKeywords
+     * @param  string $metaKeywords
      * @return Node
      */
     public function setMetaKeywords($metaKeywords)
@@ -595,7 +594,7 @@ class Node implements NodeInterface
     /**
      * Set ogTitle
      *
-     * @param string $ogTitle
+     * @param  string $ogTitle
      * @return Node
      */
     public function setOgTitle($ogTitle)
@@ -618,7 +617,7 @@ class Node implements NodeInterface
     /**
      * Set ogDescription
      *
-     * @param string $ogDescription
+     * @param  string $ogDescription
      * @return Node
      */
     public function setOgDescription($ogDescription)
@@ -641,7 +640,7 @@ class Node implements NodeInterface
     /**
      * Set ogImage
      *
-     * @param \Btn\MediaBundle\Entity\MediaFile $image
+     * @param  \Btn\MediaBundle\Entity\MediaFile $image
      * @return Node
      */
     public function setOgImage(\Btn\MediaBundle\Entity\MediaFile $ogImage = null)
@@ -669,7 +668,7 @@ class Node implements NodeInterface
     /**
      * Set visible
      *
-     * @param boolean $visible
+     * @param  boolean $visible
      * @return Node
      */
     public function setVisible($visible)
@@ -692,7 +691,7 @@ class Node implements NodeInterface
     /**
      * Set link
      *
-     * @param string $link
+     * @param  string $link
      * @return Node
      */
     public function setLink($link)

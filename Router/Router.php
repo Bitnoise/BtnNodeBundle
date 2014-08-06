@@ -54,7 +54,6 @@ class Router implements RouterInterface
         );
     }
 
-
     /**
      * Match given urls via the context to the routes we defined.
      * This functionality re-uses the default Symfony way of routing and its components
@@ -94,7 +93,6 @@ class Router implements RouterInterface
         return $result;
     }
 
-
     /**
      * Generate an url for a supplied route
      *
@@ -111,7 +109,6 @@ class Router implements RouterInterface
         return $this->urlGenerator->generate($name, $parameters, $absolute);
     }
 
-
     /**
      * Getter for routeCollection
      *
@@ -121,7 +118,6 @@ class Router implements RouterInterface
     {
         return $this->routeCollection;
     }
-
 
     /**
      * Sets the request context.
@@ -134,7 +130,6 @@ class Router implements RouterInterface
     {
         $this->context = $context;
     }
-
 
     /**
      * Gets the request context.

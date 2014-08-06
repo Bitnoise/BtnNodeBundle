@@ -4,7 +4,6 @@ namespace Btn\NodesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Btn\BaseBundle\Controller\BaseController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Btn\NodesBundle\Entity\Node;
@@ -34,7 +33,7 @@ class NodeControlController extends BaseController
 
     /**
      * List all nodes for modal picker
-     * 
+     *
      * @Route("/list-modal", name="cp_nodes_list_modal")
      * @Template()
      **/
@@ -43,10 +42,10 @@ class NodeControlController extends BaseController
         $em       = $this->getDoctrine()->getManager();
         $repo     = $em->getRepository('BtnNodesBundle:Node');
         $topNodes = $repo->getRootNodes();
-        
+
         return array(
-            'topNodes' => $topNodes, 
-            'expanded' => false, 
+            'topNodes' => $topNodes,
+            'expanded' => false,
             'isModal' => true
         );
     }
@@ -185,11 +184,9 @@ class NodeControlController extends BaseController
     {
         //valid or without post
         if ($result === true || $result === null) {
-
             return $this->renderJson($content, 'success');
         //invalid
         } elseif ($result === false) {
-
             return $this->renderJson($content, 'error');
         }
     }
@@ -219,7 +216,6 @@ class NodeControlController extends BaseController
 
                 return true;
             } else {
-
                 return false;
             }
         }
@@ -240,10 +236,8 @@ class NodeControlController extends BaseController
                 }
                 $em->flush();
 
-
                 return true;
             } else {
-
                 return false;
             }
         }

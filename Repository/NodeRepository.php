@@ -2,8 +2,6 @@
 
 namespace Btn\NodesBundle\Repository;
 
-use Doctrine\ORM\Query\Expr;
-use Doctrine\ORM\Query;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Kunstmaan\NodeBundle\Entity\Node;
 
@@ -13,7 +11,7 @@ use Kunstmaan\NodeBundle\Entity\Node;
 class NodeRepository extends NestedTreeRepository
 {
     /**
-     * @param string $slug       The slug
+     * @param string $slug The slug
      *
      * @return Node|null
      */
@@ -37,7 +35,7 @@ class NodeRepository extends NestedTreeRepository
     }
 
     /**
-     * @param string $slug       The slug
+     * @param string $slug The slug
      *
      * @return Node|null
      */

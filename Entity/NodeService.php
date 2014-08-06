@@ -42,7 +42,6 @@ class NodeService
      */
     private $bundle;
 
-
     /**
      * @var string
      *
@@ -63,7 +62,7 @@ class NodeService
     /**
      * Set nodeProvider
      *
-     * @param string $nodeProvider
+     * @param  string      $nodeProvider
      * @return NodeService
      */
     public function setNodeProvider($nodeProvider)
@@ -86,7 +85,7 @@ class NodeService
     /**
      * Set active
      *
-     * @param boolean $active
+     * @param  boolean     $active
      * @return NodeService
      */
     public function setActive($active)
@@ -109,7 +108,7 @@ class NodeService
     /**
      * Set bundle
      *
-     * @param string $bundle
+     * @param  string      $bundle
      * @return NodeService
      */
     public function setBundle($bundle)
@@ -132,20 +131,20 @@ class NodeService
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string      $name
      * @return NodeService
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
