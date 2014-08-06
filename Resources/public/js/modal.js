@@ -1,18 +1,18 @@
 (function ($) {
-  
+
   if(typeof window.btnNode === 'object') {
     return false;
   }
 
   $(document).ready(function(){
-    var modalEl     = null;
-    var modalElWrap   = null;
-    var button      = '<div class="btn btn-primary">Choose site</div>';
-    var deleteButton    = '<div class="btn btn-danger" style="margin:0 0 0 5px;">Delete</div>';
-    var openedFrom    = null;
-    // var paginationUrl   = '';
-    var modalUrl    = $('script[data-node-remote-url]').attr('data-node-remote-url');
-    var nodeSelects  = $('select.btn-node');
+    var modalEl          = null;
+    var modalElWrap      = null;
+    var button           = '<div class="btn btn-primary">Choose site</div>';
+    var deleteButton     = '<div class="btn btn-danger" data-confirm="Are you sure you want to delete?" style="margin:0 0 0 5px;">Delete</div>';
+    var openedFrom       = null;
+    // var paginationUrl = '';
+    var modalUrl         = $('script[data-node-remote-url]').attr('data-node-remote-url');
+    var nodeSelects      = $('select.btn-node');
 
     if(typeof modalUrl === 'undefined') {
       console.log('No modal url specified');

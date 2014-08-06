@@ -10,7 +10,7 @@
               <input type="submit" class="btn btn-small btn-success" value="{{ 'btn_control.save'|trans }}"/>
               {#<a href="#" class="btn btn-small">{{ 'btn_control.preview'|trans }}</a>#}
               <a href="#" class="btn btn-small">{{ 'btn_control.add_subpage'|trans }}</a>
-              <a href="{{ url('cp_remove_node', {'id': node.id}) }}" class="btn btn-small btn-danger">{{ 'btn_control.delete'|trans }}</a>
+              <a href="{{ url('cp_remove_node', {'id': node.id}) }}" data-confirm="{% trans %}node.delete_confirm{% endtrans %}" class="btn btn-small btn-danger">{{ 'btn_control.delete'|trans }}</a>
             </div>
         </div>
     </div>
