@@ -1,7 +1,0 @@
-<ul style="list-style:none">
-    {% for provider in providers %}
-        <li style="margin: 10px">
-            <a href="{{ url('cp_assign_content_for_node', {'id': provider.id, 'node': node}) }}" class="select-bundle btn btn-success">{{ provider.name }}</a>
-        </li>
-    {% endfor %}
-</ul>

@@ -1,7 +1,11 @@
+.node-title {
+  font-size: 12px;
+}
 
 
+/* OLD */
 /* dummy span */
-.nodes-list > div[class*="span"]:first-child {
+/*.nodes-list > div[class*="span"]:first-child {
   height: 0;
   margin-bottom: 0;
   display: none;
@@ -64,3 +68,4 @@ ul.tree li em.provider a {
     font-weight: bold;
     color: #005580;
 }
+*/

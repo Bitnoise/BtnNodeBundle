@@ -1,5 +1,10 @@
 #new one
-btn_control.add_subpage: 'Add subpage'
+btn_control.nodes.add_subpage: 'Add subpage'
+btn_control.nodes.new_menu_item: 'Create new item'
+btn_control.nodes.content_tab: 'Content'
+btn_control.nodes.seo_tab:     'SEO'
+btn_control.nodes.social_tab:  'Social'
+btn_control.nodes.select_content_for: 'Select content for '
 
 node:
     website_structure: Website structure

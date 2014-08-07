@@ -1,0 +1,22 @@
+{% extends 'BtnNodesBundle::layout.html.twig' %}
+
+{% block sidebar %}
+    {{ render(controller('BtnNodesBundle:NodeControl:tree', {'id': node.id})) }}
+{% endblock %}
+
+{% block main %}
+    <h3>{{ 'btn_control.nodes.select_content_for'|trans }} {{ node.name }}</h3>
+    <form action="{{ path('cp_assign_content_for_node', {'id': provider.id, 'node': node.id}) }}" class="form-horizontal" method="post" novalidate data-remote>
+        {{ form_errors(form) }}
+        <p>
+            {{ form_widget(form) }}
+        </p>
+
+        <div class="centered">
+            <a href="{{ path('cp_edit_node', {'id': node.id}) }}" class="btn btn-small">{{ 'btn_control.cancel'|trans }}</a>
+            <input type="submit" class="btn btn-small btn-success" value="{{ 'btn_control.save'|trans }}"/>
+        </div>
+
+        {{ form_rest(form) }}
+    </form>
+{% endblock %}

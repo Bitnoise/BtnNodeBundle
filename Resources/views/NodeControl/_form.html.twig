@@ -3,49 +3,97 @@
 <form action="{{ parent is defined ? path('cp_add_node', {'id': parent.id is defined ? parent.id : null}) : path('cp_edit_node', {'id': node.id}) }}" class="form-horizontal" method="post" novalidate data-remote>
     <div class="row">
         <div class="col-md-6">
-            <h3>{{ node.name }}</h3>
+            {% if node.id %}
+                <h3>{{ node.name }}</h3>
+            {% else %}
+                <h3>{{ 'btn_control.nodes.new_menu_item'|trans }}</h3>
+            {% endif %}
         </div>
         <div class="col-md-6">
             <div class="btn-group pull-right top-offset">
               <input type="submit" class="btn btn-small btn-success" value="{{ 'btn_control.save'|trans }}"/>
-              {#<a href="#" class="btn btn-small">{{ 'btn_control.preview'|trans }}</a>#}
-              <a href="#" class="btn btn-small">{{ 'btn_control.add_subpage'|trans }}</a>
-              <a href="{{ url('cp_remove_node', {'id': node.id}) }}" class="btn btn-small btn-danger">{{ 'btn_control.delete'|trans }}</a>
+              {% if node.id %}
+                  {#<a href="#" class="btn btn-small">{{ 'btn_control.preview'|trans }}</a>#}
+                  <a href="{{ url('cp_add_node', {'id': node.id}) }}" class="btn btn-small">{{ 'btn_control.nodes.add_subpage'|trans }}</a>
+                  <a href="{{ url('cp_remove_node', {'id': node.id}) }}" data-confirm="{% trans %}node.delete_confirm{% endtrans %}" class="btn btn-small btn-danger">{{ 'btn_control.delete'|trans }}</a>
+              {% endif %}
             </div>
         </div>
     </div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#general" role="tab" data-toggle="tab">{{ 'btn_control.nodes.content_tab'|trans }}</a></li>
+        <li><a href="#seo" role="tab" data-toggle="tab">{{ 'btn_control.nodes.seo_tab'|trans }}</a></li>
+        <li><a href="#social" role="tab" data-toggle="tab">{{ 'btn_control.nodes.social_tab'|trans }}</a></li>
+    </ul>
 
     {{ form_errors(form) }}
 
-    {{ form_row(form.title) }}
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="general">
+            {{ form_row(form.title) }}
 
-    <div class="form-group">
-        {{ form_errors(form.slug) }}
-        {{ form_label(form.slug) }}
-        <div class="col-sm-10">
-            <div class="input-group">
-                <span class="input-group-addon">/{{ node.fullSlug(true) }}</span>
-                {{ form_widget(form.slug) }}
+            <div class="form-group">
+                {{ form_errors(form.slug) }}
+                {{ form_label(form.slug) }}
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon">/{{ node.fullSlug(true) }}</span>
+                        {{ form_widget(form.slug) }}
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
+            {{ form_row(form.link) }}
 
-
-    {{ form_row(form.link) }}
-    {{ form_row(form.metaTitle) }}
-    {{ form_row(form.metaKeywords) }}
-    {{ form_row(form.metaDescription) }}
-    {{ form_row(form.ogTitle) }}
-    {{ form_row(form.ogDescription) }}
-    {{ form_row(form.ogImage) }}
-
-      <div class="control-group">
-        <div class="controls">
             {{ form_row(form.visible) }}
 
+            <hr/>
+
+            {% if node.provider %}
+                <h4>Current content provider</h4>
+                {{ node.provider }} &nbsp;
+                {% if node.controlRoute and node.controlRouteParameters %}<a href="{{ path(node.controlRoute, node.controlRouteParameters) }}">edit</a>{% endif %}
+            {% endif %}
+            {% if providers is defined %}
+                <hr/>
+                <h4>Select content provider</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Provider name</th>
+                            <th>Description</th>
+                            <th>Version</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for provider in providers %}
+                        <tr>
+                            <td>{{ provider.name }}</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><a href="{{ url('cp_assign_content_for_node', {'id': provider.id, 'node': node.id}) }}" class="select-bundle btn btn-success">select</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
-      </div>
+
+        <div class="tab-pane" id="seo">
+            {{ form_row(form.metaTitle) }}
+            {{ form_row(form.metaKeywords) }}
+            {{ form_row(form.metaDescription) }}
+        </div>
+        <div class="tab-pane" id="social">
+            {{ form_row(form.ogTitle) }}
+            {{ form_row(form.ogDescription) }}
+            {{ form_row(form.ogImage) }}
+        </div>
+    </div>
 
     {{ form_rest(form) }}
 </form>

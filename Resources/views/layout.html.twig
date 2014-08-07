@@ -3,7 +3,9 @@
 {% block content %}
     <div class="row">
         <div class="col-md-3">
-            {{ render(controller('BtnNodesBundle:NodeControl:tree')) }}
+            {% block sidebar %}
+                {{ render(controller('BtnNodesBundle:NodeControl:tree')) }}
+            {% endblock %}
         </div>
         <div class="col-md-9 well well-lg">
             {% block main %}{% endblock %}
@@ -14,8 +16,8 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets
-        '@BtnNodesBundle/Resources/public/css/style.css'
         '@BtnNodesBundle/Resources/public/css/jstree/style.min.css'
+        '@BtnNodesBundle/Resources/public/css/style.css'
     %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}

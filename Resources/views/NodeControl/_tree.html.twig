@@ -1,12 +1,8 @@
-<li id="{{ node.id }}">
+<li id="{{ node.id }}"
+    class="{% if node.lvl < 1 %}jstree-open{% endif %}"
+    data-jstree='{"icon":"glyphicon glyphicon-file"{{ currentNode and (node.id in pathToCurrentNode) ? ',"opened":true'}}{{ currentNode and (node.id == currentNode.id) ? ',"selected":true' }}}'
+>
     <a href="{{ url('cp_edit_node', {'id': node.id}) }}" data-remote="formContainer" class="node-title">{{ node.title }}</a> |
-        {% if node.provider %}
-            {{ node.provider }}
-        {% else %}
-            no content attached
-        {% endif %}
-    <a href="{{ url('cp_add_node', {'id': node.id}) }}"><i class="icon-plus"></i></a>
-    <a href="{{ url('cp_remove_node', {'id': node.id}) }}" data-confirm="{% trans %}node.delete_confirm{% endtrans %}" ><i class="icon-minus"></i></a>
     <ul>
         {% for node in node.children %}
             {% include 'BtnNodesBundle:NodeControl:_tree.html.twig' %}

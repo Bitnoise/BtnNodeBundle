@@ -33,15 +33,24 @@ class NodeControlController extends BaseController
      * @Route("/tree", name="cp_nodes_tree")
      * @Template()
      */
-    public function treeAction()
+    public function treeAction(Request $request)
     {
         $em   = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('BtnNodesBundle:Node');
         $topNodes = $repo->getRootNodes();
 
-        return array('topNodes' => $topNodes);
-    }
+        $node = null;
+        $path = array();
+        if ($request->get('id') !== null) {
+            $node = $this->findEntity('BtnNodesBundle:Node', $request->get('id'));
+            // temporary solution
+            foreach ($repo->getPath($node) as $item) {
+                $path[] = $item->getId();
+            }
+        }
 
+        return array('topNodes' => $topNodes, 'currentNode' => $node, 'pathToCurrentNode' => $path);
+    }
 
     /**
      * List all nodes for modal picker
@@ -80,6 +89,11 @@ class NodeControlController extends BaseController
 
         //form processing
         $result = $this->processForm($node, $form, $request);
+
+        //if success - redirect to edit mode
+        if ($result === true) {
+            return $this->redirect($this->generateUrl('cp_edit_node', array('id' => $node->getId())));
+        }
 
         //prepare content
         return array(
@@ -121,31 +135,15 @@ class NodeControlController extends BaseController
         //form processing
         $result = $this->processForm($node, $form, $request);
 
-        //prepare content
-        return array(
-            'form' => $form->createView(),
-            'node' => $node
-        );
-    }
-
-    /**
-     * Select node content
-     *
-     * @Route("/content", name="cp_content_for_node")
-     * @Template()
-     */
-    public function contentAction(Request $request)
-    {
-        //get all content providers
+        // get content providers
         $providers = $this->getRepository('BtnNodesBundle:NodeService')->findAll();
 
         //prepare content
-        $content = $this->renderView('BtnNodesBundle:NodeControl:_content.html.twig', array(
-            'providers' => $providers,
-            'node'      => $request->get('node')
-        ));
-
-        return $this->renderJson($content, 'succes');
+        return array(
+            'form'      => $form->createView(),
+            'node'      => $node,
+            'providers' => $providers
+        );
     }
 
     /**
@@ -158,6 +156,8 @@ class NodeControlController extends BaseController
     {
         //get all content providers
         $provider = $this->getRepository('BtnNodesBundle:NodeService')->find($id);
+        // replace id with object - nasty piece of shit here but don't want to break something
+        $node     = $this->findEntityOr404('BtnNodesBundle:Node', $node);
 
         $form = $this->createForm($this->get($provider->getNodeProvider())->getForm());
 
@@ -165,24 +165,11 @@ class NodeControlController extends BaseController
         $result = $this->processContentForm($provider, $form, $request);
 
         //prepare content
-        $content = $this->renderView('BtnNodesBundle:NodeControl:_assign_content.html.twig', array(
+        return array(
             'form'     => $form->createView(),
             'provider' => $provider,
             'node'     => $node
-        ));
-
-        return $this->resolveView($result, $content);
-    }
-
-    private function resolveView($result, $content)
-    {
-        //valid or without post
-        if ($result === true || $result === null) {
-            return $this->renderJson($content, 'success');
-        //invalid
-        } elseif ($result === false) {
-            return $this->renderJson($content, 'error');
-        }
+        );
     }
 
     private function processContentForm($provider, &$form, $request)
