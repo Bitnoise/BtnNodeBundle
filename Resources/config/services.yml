@@ -52,11 +52,11 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    btn_nodes.menu.top:
+    btn_nodes.btn_admin_menu_top_item:
         class: Knp\Menu\MenuItem
         factory_service: btn_admin.menu_builder
-        factory_method: addToMenu
-        arguments: ["@request", "@btn_admin.menu.top", "node.website_structure", "cp_nodes"]
+        factory_method: createMenu
+        arguments: ["@request", "node.website_structure", "cp_nodes", [], []]
         scope: request
         tags:
-            - { name: knp_menu.menu, alias: top_menu }
+            - { name: btn_admin_menu_item , parent: btn_admin.menu_top }
