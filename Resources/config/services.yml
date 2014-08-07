@@ -51,3 +51,12 @@ services:
         class: Btn\NodesBundle\Listener\RequestListener
         tags:
             - { name: kernel.event_subscriber }
+
+    btn_nodes.menu.top:
+        class: Knp\Menu\MenuItem
+        factory_service: btn_admin.menu_builder
+        factory_method: addToMenu
+        arguments: ["@request", "@btn_admin.menu.top", "node.website_structure", "cp_nodes"]
+        scope: request
+        tags:
+            - { name: knp_menu.menu, alias: top_menu }

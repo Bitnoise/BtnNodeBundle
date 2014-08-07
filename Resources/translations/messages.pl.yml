@@ -1,3 +1,6 @@
+#new one
+btn_control.add_subpage: 'Dodaj podstronę'
+
 node:
     website_structure: Struktura stron
     create_new_menu: Dodaj nowe menu
