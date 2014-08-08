@@ -4,6 +4,8 @@ namespace Btn\NodesBundle\Service;
 
 interface NodeContentProviderInterface
 {
+    public function getName();
+
     public function getForm();
 
     public function resolveRoute($dataForm = array());
