@@ -42,4 +42,9 @@ class RouteContentProvider implements NodeContentProviderInterface
     {
         return array();
     }
+
+    public function getName()
+    {
+        return 'Internal routes';
+    }
 }

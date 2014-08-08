@@ -70,12 +70,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for provider in providers %}
+                        {% for id, provider in providers %}
                         <tr>
                             <td>{{ provider.name }}</td>
                             <td>-</td>
                             <td>-</td>
-                            <td><a href="{{ url('cp_assign_content_for_node', {'id': provider.id, 'node': node.id}) }}" class="select-bundle btn btn-success">select</a></td>
+                            <td><a href="{{ url('cp_assign_content_for_node', {'id': id, 'node': node.id}) }}" class="select-bundle btn btn-success">select</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

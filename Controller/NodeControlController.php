@@ -136,7 +136,7 @@ class NodeControlController extends BaseController
         $result = $this->processForm($node, $form, $request);
 
         // get content providers
-        $providers = $this->getRepository('BtnNodesBundle:NodeService')->findAll();
+        $providers = $this->get('btn_nodes.content_providers')->getProviders();
 
         //prepare content
         return array(
@@ -155,11 +155,11 @@ class NodeControlController extends BaseController
     public function assignContentAction($id, $node, Request $request)
     {
         //get all content providers
-        $provider = $this->getRepository('BtnNodesBundle:NodeService')->find($id);
+        $provider = $this->get($id);
         // replace id with object - nasty piece of shit here but don't want to break something
         $node     = $this->findEntityOr404('BtnNodesBundle:Node', $node);
 
-        $form = $this->createForm($this->get($provider->getNodeProvider())->getForm());
+        $form = $this->createForm($this->get($id)->getForm());
 
         //form processing
         $result = $this->processContentForm($provider, $form, $request);
@@ -168,18 +168,18 @@ class NodeControlController extends BaseController
         return array(
             'form'     => $form->createView(),
             'provider' => $provider,
+            'id'       => $id,
             'node'     => $node
         );
     }
 
-    private function processContentForm($provider, &$form, $request)
+    private function processContentForm($service, &$form, $request)
     {
         if ($request->getMethod() == 'POST' && $request->get($form->getName())) {
             $form->bind($request);
 
             if ($form->isValid()) {
                 //get correct route name from service
-                $service                = $this->get($provider->getNodeProvider());
                 $route                  = $service->resolveRoute($form->getData());
                 $routeParameters        = $service->resolveRouteParameters($form->getData());
                 $controlRoute           = $service->resolveControlRoute($form->getData());
@@ -191,7 +191,7 @@ class NodeControlController extends BaseController
                 $node->setRouteParameters($routeParameters);
                 $node->setControlRoute($controlRoute);
                 $node->setControlRouteParameters($controlRouteParameters);
-                $node->setProvider($provider->getName());
+                $node->setProvider($service->getName());
                 $this->getManager()->persist($node);
                 $this->getManager()->flush();
 

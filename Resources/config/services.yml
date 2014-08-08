@@ -1,5 +1,6 @@
 parameters:
     btn.nodes.availableRoutes: []
+    btn.nodes.content_providers.class: Btn\NodesBundle\Service\NodeContentProviders
 
 services:
     btn_menu.voter:
@@ -32,6 +33,8 @@ services:
         class: Btn\NodesBundle\Service\RouteContentProvider
         arguments:
             availableRoutes: %btn.nodes.availableRoutes%
+        tags:
+            - { name: btn_nodes.content_provider }
 
     gedmo.listener.tree:
         class: Gedmo\Tree\TreeListener
@@ -60,3 +63,6 @@ services:
         scope: request
         tags:
             - { name: btn_admin_menu_item , parent: btn_admin.menu_top }
+
+    btn_nodes.content_providers:
+        class: "%btn.nodes.content_providers.class%"
