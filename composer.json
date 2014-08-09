@@ -16,7 +16,7 @@
     "require": {
         "gedmo/doctrine-extensions": "~2.3.0",
         "symfony-cmf/routing-bundle": "~1.2.0",
-        "bitnoise/admin-bundle": "~2.0.0"
+        "bitnoise/admin-bundle": "2.0.*"
     },
     "autoload": {
         "psr-0": { "Btn\\NodesBundle": "" }
