@@ -19,9 +19,8 @@
         "bitnoise/admin-bundle": "2.0.*"
     },
     "autoload": {
-        "psr-0": { "Btn\\NodesBundle": "" }
+        "psr-4": { "Btn\\NodesBundle\\": "" }
     },
-    "target-dir": "Btn/NodesBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "2.0-dev"
