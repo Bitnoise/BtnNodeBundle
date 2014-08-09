@@ -62,7 +62,7 @@ services:
         arguments: ["@request", "node.website_structure", "cp_nodes", [], []]
         scope: request
         tags:
-            - { name: btn_admin_menu_item , parent: btn_admin.menu_top }
+            - { name: btn_admin.menu_item , parent: btn_admin.menu_navbar }
 
     btn_nodes.content_providers:
         class: "%btn.nodes.content_providers.class%"
