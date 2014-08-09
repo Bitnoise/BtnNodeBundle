@@ -2,8 +2,6 @@
 
 namespace Btn\NodesBundle\Service;
 
-use Btn\NodesBundle\Service\NodeContentProviderInterface;
-
 /**
 *
 */
@@ -12,17 +10,17 @@ class NodeContentProviders
 
     private $providers;
 
-    function __construct()
+    public function __construct()
     {
         $this->providers = array();
     }
 
-    function addProvider(NodeContentProviderInterface $provider, $id)
+    public function addProvider(NodeContentProviderInterface $provider, $id)
     {
         $this->providers[$id] = $provider;
     }
 
-    function getProviders()
+    public function getProviders()
     {
         return $this->providers;
     }

@@ -3,18 +3,18 @@
 namespace Btn\NodesBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Btn\NodesBundle\DependencyInjection\Compiler\ContentProviderCompilerPass;
+use Btn\NodesBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class BtnNodesBundle extends Bundle
 {
     /**
-     * @param  ContainerBuilder $container
+     * @param ContainerBuilder $container
      */
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
 
-        $container->addCompilerPass(new ContentProviderCompilerPass());
+        $container->addCompilerPass(new Compiler\ContentProviderCompilerPass());
     }
 }

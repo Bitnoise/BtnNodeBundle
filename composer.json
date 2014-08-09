@@ -6,6 +6,7 @@
     "homepage": "https://github.com/Bitnoise/BtnNodesBundle",
     "license": "MIT",
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Bitnoise Team",
@@ -14,25 +15,18 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
-        "symfony/symfony": "2.3.*",
-        "gedmo/doctrine-extensions": "2.3.*",
-        "symfony-cmf/routing-bundle": "1.2.*",
-        "knplabs/knp-menu-bundle": "~2.0",
-        "bitnoise/base-bundle": "2.0"
+        "gedmo/doctrine-extensions": "~2.3.0",
+        "symfony-cmf/routing-bundle": "~1.2.0",
+        "bitnoise/admin-bundle": "~2.0.0"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "https://github.com/Bitnoise/BtnBaseBundle.git"
-        },
-        {
-            "type": "vcs",
-            "url":  "https://github.com/Bitnoise/BtnMediaBundle.git"
-        }
-    ],
     "autoload": {
         "psr-0": { "Btn\\NodesBundle": "" }
     },
-    "target-dir": "Btn/NodesBundle"
+    "target-dir": "Btn/NodesBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev",
+            "dev-master": "2.0.x-dev"
+        }
+    }
 }
