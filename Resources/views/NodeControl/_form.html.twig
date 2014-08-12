@@ -1,5 +1,3 @@
-{% form_theme form 'BtnAdminBundle:Form:fields.html.twig' %}
-
 <form action="{{ parent is defined ? path('cp_add_node', {'id': parent.id is defined ? parent.id : null}) : path('cp_edit_node', {'id': node.id}) }}" class="form-horizontal" method="post" novalidate data-remote>
     <div class="row">
         <div class="col-md-6">
