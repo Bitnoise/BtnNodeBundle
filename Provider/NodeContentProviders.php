@@ -1,13 +1,12 @@
 <?php
 
-namespace Btn\NodesBundle\Service;
+namespace Btn\NodesBundle\Provider;
 
 /**
-*
-*/
+ *
+ */
 class NodeContentProviders
 {
-
     private $providers;
 
     public function __construct()

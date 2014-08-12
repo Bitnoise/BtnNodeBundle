@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodesBundle\Service;
+namespace Btn\NodesBundle\Provider;
 
 interface NodeContentProviderInterface
 {
