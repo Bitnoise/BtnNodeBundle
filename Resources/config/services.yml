@@ -30,7 +30,7 @@ services:
           - { name: knp_menu.provider }
 
     btn.route.content_provider:
-        class: Btn\NodesBundle\Service\RouteContentProvider
+        class: Btn\NodesBundle\Provider\RouteContentProvider
         arguments:
             availableRoutes: %btn.nodes.availableRoutes%
         tags:
