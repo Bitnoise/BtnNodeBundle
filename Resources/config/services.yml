@@ -1,6 +1,6 @@
 parameters:
     btn.nodes.availableRoutes: []
-    btn.nodes.content_providers.class: Btn\NodesBundle\Service\NodeContentProviders
+    btn.nodes.content_providers.class: Btn\NodesBundle\Provider\NodeContentProviders
 
 services:
     btn_menu.voter:
