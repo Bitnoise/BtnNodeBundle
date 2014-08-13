@@ -1,25 +1,31 @@
 parameters:
     btn.nodes.availableRoutes: []
     btn.nodes.content_providers.class: Btn\NodesBundle\Provider\NodeContentProviders
+    btn_nodes.node.class:              Btn\NodesBundle\Entity\Node
 
 services:
-    btn_menu.voter:
-        class: Btn\NodesBundle\Voter\Voter
-        arguments:
-            - @service_container
+    # entity provider
+    btn_nodes.provider.node:
+        class: %btn_admin.provider.entity.class%
+        parent: btn_admin.provider.abstract_entity
+        arguments: ['%btn_nodes.node.class%']
+
+    # entity as nested tree behavior
+    gedmo.listener.tree:
+        class: Gedmo\Tree\TreeListener
         tags:
-            - { name: knp_menu.voter }
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ @annotation_reader ] ]
 
-    btn_menu.loader:
-        class: Btn\NodesBundle\Provider\NodeLoader
-        arguments: ["@knp_menu.factory", "@service_container"]
-
+    # custom routing handler - 'catch all'
     btn.router:
         class: Btn\NodesBundle\Router\Router
         arguments: ["@service_container"]
         tags:
             - { name: router, priority: %btn_nodes.router_priority% }
 
+    # menu provider for knp menu based on the nested tree
     btn_menu.provider:
         class: Btn\NodesBundle\Provider\NodeMenuProvider
         arguments:
@@ -29,20 +35,20 @@ services:
         tags:
           - { name: knp_menu.provider }
 
-    btn.route.content_provider:
-        class: Btn\NodesBundle\Provider\RouteContentProvider
+    # voter - mark current option in menu based on the current route name
+    btn_menu.voter:
+        class: Btn\NodesBundle\Voter\Voter
         arguments:
-            availableRoutes: %btn.nodes.availableRoutes%
+            - @service_container
         tags:
-            - { name: btn_nodes.content_provider }
+            - { name: knp_menu.voter }
 
-    gedmo.listener.tree:
-        class: Gedmo\Tree\TreeListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ @annotation_reader ] ]
+    # menu loader for menu provider
+    btn_menu.loader:
+        class: Btn\NodesBundle\Provider\NodeLoader
+        arguments: ["@knp_menu.factory", "@service_container"]
 
+    # twig extension to render menu
     btn.twig.node_menu_extension:
         class: Btn\NodesBundle\Twig\NodeMenuExtension
         arguments:
@@ -50,11 +56,25 @@ services:
         tags:
             - { name: twig.extension }
 
+    # request listener - helper
     btn_nodes.listener.request:
         class: Btn\NodesBundle\Listener\RequestListener
         tags:
             - { name: kernel.event_subscriber }
 
+    # gather all content providers (services tagged as 'btn_nodes.content_provider')
+    btn_nodes.content_providers:
+        class: "%btn.nodes.content_providers.class%"
+
+    # internal routes content provider - user can assign content to nodes as specific route name
+    btn.route.content_provider:
+        class: Btn\NodesBundle\Provider\RouteContentProvider
+        arguments:
+            availableRoutes: %btn.nodes.availableRoutes%
+        tags:
+            - { name: btn_nodes.content_provider }
+
+    # register in admin panel as top menu item
     btn_nodes.btn_admin_menu_top_item:
         class: Knp\Menu\MenuItem
         factory_service: btn_admin.menu_builder
@@ -64,5 +84,10 @@ services:
         tags:
             - { name: btn_admin.menu_item , parent: btn_admin.menu_navbar }
 
-    btn_nodes.content_providers:
-        class: "%btn.nodes.content_providers.class%"
+    # custom form type to build nested tree in select
+    btn_nodes.form.type.node:
+        class: Btn\NodesBundle\Form\Type\NodeType
+        arguments:
+            provider: @btn_nodes.provider.node
+        tags:
+            - { name: form.type, alias: btn_node }
