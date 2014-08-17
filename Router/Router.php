@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodesBundle\Router;
+namespace Btn\NodeBundle\Router;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -39,14 +39,14 @@ class Router implements RouterInterface
         $this->container       = $container;
         $this->routeCollection = new RouteCollection();
 
-        $routerPrefix = $this->container->getParameter('btn_nodes.router_prefix');
+        $routerPrefix = $this->container->getParameter('btn_node.router_prefix');
 
         $this->routeCollection->add(
             '_btn_slug',
             new Route(
                 $routerPrefix . '{url}',
                 array(
-                    '_controller'   => 'BtnNodesBundle:Node:resolve',
+                    '_controller'   => 'BtnNodeBundle:Node:resolve',
                     'url'           => '',
                 ),
                 array('url' => "[a-zA-Z0-9\-_\/]+")
@@ -79,7 +79,7 @@ class Router implements RouterInterface
         $result = $urlMatcher->match($pathinfo);
         if (!empty($result)) {
             $em = $this->container->get('doctrine.orm.entity_manager');
-            $nodeRepo = $em->getRepository('BtnNodesBundle:Node');
+            $nodeRepo = $em->getRepository('BtnNodeBundle:Node');
             $node = $nodeRepo->getNodeForUrl($result['url']);
             $result['node'] = $node;
 

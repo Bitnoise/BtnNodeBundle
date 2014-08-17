@@ -4,7 +4,7 @@
     {% else %}<h4>{{ node.title }} </h4>{% endif %}
     <ul>
         {% for node in node.children %}
-            {% include 'BtnNodesBundle:NodeControl:_simple_tree_modal.html.twig' %}
+            {% include 'BtnNodeBundle:NodeControl:_simple_tree_modal.html.twig' %}
         {% endfor %}
     </ul>
 </li>

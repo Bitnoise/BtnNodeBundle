@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodesBundle\Listener;
+namespace Btn\NodeBundle\Listener;
 
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

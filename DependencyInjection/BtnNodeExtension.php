@@ -1,18 +1,13 @@
 <?php
 
-namespace Btn\NodesBundle\DependencyInjection;
+namespace Btn\NodeBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-/**
- * This is the class that loads and manages your bundle configuration
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
- */
-class BtnNodesExtension extends Extension
+class BtnNodeExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -22,8 +17,8 @@ class BtnNodesExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('btn_nodes.router_priority', $config['router_priority']);
-        $container->setParameter('btn_nodes.router_prefix', $config['router_prefix']);
+        $container->setParameter('btn_node.router_priority', $config['router_priority']);
+        $container->setParameter('btn_node.router_prefix', $config['router_prefix']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

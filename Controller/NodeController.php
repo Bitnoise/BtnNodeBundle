@@ -1,11 +1,11 @@
 <?php
 
-namespace Btn\NodesBundle\Controller;
+namespace Btn\NodeBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Btn\BaseBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Btn\NodesBundle\Entity\Node;
+use Btn\NodeBundle\Entity\Node;
 
 /**
  * Nodes resolver.
@@ -19,7 +19,7 @@ class NodeController extends BaseController
     public function resolveAction($url = null, Node $node = null)
     {
         //resolve node by url
-        if ($node || ($node = $this->getRepository('BtnNodesBundle:Node')->getNodeForUrl($url))) {
+        if ($node || ($node = $this->getRepository('BtnNodeBundle:Node')->getNodeForUrl($url))) {
             //if node contains valid url - redirect
             $link = $node->getLink();
             if (!empty($link)) {
@@ -33,7 +33,7 @@ class NodeController extends BaseController
             $match = $this->get('router')->match($uri);
 
             //prevent recursive loop here
-            if (isset($match['_controller']) && $match['_controller'] !== 'Btn\NodesBundle\Controller\NodeController::resolveAction') {
+            if (isset($match['_controller']) && $match['_controller'] !== 'Btn\NodeBundle\Controller\NodeController::resolveAction') {
 
                 //some additional controller attributes
                 $context = array(

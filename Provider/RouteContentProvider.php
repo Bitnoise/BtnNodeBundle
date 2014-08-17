@@ -1,8 +1,8 @@
 <?php
 
-namespace Btn\NodesBundle\Provider;
+namespace Btn\NodeBundle\Provider;
 
-use Btn\NodesBundle\Form\RouteContentType;
+use Btn\NodeBundle\Form\RouteContentType;
 
 /**
 *

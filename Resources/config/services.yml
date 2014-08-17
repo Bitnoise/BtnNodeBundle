@@ -1,14 +1,14 @@
 parameters:
-    btn.nodes.availableRoutes: []
-    btn.nodes.content_providers.class: Btn\NodesBundle\Provider\NodeContentProviders
-    btn_nodes.node.class:              Btn\NodesBundle\Entity\Node
+    btn_node.availableRoutes: []
+    btn_node.content_providers.class: Btn\NodeBundle\Provider\NodeContentProviders
+    btn_node.node.class:              Btn\NodeBundle\Entity\Node
 
 services:
     # entity provider
-    btn_nodes.provider.node:
+    btn_node.provider.node:
         class: %btn_base.provider.entity.class%
         parent: btn_base.provider.abstract_entity
-        arguments: ['%btn_nodes.node.class%']
+        arguments: ['%btn_node.node.class%']
 
     # entity as nested tree behavior
     gedmo.listener.tree:
@@ -20,14 +20,14 @@ services:
 
     # custom routing handler - 'catch all'
     btn.router:
-        class: Btn\NodesBundle\Router\Router
+        class: Btn\NodeBundle\Router\Router
         arguments: ["@service_container"]
         tags:
-            - { name: router, priority: %btn_nodes.router_priority% }
+            - { name: router, priority: %btn_node.router_priority% }
 
     # menu provider for knp menu based on the nested tree
     btn_menu.provider:
-        class: Btn\NodesBundle\Provider\NodeMenuProvider
+        class: Btn\NodeBundle\Provider\NodeMenuProvider
         arguments:
           - @knp_menu.factory
           - @btn_menu.loader
@@ -37,7 +37,7 @@ services:
 
     # voter - mark current option in menu based on the current route name
     btn_menu.voter:
-        class: Btn\NodesBundle\Voter\Voter
+        class: Btn\NodeBundle\Voter\Voter
         arguments:
             - @service_container
         tags:
@@ -45,49 +45,49 @@ services:
 
     # menu loader for menu provider
     btn_menu.loader:
-        class: Btn\NodesBundle\Provider\NodeLoader
+        class: Btn\NodeBundle\Provider\NodeLoader
         arguments: ["@knp_menu.factory", "@service_container"]
 
     # twig extension to render menu
     btn.twig.node_menu_extension:
-        class: Btn\NodesBundle\Twig\NodeMenuExtension
+        class: Btn\NodeBundle\Twig\NodeMenuExtension
         arguments:
             nodeMenuProvider: @btn_menu.provider
         tags:
             - { name: twig.extension }
 
     # request listener - helper
-    btn_nodes.listener.request:
-        class: Btn\NodesBundle\Listener\RequestListener
+    btn_node.listener.request:
+        class: Btn\NodeBundle\Listener\RequestListener
         tags:
             - { name: kernel.event_subscriber }
 
-    # gather all content providers (services tagged as 'btn_nodes.content_provider')
-    btn_nodes.content_providers:
-        class: "%btn.nodes.content_providers.class%"
+    # gather all content providers (services tagged as 'btn_node.content_provider')
+    btn_node.content_providers:
+        class: "%btn_node.content_providers.class%"
 
     # internal routes content provider - user can assign content to nodes as specific route name
     btn.route.content_provider:
-        class: Btn\NodesBundle\Provider\RouteContentProvider
+        class: Btn\NodeBundle\Provider\RouteContentProvider
         arguments:
-            availableRoutes: %btn.nodes.availableRoutes%
+            availableRoutes: %btn_node.availableRoutes%
         tags:
-            - { name: btn_nodes.content_provider }
+            - { name: btn_node.content_provider }
 
     # register in admin panel as top menu item
-    btn_nodes.btn_admin_menu_top_item:
+    btn_node.btn_admin_menu_top_item:
         class: Knp\Menu\MenuItem
         factory_service: btn_admin.menu_builder
         factory_method: createMenu
-        arguments: ["@request", "node.website_structure", "cp_nodes", [], []]
+        arguments: ["@request", "node.website_structure", "cp_node", [], []]
         scope: request
         tags:
             - { name: btn_admin.menu_item , parent: btn_admin.menu_navbar }
 
     # custom form type to build nested tree in select
-    btn_nodes.form.type.node:
-        class: Btn\NodesBundle\Form\Type\NodeType
+    btn_node.form.type.node:
+        class: Btn\NodeBundle\Form\Type\NodeType
         arguments:
-            provider: @btn_nodes.provider.node
+            provider: @btn_node.provider.node
         tags:
             - { name: form.type, alias: btn_node }

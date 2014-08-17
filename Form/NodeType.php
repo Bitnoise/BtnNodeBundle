@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodesBundle\Form;
+namespace Btn\NodeBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,12 +32,12 @@ class NodeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Btn\NodesBundle\Entity\Node'
+            'data_class' => 'Btn\NodeBundle\Entity\Node'
         ));
     }
 
     public function getName()
     {
-        return 'btn_nodesbundle_nodetype';
+        return 'btn_node_nodetype';
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodesBundle\Form;
+namespace Btn\NodeBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,6 +24,6 @@ class RouteContentType extends AbstractType
 
     public function getName()
     {
-        return 'btn_nodesbundle_routecontent';
+        return 'btn_node_routecontent';
     }
 }

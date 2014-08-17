@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodesBundle\Provider;
+namespace Btn\NodeBundle\Provider;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
@@ -44,7 +44,7 @@ class NodeMenuProvider implements MenuProviderInterface
 
         // if it's root element of menu then get full nodes list by root
         if ($menu->getId() === $menu->getRoot()) {
-            $nodes = $this->em->getRepository('BtnNodesBundle:Node')->getNodesForRoot($menu->getRoot());
+            $nodes = $this->em->getRepository('BtnNodeBundle:Node')->getNodesForRoot($menu->getRoot());
             $nodes[0] = $menu;
             //clear children object to prevent unnecessary requests
             foreach ($nodes as $node) {
@@ -91,7 +91,7 @@ class NodeMenuProvider implements MenuProviderInterface
     protected function getNodeForSlugWithCache($name)
     {
         if (!array_key_exists($name, $this->nodeArrayCache)) {
-            $this->nodeArrayCache[$name] = $this->em->getRepository('BtnNodesBundle:Node')->getNodeForSlug($name);
+            $this->nodeArrayCache[$name] = $this->em->getRepository('BtnNodeBundle:Node')->getNodeForSlug($name);
         }
 
         return $this->nodeArrayCache[$name];

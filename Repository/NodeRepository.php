@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodesBundle\Repository;
+namespace Btn\NodeBundle\Repository;
 
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Kunstmaan\NodeBundle\Entity\Node;

@@ -1,12 +1,12 @@
 <?php
 
-namespace Btn\NodesBundle;
+namespace Btn\NodeBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Btn\NodesBundle\DependencyInjection\Compiler;
+use Btn\NodeBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class BtnNodesBundle extends Bundle
+class BtnNodeBundle extends Bundle
 {
     /**
      * @param ContainerBuilder $container

@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-3">
             {% block sidebar %}
-                {{ render(controller('BtnNodesBundle:NodeControl:tree')) }}
+                {{ render(controller('BtnNodeBundle:NodeControl:tree')) }}
             {% endblock %}
         </div>
         <div class="col-md-9 well well-lg">
@@ -28,8 +28,8 @@
     {% javascripts
         '@BtnAdminBundle/Resources/public/js/jstree.min.js'
         '@BtnAdminBundle/Resources/public/js/nodes.js'
-        '@BtnNodesBundle/Resources/public/js/jq.slugify.js'
-        '@BtnNodesBundle/Resources/public/js/slugify.js'
+        '@BtnNodeBundle/Resources/public/js/jq.slugify.js'
+        '@BtnNodeBundle/Resources/public/js/slugify.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

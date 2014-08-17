@@ -1,21 +1,21 @@
-BtnNodesBundle
+BtnNodeBundle
 ==============
 
 sample cms structure tree for menus
 
 =============
 
-### Step 1: Add NodesBundle in your composer.json (private repo)
+### Step 1: Add NodeBundle in your composer.json (private repo)
 
 ```js
 {
     "require": {
-        "bitnoise/nodes-bundle": "dev-master",
+        "bitnoise/node-bundle": "dev-master",
     },
     "repositories": [
         {
             "type": "vcs",
-            "url":  "git@github.com:Bitnoise/BtnNodesBundle.git"
+            "url":  "git@github.com:Bitnoise/BtnNodeBundle.git"
         }
     ],
 }
@@ -33,17 +33,17 @@ public function registerBundles()
         // ...
         new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
         new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-        new Btn\NodesBundle\BtnNodesBundle(),
+        new Btn\NodeBundle\BtnNodeBundle(),
     );
 }
 ```
 
-### Step 3: Import NodesBundle routing
+### Step 3: Import NodeBundle routing
 
 ``` yaml
 # app/config/routing.yml
-btn_nodes:
-    resource: "@BtnNodesBundle/Controller/"
+btn_node:
+    resource: "@BtnNodeBundle/Controller/"
     type:     annotation
     prefix:   /
 ```
@@ -60,19 +60,19 @@ $ php app/console doctrine:schema:update --force
 # app/conig/parameters.yml
 parameters:
     # ...
-    btn.nodes.availableRoutes:
+    btn_node.availableRoutes:
         homepage: Homepage
         # ...
 ```
 
-### Step 6: Add BtnNodesBundle to the assetic.bundle config
+### Step 6: Add BtnNodeBundle to the assetic.bundle config
 
 ``` yml
 # app/config/config.yml
 assetic:
     #...
     bundles:
-        - BtnNodesBundle
+        - BtnNodeBundle
 ```
 
 ### Add gedmo orm mappings

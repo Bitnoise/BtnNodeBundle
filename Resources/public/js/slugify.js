@@ -1,5 +1,5 @@
-if ($('#btn_nodesbundle_nodetype_title').length) {
-    $('#btn_nodesbundle_nodetype_slug').slugify('#btn_nodesbundle_nodetype_title');
+if ($('#btn_node_nodetype_title').length) {
+    $('#btn_node_nodetype_slug').slugify('#btn_node_nodetype_title');
 };
 
 //init plugin

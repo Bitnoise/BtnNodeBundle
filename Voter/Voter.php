@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodesBundle\Voter;
+namespace Btn\NodeBundle\Voter;
 
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\Voter\VoterInterface;

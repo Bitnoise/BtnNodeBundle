@@ -16,7 +16,7 @@
                 {% for node in topNodes %}
                     <div class="span5">
                         <ul class="tree" id="tree-{{ node.id }}">
-                            {% include 'BtnNodesBundle:NodeControl:_simple_tree_modal.html.twig' %}
+                            {% include 'BtnNodeBundle:NodeControl:_simple_tree_modal.html.twig' %}
                         </ul>
                     </div>
                 {% endfor %}
@@ -32,7 +32,7 @@
 </div>
 {% block stylesheets %}
     {% stylesheets
-        '@BtnNodesBundle/Resources/public/css/*'
+        '@BtnNodeBundle/Resources/public/css/*'
     %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}

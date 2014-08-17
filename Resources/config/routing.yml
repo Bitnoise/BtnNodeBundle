@@ -1,4 +1,4 @@
-btn_nodes:
-    resource: "@BtnNodesBundle/Controller/"
+btn_node:
+    resource: "@BtnNodeBundle/Controller/"
     type:     annotation
     prefix:   /

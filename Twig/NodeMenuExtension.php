@@ -1,13 +1,13 @@
 <?php
 
-namespace Btn\NodesBundle\Twig;
+namespace Btn\NodeBundle\Twig;
 
-use Btn\NodesBundle\Provider\NodeMenuProvider;
+use Btn\NodeBundle\Provider\NodeMenuProvider;
 
 class NodeMenuExtension extends \Twig_Extension
 {
     /**
-     * @var \Btn\NodesBundle\Provider\NodeMenuProvider
+     * @var \Btn\NodeBundle\Provider\NodeMenuProvider
      */
     protected $nodeMenuProvider;
 

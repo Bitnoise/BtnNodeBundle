@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodesBundle\Entity;
+namespace Btn\NodeBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * @ORM\Table(name="nodes", indexes={@ORM\Index(name="idx_slug", columns={"slug"}), @ORM\Index(name="idx_url", columns={"url"}), @ORM\Index(name="idx_root", columns={"root"})})
  * use repository for handy tree functions
  * @ORM\HasLifecycleCallbacks()
- * @ORM\Entity(repositoryClass="Btn\NodesBundle\Repository\NodeRepository")
+ * @ORM\Entity(repositoryClass="Btn\NodeBundle\Repository\NodeRepository")
  */
 class Node implements NodeInterface
 {
@@ -346,10 +346,10 @@ class Node implements NodeInterface
     /**
      * Add children
      *
-     * @param  \Btn\NodesBundle\Entity\Node $children
+     * @param  \Btn\NodeBundle\Entity\Node $children
      * @return Node
      */
-    public function addChildren(\Btn\NodesBundle\Entity\Node $children)
+    public function addChildren(\Btn\NodeBundle\Entity\Node $children)
     {
         $this->children[] = $children;
 
@@ -359,9 +359,9 @@ class Node implements NodeInterface
     /**
      * Remove children
      *
-     * @param \Btn\NodesBundle\Entity\Node $children
+     * @param \Btn\NodeBundle\Entity\Node $children
      */
-    public function removeChildren(\Btn\NodesBundle\Entity\Node $children)
+    public function removeChildren(\Btn\NodeBundle\Entity\Node $children)
     {
         $this->children->removeElement($children);
     }

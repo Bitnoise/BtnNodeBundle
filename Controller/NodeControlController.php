@@ -1,25 +1,25 @@
 <?php
 
-namespace Btn\NodesBundle\Controller;
+namespace Btn\NodeBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Btn\BaseBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Btn\NodesBundle\Entity\Node;
-use Btn\NodesBundle\Form\NodeType;
+use Btn\NodeBundle\Entity\Node;
+use Btn\NodeBundle\Form\NodeType;
 
 /**
  * Nodes controller.
  *
- * @Route("/control/nodes")
+ * @Route("/control/node")
  */
 class NodeControlController extends BaseController
 {
     /**
      * Lists all Nodes.
      *
-     * @Route("/", name="cp_nodes")
+     * @Route("/", name="cp_node")
      * @Template()
      */
     public function indexAction()
@@ -30,19 +30,19 @@ class NodeControlController extends BaseController
     /**
      * Lists all Nodes.
      *
-     * @Route("/tree", name="cp_nodes_tree")
+     * @Route("/tree", name="cp_node_tree")
      * @Template()
      */
     public function treeAction(Request $request)
     {
         $em   = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('BtnNodesBundle:Node');
+        $repo = $em->getRepository('BtnNodeBundle:Node');
         $topNodes = $repo->getRootNodes();
 
         $node = null;
         $path = array();
         if ($request->get('id') !== null) {
-            $node = $this->findEntity('BtnNodesBundle:Node', $request->get('id'));
+            $node = $this->findEntity('BtnNodeBundle:Node', $request->get('id'));
             // temporary solution
             foreach ($repo->getPath($node) as $item) {
                 $path[] = $item->getId();
@@ -55,13 +55,13 @@ class NodeControlController extends BaseController
     /**
      * List all nodes for modal picker
      *
-     * @Route("/list-modal", name="cp_nodes_list_modal")
+     * @Route("/list-modal", name="cp_node_list_modal")
      * @Template()
      **/
     public function listModalAction()
     {
         $em       = $this->getDoctrine()->getManager();
-        $repo     = $em->getRepository('BtnNodesBundle:Node');
+        $repo     = $em->getRepository('BtnNodeBundle:Node');
         $topNodes = $repo->getRootNodes();
 
         return array(
@@ -79,7 +79,7 @@ class NodeControlController extends BaseController
      */
     public function addAction(Request $request)
     {
-        $parent = $this->findEntity('BtnNodesBundle:Node', $request->get('id'));
+        $parent = $this->findEntity('BtnNodeBundle:Node', $request->get('id'));
         $node   = new Node();
         if ($parent) {
             $node->setParent($parent);
@@ -110,14 +110,14 @@ class NodeControlController extends BaseController
      */
     public function removeAction(Request $request)
     {
-        $node = $this->findEntityOr404('BtnNodesBundle:Node', $request->get('id'));
+        $node = $this->findEntityOr404('BtnNodeBundle:Node', $request->get('id'));
         $this->getManager()->remove($node);
         $this->getManager()->flush();
 
         $msg = $this->get('translator')->trans('node.removed');
         $this->get('session')->getFlashBag()->add('success', $msg);
 
-        return $this->redirect($this->generateUrl('cp_nodes'));
+        return $this->redirect($this->generateUrl('cp_node'));
     }
 
     /**
@@ -128,7 +128,7 @@ class NodeControlController extends BaseController
      */
     public function editAction($id, Request $request)
     {
-        $node   = $this->findEntityOr404('BtnNodesBundle:Node', $request->get('id'));
+        $node   = $this->findEntityOr404('BtnNodeBundle:Node', $request->get('id'));
         $form   = $this->createForm(new NodeType(), $node);
         $result = null;
 
@@ -136,7 +136,7 @@ class NodeControlController extends BaseController
         $result = $this->processForm($node, $form, $request);
 
         // get content providers
-        $providers = $this->get('btn_nodes.content_providers')->getProviders();
+        $providers = $this->get('btn_node.content_providers')->getProviders();
 
         //prepare content
         return array(
@@ -157,7 +157,7 @@ class NodeControlController extends BaseController
         //get all content providers
         $provider = $this->get($id);
         // replace id with object - nasty piece of shit here but don't want to break something
-        $node     = $this->findEntityOr404('BtnNodesBundle:Node', $node);
+        $node     = $this->findEntityOr404('BtnNodeBundle:Node', $node);
 
         $form = $this->createForm($this->get($id)->getForm());
 
@@ -186,7 +186,7 @@ class NodeControlController extends BaseController
                 $controlRouteParameters = $service->resolveControlRouteParameters($form->getData());
 
                 //set routeName to the node
-                $node = $this->getRepository('BtnNodesBundle:Node')->find($request->get('node'));
+                $node = $this->getRepository('BtnNodeBundle:Node')->find($request->get('node'));
                 $node->setRoute($route);
                 $node->setRouteParameters($routeParameters);
                 $node->setControlRoute($controlRoute);

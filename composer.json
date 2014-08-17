@@ -1,9 +1,9 @@
 {
-    "name": "bitnoise/nodes-bundle",
+    "name": "bitnoise/node-bundle",
     "type": "symfony-bundle",
     "description": "",
     "keywords": [ "bitnoise", "cms", "tree"],
-    "homepage": "https://github.com/Bitnoise/BtnNodesBundle",
+    "homepage": "https://github.com/Bitnoise/BtnNodeBundle",
     "license": "MIT",
     "minimum-stability": "dev",
     "authors": [
@@ -18,9 +18,9 @@
         "bitnoise/admin-bundle": "2.0.*"
     },
     "autoload": {
-        "psr-0": { "Btn\\NodesBundle": "" }
+        "psr-0": { "Btn\\NodeBundle": "" }
     },
-    "target-dir": "Btn/NodesBundle",
+    "target-dir": "Btn/NodeBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "2.0-dev"
