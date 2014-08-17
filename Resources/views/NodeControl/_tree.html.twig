@@ -2,7 +2,7 @@
     class="{% if node.lvl < 1 %}jstree-open{% endif %}"
     data-jstree='{"icon":"glyphicon glyphicon-file"{{ currentNode and (node.id in pathToCurrentNode) ? ',"opened":true'}}{{ currentNode and (node.id == currentNode.id) ? ',"selected":true' }}}'
 >
-    <a href="{{ url('cp_edit_node', {'id': node.id}) }}" data-remote="formContainer" class="node-title">{{ node.title }}</a> |
+    <a href="{{ url('cp_edit_node', {'id': node.id}) }}" data-remote="formContainer" class="btn-admin-tree-title">{{ node.title }}</a> |
     <ul>
         {% for node in node.children %}
             {% include 'BtnNodesBundle:NodeControl:_tree.html.twig' %}

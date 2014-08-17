@@ -6,8 +6,8 @@ parameters:
 services:
     # entity provider
     btn_nodes.provider.node:
-        class: %btn_admin.provider.entity.class%
-        parent: btn_admin.provider.abstract_entity
+        class: %btn_base.provider.entity.class%
+        parent: btn_base.provider.abstract_entity
         arguments: ['%btn_nodes.node.class%']
 
     # entity as nested tree behavior

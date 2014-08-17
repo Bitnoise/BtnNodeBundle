@@ -5,11 +5,11 @@ namespace Btn\NodesBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
-use Btn\AdminBundle\Provider\EntityProviderInterface;
+use Btn\BaseBundle\Provider\EntityProviderInterface;
 
 class NodeType extends AbstractType
 {
-    /** @var \Btn\AdminBundle\Provider\EntityProviderInterface */
+    /** @var \Btn\BaseBundle\Provider\EntityProviderInterface */
     protected $provider;
 
     public function __construct(EntityProviderInterface $provider)
