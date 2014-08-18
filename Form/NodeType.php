@@ -34,7 +34,7 @@ class NodeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Btn\NodeBundle\Entity\Node'
+            'data_class' => 'Btn\\NodeBundle\\Entity\\Node',
         ));
     }
 
