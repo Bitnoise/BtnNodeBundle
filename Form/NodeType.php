@@ -11,9 +11,11 @@ class NodeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('slug', null, array('label' => 'Nice URL' ,'label_attr' => array(
-                'class' => 'control-label'
-            )))
+            ->add('slug', 'btn_slug', array(
+                'label'       => 'node.form.slug',
+                'slug_source' => 'title',
+                'addon_pre'   => '/' . $options['data']->getFullSlug(true),
+            ))
             ->add('title', null, array('label' => 'node.form.title'))
             ->add('visible', null, array('label' => 'node.form.visible'))
             ->add('metaTitle', null, array('label' => 'node.form.metaTitle'))
