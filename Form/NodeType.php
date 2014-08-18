@@ -13,9 +13,8 @@ class NodeType extends AbstractType
         $builder
             ->add('title', null, array('label' => 'node.form.title'))
             ->add('slug', 'btn_slug', array(
-                'label'       => 'node.form.slug',
-                'slug_source' => 'title',
-                'addon_pre'   => '/' . $options['data']->getFullSlug(true),
+                'label'     => 'node.form.slug',
+                'addon_pre' => '/' . $options['data']->getFullSlug(true),
             ))
             ->add('visible', null, array('label' => 'node.form.visible'))
             ->add('metaTitle', null, array('label' => 'node.form.metaTitle'))
