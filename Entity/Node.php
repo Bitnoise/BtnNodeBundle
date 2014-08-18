@@ -4,15 +4,19 @@ namespace Btn\NodeBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-use Knp\Menu\NodeInterface;
+use Btn\NodeBundle\Model\NodeInterface;
 use Btn\BaseBundle\Util\Text;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Gedmo\Tree(type="nested")
- * @ORM\Table(name="nodes", indexes={@ORM\Index(name="idx_slug", columns={"slug"}), @ORM\Index(name="idx_url", columns={"url"}), @ORM\Index(name="idx_root", columns={"root"})})
- * use repository for handy tree functions
+ * @ORM\Table(name="btn_node", indexes={
+ *     @ORM\Index(name="idx_slug", columns={"slug"}),
+ *     @ORM\Index(name="idx_url", columns={"url"}),
+ *     @ORM\Index(name="idx_root", columns={"root"})},
+ * )
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="Btn\NodeBundle\Repository\NodeRepository")
  */
@@ -148,51 +152,80 @@ class Node implements NodeInterface
      */
     private $router = null;
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    public function setSlug($slug)
-    {
-        return $this->slug = Text::slugify($slug);
-    }
-
-    public function setParent(Node $parent = null)
-    {
-        $this->parent = $parent;
-    }
-
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    public function getChildren()
-    {
-        return $this->children;
-    }
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
+    }
+
+    /**
+     *
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     *
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     *
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     *
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     *
+     */
+    public function setSlug($slug)
+    {
+        return $this->slug = Text::slugify($slug);
+    }
+
+    /**
+     *
+     */
+    public function setParent(Node $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     *
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     *
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 
     /**
@@ -200,7 +233,7 @@ class Node implements NodeInterface
      */
     public function clearChildren()
     {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
 
         return $this;
     }
@@ -349,7 +382,7 @@ class Node implements NodeInterface
      * @param  \Btn\NodeBundle\Entity\Node $children
      * @return Node
      */
-    public function addChildren(\Btn\NodeBundle\Entity\Node $children)
+    public function addChildren(NodeInterface $children)
     {
         $this->children[] = $children;
 
@@ -361,7 +394,7 @@ class Node implements NodeInterface
      *
      * @param \Btn\NodeBundle\Entity\Node $children
      */
-    public function removeChildren(\Btn\NodeBundle\Entity\Node $children)
+    public function removeChildren(NodeInterface $children)
     {
         $this->children->removeElement($children);
     }
@@ -472,16 +505,25 @@ class Node implements NodeInterface
         return $this->provider;
     }
 
+    /**
+     *
+     */
     public function getName()
     {
         return $this->title;
     }
 
+    /**
+     *
+     */
     public function setRouter(UrlGeneratorInterface $router)
     {
         $this->router = $router;
     }
 
+    /**
+     *
+     */
     public function getOptions()
     {
         if (!$this->getRoute()) {
@@ -659,11 +701,6 @@ class Node implements NodeInterface
         return $this->ogImage;
     }
 
-    public function __toString()
-    {
-        return str_pad($this->title, strlen($this->title) + $this->lvl, "_", STR_PAD_LEFT);
-    }
-
     /**
      * Set visible
      *
@@ -708,5 +745,13 @@ class Node implements NodeInterface
     public function getLink()
     {
         return $this->link;
+    }
+
+    /**
+     *
+     */
+    public function __toString()
+    {
+        return str_pad($this->title, strlen($this->title) + $this->lvl, "_", STR_PAD_LEFT);
     }
 }
