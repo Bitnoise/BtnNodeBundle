@@ -3,7 +3,7 @@
 namespace Btn\NodeBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Btn\BaseBundle\Controller\BaseController;
+use Btn\BaseBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Btn\NodeBundle\Entity\Node;
@@ -14,7 +14,7 @@ use Btn\NodeBundle\Form\NodeType;
  *
  * @Route("/control/node")
  */
-class NodeControlController extends BaseController
+class NodeControlController extends AbstractController
 {
     /**
      * Lists all Nodes.

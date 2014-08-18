@@ -3,7 +3,7 @@
 namespace Btn\NodeBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Btn\BaseBundle\Controller\BaseController;
+use Btn\BaseBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Btn\NodeBundle\Entity\Node;
 
@@ -11,7 +11,7 @@ use Btn\NodeBundle\Entity\Node;
  * Nodes resolver.
  *
  */
-class NodeController extends BaseController
+class NodeController extends AbstractController
 {
     /**
      * Resolve slug router
