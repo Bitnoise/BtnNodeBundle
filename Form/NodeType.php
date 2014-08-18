@@ -23,10 +23,7 @@ class NodeType extends AbstractType
             ->add('metaKeywords', null, array('label' => 'node.form.metaKeywords'))
             ->add('ogTitle', null, array('label' => 'node.form.ogTitle'))
             ->add('ogDescription', null, array('label' => 'node.form.ogDescription'))
-            ->add('ogImage', null, array(
-                'label' => 'node.form.ogImage',
-                'attr'  => array('class' => 'btn-media')
-                ))
+            ->add('ogImage', 'btn_media', array('label' => 'node.form.ogImage'))
             ->add('link', null, array('label' => 'node.form.link'))
         ;
     }
