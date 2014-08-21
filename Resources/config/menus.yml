@@ -1,0 +1,37 @@
+parameters:
+    btn_node.menu.provider.node_menu.class: Btn\NodeBundle\Menu\Provider\NodeMenuProvider
+    btn_node.menu.voter.node_menu.class: Btn\NodeBundle\Menu\Voter\NodeMenuVoter
+    btn_node.menu.loader.node_menu.class: Btn\NodeBundle\Menu\Loader\NodeMenuLoader
+
+services:
+    # voter - mark current option in menu based on the current route name
+    btn_node.menu.voter.node_menu:
+        class: %btn_node.menu.voter.node_menu.class%
+        arguments: [@service_container]
+        tags:
+            - { name: knp_menu.voter }
+
+    # menu loader for menu provider
+    btn_node.menu.loader.node_menu:
+        class: %btn_node.menu.loader.node_menu.class%
+        arguments: [@knp_menu.factory, @service_container]
+
+    # menu provider for knp menu based on the nested tree
+    btn_node.menu.provider.node_menu:
+        class: %btn_node.menu.provider.node_menu.class%
+        arguments:
+          - @knp_menu.factory
+          - @btn_node.menu.loader.node_menu
+          - @doctrine.orm.entity_manager
+        tags:
+          - { name: knp_menu.provider }
+
+    # register in admin panel as top menu item
+    btn_node.btn_admin_menu_top_item:
+        class: %btn_admin.menu_item.class%
+        factory_service: btn_admin.menu_builder
+        factory_method: createMenu
+        arguments: ["@request", "btn_node.website_structure", "btn_node_nodecontrol_index", [], []]
+        scope: request
+        tags:
+            - { name: btn_admin.menu_item , parent: btn_admin.menu_navbar }

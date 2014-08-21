@@ -4,7 +4,6 @@ namespace Btn\NodeBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Btn\BaseBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Btn\NodeBundle\Entity\Node;
 
 /**
@@ -18,16 +17,16 @@ class NodeController extends AbstractController
      */
     public function resolveAction($url = null, Node $node = null)
     {
+        $provider = $this->get('btn_node.provider.node');
+
         //resolve node by url
-        if ($node || ($node = $this->getRepository('BtnNodeBundle:Node')->getNodeForUrl($url))) {
+        if ($node || ($node = $provider->getRepository()->getNodeForUrl($url))) {
             //if node contains valid url - redirect
             $link = $node->getLink();
             if (!empty($link)) {
                 return $this->redirect($link);
             }
 
-            // $route = '/' . $node->getRoute();
-            // $match = $this->get('router')->match($route);
             $uri = $this->get('router')->generate($node->getRoute(), $node->getRouteParameters());
             $uri = str_replace($this->get('request')->getBaseUrl(), '', $uri);
             $match = $this->get('router')->match($uri);
@@ -38,7 +37,7 @@ class NodeController extends AbstractController
                 //some additional controller attributes
                 $context = array(
                     'url'  => $url,
-                    'node' => $node
+                    'node' => $node,
                 );
 
                 //store as referrer
@@ -51,6 +50,6 @@ class NodeController extends AbstractController
         }
 
         //nothing matched
-        throw $this->createNotFoundException('No page found for slug ' . $url);
+        throw $this->createNotFoundException(sprintf('No page found for slug "%s"', $url));
     }
 }

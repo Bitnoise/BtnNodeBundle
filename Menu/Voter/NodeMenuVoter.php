@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodeBundle\Voter;
+namespace Btn\NodeBundle\Menu\Voter;
 
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\Voter\VoterInterface;
@@ -9,13 +9,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Voter based on the uri
  */
-class Voter implements VoterInterface
+class NodeMenuVoter implements VoterInterface
 {
-    /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
-     */
+    /** @var \Symfony\Component\DependencyInjection\ContainerInterface */
     private $container;
 
+    /**
+     *
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodeBundle\Provider;
+namespace Btn\NodeBundle\Menu\Provider;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\Provider\MenuProviderInterface;

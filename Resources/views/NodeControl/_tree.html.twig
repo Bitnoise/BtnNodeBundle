@@ -2,10 +2,12 @@
     class="{% if node.lvl < 1 %}jstree-open{% endif %}"
     data-jstree='{"icon":"glyphicon glyphicon-file"{{ currentNode and (node.id in pathToCurrentNode) ? ',"opened":true'}}{{ currentNode and (node.id == currentNode.id) ? ',"selected":true' }}}'
 >
-    <a href="{{ url('cp_edit_node', {'id': node.id}) }}" data-remote="formContainer" class="btn-admin-tree-title">{{ node.title }}</a> |
-    <ul>
-        {% for node in node.children %}
-            {% include 'BtnNodeBundle:NodeControl:_tree.html.twig' %}
-        {% endfor %}
-    </ul>
+    <a href="{{ url('btn_node_nodecontrol_edit', {id: node.id}) }}" data-remote="formContainer" class="btn-admin-tree-title">{{ node.title }}</a>
+    {% if node.children|length %}
+        <ul>
+            {% for node in node.children %}
+                {% include 'BtnNodeBundle:NodeControl:_tree.html.twig' %}
+            {% endfor %}
+        </ul>
+    {% endif %}
 </li>

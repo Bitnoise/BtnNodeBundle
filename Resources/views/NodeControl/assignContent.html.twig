@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block main %}
-    <h3>{{ 'btn_control.nodes.select_content_for'|trans }} {{ node.name }}</h3>
-    <form action="{{ path('cp_assign_content_for_node', {'id': id, 'node': node.id}) }}" class="form-horizontal" method="post" novalidate data-remote>
+    <h3>{{ 'btn_node.node.select_content_for'|trans }} {{ node.name }}</h3>
+    <form action="{{ path('btn_node_nodecontrol_assigncontent', {id: node.id, provider: id}) }}" class="form-horizontal" method="post" novalidate data-remote>
         {{ form_errors(form) }}
         <p>
             {{ form_widget(form) }}
         </p>
 
         <div class="centered">
-            <a href="{{ path('cp_edit_node', {'id': node.id}) }}" class="btn btn-small">{{ 'btn_admin.cancel'|trans }}</a>
+            <a href="{{ path('btn_node_nodecontrol_edit', {id: node.id}) }}" class="btn btn-small">{{ 'btn_admin.cancel'|trans }}</a>
             <input type="submit" class="btn btn-small btn-success" value="{{ 'btn_admin.save'|trans }}"/>
         </div>
 

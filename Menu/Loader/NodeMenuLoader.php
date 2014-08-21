@@ -1,15 +1,15 @@
 <?php
 
-namespace Btn\NodeBundle\Provider;
+namespace Btn\NodeBundle\Menu\Loader;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\NodeInterface;
 use Knp\Menu\Loader\LoaderInterface;
 
-class NodeLoader implements LoaderInterface
+class NodeMenuLoader implements LoaderInterface
 {
-    private $factory;
-    private $container;
+    protected $factory;
+    protected $container;
 
     public function __construct(FactoryInterface $factory, $container)
     {

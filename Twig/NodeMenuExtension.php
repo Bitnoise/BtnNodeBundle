@@ -2,20 +2,24 @@
 
 namespace Btn\NodeBundle\Twig;
 
-use Btn\NodeBundle\Provider\NodeMenuProvider;
+use Btn\NodeBundle\Menu\Provider\NodeMenuProvider;
 
 class NodeMenuExtension extends \Twig_Extension
 {
-    /**
-     * @var \Btn\NodeBundle\Provider\NodeMenuProvider
-     */
+    /** @var \Btn\NodeBundle\Provider\NodeProvider $nodeMenuProvider */
     protected $nodeMenuProvider;
 
+    /**
+     *
+     */
     public function __construct(NodeMenuProvider $nodeMenuProvider)
     {
         $this->nodeMenuProvider = $nodeMenuProvider;
     }
 
+    /**
+     *
+     */
     public function getFunctions()
     {
         return array(
@@ -23,13 +27,19 @@ class NodeMenuExtension extends \Twig_Extension
         );
     }
 
+    /**
+     *
+     */
     public function has($name, array $options = array())
     {
         return $this->nodeMenuProvider->has($name, $options);
     }
 
+    /**
+     *
+     */
     public function getName()
     {
-        return 'btn_node.menu.extension';
+        return 'btn_node.extension.node_menu';
     }
 }

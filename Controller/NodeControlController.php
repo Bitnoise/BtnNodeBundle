@@ -3,23 +3,19 @@
 namespace Btn\NodeBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Btn\BaseBundle\Controller\AbstractController;
+use Btn\AdminBundle\Controller\AbstractControlController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Btn\NodeBundle\Entity\Node;
-use Btn\NodeBundle\Form\NodeType;
+use Btn\AdminBundle\Annotation\EntityProvider;
 
 /**
- * Nodes controller.
- *
- * @Route("/control/node")
+ * @Route("/node")
+ * @EntityProvider()
  */
-class NodeControlController extends AbstractController
+class NodeControlController extends AbstractControlController
 {
     /**
-     * Lists all Nodes.
-     *
-     * @Route("/", name="cp_node")
+     * @Route("/", name="btn_node_nodecontrol_index")
      * @Template()
      */
     public function indexAction()
@@ -28,112 +24,57 @@ class NodeControlController extends AbstractController
     }
 
     /**
-     * Lists all Nodes.
-     *
-     * @Route("/tree", name="cp_node_tree")
+     * @Route("/new", name="btn_node_nodecontrol_new")
+     * @Route("/create", name="btn_node_nodecontrol_create")
      * @Template()
      */
-    public function treeAction(Request $request)
+    public function createAction(Request $request)
     {
-        $em   = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('BtnNodeBundle:Node');
-        $topNodes = $repo->getRootNodes();
+        $ep     = $this->getEntityProvider();
+        $entity = $ep->create();
+        $parent = null;
 
-        $node = null;
-        $path = array();
-        if ($request->get('id') !== null) {
-            $node = $this->findEntity('BtnNodeBundle:Node', $request->get('id'));
-            // temporary solution
-            foreach ($repo->getPath($node) as $item) {
-                $path[] = $item->getId();
-            }
+        if ($request->query->has('parent')) {
+            $parent = $this->findEntityOr404($ep->getClass(), $request->query->getInt('parent'));
+            $entity->setParent($parent);
         }
 
-        return array('topNodes' => $topNodes, 'currentNode' => $node, 'pathToCurrentNode' => $path);
-    }
+        $form = $this->createForm('btn_node_form_node_control', $entity, array(
+            'action' => $this->generateUrl('btn_node_nodecontrol_create'),
+        ));
 
-    /**
-     * List all nodes for modal picker
-     *
-     * @Route("/list-modal", name="cp_node_list_modal")
-     * @Template()
-     **/
-    public function listModalAction()
-    {
-        $em       = $this->getDoctrine()->getManager();
-        $repo     = $em->getRepository('BtnNodeBundle:Node');
-        $topNodes = $repo->getRootNodes();
+        if ($this->handleForm($form, $request)) {
+            $this->setFlash('btn_admin.flash.created');
 
-        return array(
-            'topNodes' => $topNodes,
-            'expanded' => false,
-            'isModal' => true
-        );
-    }
-
-    /**
-     * Add new node
-     *
-     * @Route("/add", name="cp_add_node")
-     * @Template()
-     */
-    public function addAction(Request $request)
-    {
-        $parent = $this->findEntity('BtnNodeBundle:Node', $request->get('id'));
-        $node   = new Node();
-        if ($parent) {
-            $node->setParent($parent);
-        }
-        $form   = $this->createForm(new NodeType(), $node);
-        $result = null;
-
-        //form processing
-        $result = $this->processForm($node, $form, $request);
-
-        //if success - redirect to edit mode
-        if ($result === true) {
-            return $this->redirect($this->generateUrl('cp_edit_node', array('id' => $node->getId())));
+            return $this->redirect($this->generateUrl('btn_node_nodecontrol_edit', array('id' => $entity->getId())));
         }
 
         //prepare content
         return array(
             'form'   => $form->createView(),
-            'node'   => $node,
-            'parent' => $parent
+            'entity'   => $entity,
+            'parent' => $parent,
         );
     }
 
     /**
-     * Add new node
-     *
-     * @Route("/remove", name="cp_remove_node")
-     */
-    public function removeAction(Request $request)
-    {
-        $node = $this->findEntityOr404('BtnNodeBundle:Node', $request->get('id'));
-        $this->getManager()->remove($node);
-        $this->getManager()->flush();
-
-        $msg = $this->get('translator')->trans('node.removed');
-        $this->get('session')->getFlashBag()->add('success', $msg);
-
-        return $this->redirect($this->generateUrl('cp_node'));
-    }
-
-    /**
-     * Edit node params
-     *
-     * @Route("/edit/{id}", name="cp_edit_node")
+     * @Route("/{id}/edit", name="btn_node_nodecontrol_edit", requirements={"id" = "\d+"}, methods={"GET"})
+     * @Route("/{id}/update", name="btn_node_nodecontrol_update", requirements={"id" = "\d+"}, methods={"POST"})
      * @Template()
      */
-    public function editAction($id, Request $request)
+    public function updateAction(Request $request, $id)
     {
-        $node   = $this->findEntityOr404('BtnNodeBundle:Node', $request->get('id'));
-        $form   = $this->createForm(new NodeType(), $node);
-        $result = null;
+        $entity = $this->findEntityOr404($this->getEntityProvider()->getClass(), $id);
+        $form   = $this->createForm('btn_node_form_node_control', $entity, array(
+            'action' => $this->generateUrl('btn_node_nodecontrol_update', array('id' => $id)),
+        ));
 
         //form processing
-        $result = $this->processForm($node, $form, $request);
+        if ($this->handleForm($form, $request)) {
+            $this->setFlash('btn_admin.flash.updated');
+
+            return $this->redirect($this->generateUrl('btn_node_nodecontrol_edit', array('id' => $entity->getId())));
+        }
 
         // get content providers
         $providers = $this->get('btn_node.content_providers')->getProviders();
@@ -141,25 +82,89 @@ class NodeControlController extends AbstractController
         //prepare content
         return array(
             'form'      => $form->createView(),
-            'node'      => $node,
-            'providers' => $providers
+            'entity'    => $entity,
+            'providers' => $providers,
+        );
+    }
+
+    /**
+     * Delete route
+     *
+     * @Route("/{id}/delete/{csrf_token}", name="btn_node_nodecontrol_delete", requirements={"id" = "\d+"}, methods={"GET"})
+     */
+    public function removeAction(Request $request, $id, $csrf_token)
+    {
+        $this->validateCsrfTokenOrThrowException('btn_node_nodecontrol_delete', $csrf_token);
+
+        $entityProvider = $this->getEntityProvider();
+        $entity         = $this->findEntityOr404($entityProvider->getClass(), $id);
+
+        $entityProvider->delete($entity);
+
+        $this->setFlash('btn_admin.flash.deleted');
+
+        return $this->redirect($this->generateUrl('btn_node_nodecontrol_index'));
+    }
+
+    /**
+     * Lists all Nodes.
+     *
+     * @Route("/tree", name="btn_node_nodecontrol_tree")
+     * @Template()
+     */
+    public function treeAction(Request $request)
+    {
+        $repo     = $this->getEntityProvider()->getRepository();
+        $topNodes = $repo->getRootNodes();
+
+        $node = null;
+        $path = array();
+        if ($request->get('id') !== null) {
+            $node = $repo->find($request->get('id'));
+            // temporary solution
+            foreach ($repo->getPath($node) as $item) {
+                $path[] = $item->getId();
+            }
+        }
+
+        return array(
+            'topNodes'          => $topNodes,
+            'currentNode'       => $node,
+            'pathToCurrentNode' => $path,
+        );
+    }
+
+    /**
+     * List all nodes for modal picker
+     *
+     * @Route("/list-modal", name="btn_node_nodecontrol_listmodal")
+     * @Template()
+     **/
+    public function listModalAction()
+    {
+        $topNodes = $this->getEntityProvider()->getRepository()->getRootNodes();
+
+        return array(
+            'topNodes' => $topNodes,
+            'expanded' => false,
+            'isModal'  => true,
         );
     }
 
     /**
      * assignContent node content
      *
-     * @Route("/assign_content/{id}/{node}", name="cp_assign_content_for_node")
+     * @Route("/{id}/assign-content/{provider}", name="btn_node_nodecontrol_assigncontent", requirements={"id" = "\d+", "provider" = "[a-zA-Z0-9\._]+"})
      * @Template()
      */
-    public function assignContentAction($id, $node, Request $request)
+    public function assignContentAction($id, $provider, Request $request)
     {
         //get all content providers
-        $provider = $this->get($id);
+        $provider = $this->get($provider);
         // replace id with object - nasty piece of shit here but don't want to break something
-        $node     = $this->findEntityOr404('BtnNodeBundle:Node', $node);
+        $entity   = $this->findEntityOr404($this->entityProvider()->getClass(), $id);
 
-        $form = $this->createForm($this->get($id)->getForm());
+        $form = $this->createForm($provider->getForm());
 
         //form processing
         $result = $this->processContentForm($provider, $form, $request);
@@ -194,28 +199,6 @@ class NodeControlController extends AbstractController
                 $node->setProvider($service->getName());
                 $this->getManager()->persist($node);
                 $this->getManager()->flush();
-
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    private function processForm($entity, &$form, $request)
-    {
-        if ($request->getMethod() == 'POST' && $request->get($form->getName())) {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                $em = $this->getManager();
-                $em->persist($entity);
-                //fix url for all entity childrens?
-                foreach ($entity->getChildren() as $node) {
-                    $node->setUrl($node->getFullSlug());
-                    $em->persist($node);
-                }
-                $em->flush();
 
                 return true;
             } else {

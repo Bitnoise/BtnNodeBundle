@@ -1,7 +1,7 @@
 {% extends 'BtnNodeBundle::layout.html.twig' %}
 
 {% block sidebar %}
-    {{ render(controller('BtnNodeBundle:NodeControl:tree', {'id': node.id})) }}
+    {{ render(controller('BtnNodeBundle:NodeControl:tree', {'id': entity.id})) }}
 {% endblock %}
 
 {% block main %}

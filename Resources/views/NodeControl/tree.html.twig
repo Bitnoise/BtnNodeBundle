@@ -1,4 +1,4 @@
-<div id="tree" class="top-offset" bind-jstree data-change-jstree="reload">
+<div id="btn-node-tree" class="top-offset" btn-jstree btn-jstree-change="reload">
     <ul>
         {% for node in topNodes %}
             {% include 'BtnNodeBundle:NodeControl:_tree.html.twig' %}
@@ -6,5 +6,5 @@
     </ul>
 </div>
 <div class="top-offset">
-    <a href="{{ url('cp_add_node') }}" class="btn btn-primary btn-sm">{% trans %}node.create_new_menu{% endtrans %}</a>
+    <a href="{{ url('btn_node_nodecontrol_new') }}" class="btn btn-primary btn-sm">{% trans %}btn_node.create_new_menu{% endtrans %}</a>
 </div>

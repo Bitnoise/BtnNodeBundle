@@ -14,15 +14,10 @@ class ContentProviderCompilerPass implements CompilerPassInterface
             return;
         }
 
-        $definition = $container->getDefinition(
-            'btn_node.content_providers'
-        );
+        $definition = $container->getDefinition('btn_node.content_providers');
 
         foreach ($container->findTaggedServiceIds('btn_node.content_provider') as $id => $tags) {
-            $definition->addMethodCall(
-                'addProvider',
-                array(new Reference($id), $id)
-            );
+            $definition->addMethodCall('addProvider', array(new Reference($id), $id));
         }
     }
 }

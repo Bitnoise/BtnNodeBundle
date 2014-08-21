@@ -1,4 +1,7 @@
-btn_node:
-    resource: "@BtnNodeBundle/Controller/"
-    type:     annotation
-    prefix:   /
+_btn_node_routing_control:
+    resource: "@BtnNodeBundle/Resources/config/routing/control.yml"
+    prefix: /control
+
+# _btn_node_routing_front:
+#     resource: "@BtnNodeBundle/Resources/config/routing/front.yml"
+#     prefix: /

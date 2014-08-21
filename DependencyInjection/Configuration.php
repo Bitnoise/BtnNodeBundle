@@ -5,11 +5,6 @@ namespace Btn\NodeBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * This is the class that validates and merges configuration from your app/config files
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
- */
 class Configuration implements ConfigurationInterface
 {
     /**
@@ -22,9 +17,20 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->scalarNode('router_priority')->defaultValue(0)->end()
-            ->scalarNode('router_prefix')->defaultValue('/')->end()
+                ->arrayNode('node')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('class')->cannotBeEmpty()->defaultValue('Btn\\NodeBundle\\Entity\\Node')->end()
+                    ->end()
+                ->end()
+                ->scalarNode('router_priority')->defaultValue(0)->end()
+                ->scalarNode('router_prefix')->defaultValue('/')->end()
+                ->arrayNode('available_routes')
+                    ->cannotBeEmpty()
+                    ->defaultValue(array())
+                    ->prototype('scalar')->end()
             ->end()
+        ->end()
         ;
 
         return $treeBuilder;

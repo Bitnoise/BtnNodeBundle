@@ -25,7 +25,7 @@ class Node implements NodeInterface
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue()
      */
     private $id;
 
@@ -41,38 +41,38 @@ class Node implements NodeInterface
     private $slug;
 
     /**
-     * @Gedmo\TreeLeft
+     * @Gedmo\TreeLeft()
      * @ORM\Column(name="lft", type="integer")
      */
     private $lft;
 
     /**
-     * @Gedmo\TreeLevel
+     * @Gedmo\TreeLevel()
      * @ORM\Column(name="lvl", type="integer")
      */
     private $lvl;
 
     /**
-     * @Gedmo\TreeRight
+     * @Gedmo\TreeRight()
      * @ORM\Column(name="rgt", type="integer")
      */
     private $rgt;
 
     /**
-     * @Gedmo\TreeRoot
+     * @Gedmo\TreeRoot()
      * @ORM\Column(name="root", type="integer", nullable=true)
      */
     private $root;
 
     /**
-     * @Gedmo\TreeParent
+     * @Gedmo\TreeParent()
      * @ORM\ManyToOne(targetEntity="Node", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Node", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Node", mappedBy="parent", cascade={"persist", "remove"})
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $children;
@@ -138,9 +138,9 @@ class Node implements NodeInterface
     private $ogImage;
 
     /**
-     * @ORM\Column(name="visible", type="boolean", options={"default" = 1})
+     * @ORM\Column(name="visible", type="boolean")
      */
-    private $visible = true;
+    private $visible;
 
     /**
      * @ORM\Column(name="link", type="string", nullable=true)
@@ -148,9 +148,9 @@ class Node implements NodeInterface
     private $link;
 
     /**
-     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface
+     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface $router
      */
-    private $router = null;
+    private $router;
 
     /**
      * Constructor
@@ -158,6 +158,8 @@ class Node implements NodeInterface
     public function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->visible  = true;
+        $this->router   = null;
     }
 
     /**
@@ -205,7 +207,7 @@ class Node implements NodeInterface
     /**
      *
      */
-    public function setParent(Node $parent = null)
+    public function setParent(NodeInterface $parent = null)
     {
         $this->parent = $parent;
 
@@ -404,12 +406,12 @@ class Node implements NodeInterface
      */
     public function getFullSlug($withoutThisNode = false)
     {
-        $slug       = "";
+        $slug       = '';
         $parentNode = $this->getParent();
-        if ($parentNode != null) {
+        if (null !== $parentNode) {
             $parentSlug = $parentNode->getFullSlug();
             if (!empty($parentSlug)) {
-                $slug = rtrim($parentSlug, "/") . "/";
+                $slug = rtrim($parentSlug, '/') . '/';
             }
         }
 
@@ -452,11 +454,20 @@ class Node implements NodeInterface
      */
      public function updateUrl()
      {
+        $result = false;
+
         //don't update url for root nodes
         $parentNode = $this->getParent();
-        if ($parentNode != null) {
-            $this->url = $this->getFullSlug();
+        if (null !== $parentNode) {
+            $currentUrl = $this->getUrl();
+            $fullSlug   =  $this->getFullSlug();
+            if ($fullSlug !== $currentUrl) {
+                $this->setUrl($fullSlug);
+                $result = true;
+            }
         }
+
+        return $result;
      }
 
     /**

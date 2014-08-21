@@ -1,15 +1,15 @@
 <?php
 
-namespace Btn\NodeBundle\Listener;
+namespace Btn\NodeBundle\EventListener;
 
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
-class RequestListener implements EventSubscriberInterface
+class RequestSubscriber implements EventSubscriberInterface
 {
     /**
-     *
+     * {@inheritdoc}
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
@@ -17,7 +17,7 @@ class RequestListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {

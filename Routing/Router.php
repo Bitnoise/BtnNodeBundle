@@ -1,6 +1,6 @@
 <?php
 
-namespace Btn\NodeBundle\Router;
+namespace Btn\NodeBundle\Routing;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;

@@ -1,0 +1,3 @@
+# _btn_news_routing_front_controller_news:
+#     resource: "@BtnNodeBundle/Controller/NodeController.php"
+#     type:     annotation

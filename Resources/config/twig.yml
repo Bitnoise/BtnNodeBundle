@@ -1,0 +1,11 @@
+parameters:
+    btn_node.twig.node_menu.class: Btn\NodeBundle\Twig\NodeMenuExtension
+
+services:
+    # twig extension to render menu
+    btn_node.twig.node_menu:
+        class: %btn_node.twig.node_menu.class%
+        arguments:
+            nodeMenuProvider: @btn_node.menu.provider.node_menu
+        tags:
+            - { name: twig.extension }

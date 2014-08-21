@@ -1,0 +1,23 @@
+parameters:
+    btn_node.form.type.node.class: Btn\NodeBundle\Form\Type\NodeType
+    btn_node.form.node_control.class: Btn\NodeBundle\Form\NodeControlForm
+
+services:
+    # custom form type to build nested tree in select
+    btn_node.form.type.node:
+        class: %btn_node.form.type.node.class%
+        calls:
+            - [setEntityProvider, [@btn_node.provider.node]]
+        arguments:
+            provider: @btn_node.provider.node
+        tags:
+            - { name: form.type, alias: btn_node }
+
+    # Node control form
+    btn_node.form.node_control:
+        class: %btn_node.form.node_control.class%
+        parent: btn_admin.form.abstract
+        calls:
+            - [setClass, [%btn_node.node.class%]]
+        tags:
+            - { name: form.type, alias: btn_node_form_node_control }

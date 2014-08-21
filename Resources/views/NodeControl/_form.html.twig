@@ -1,19 +1,20 @@
-<form action="{{ parent is defined ? path('cp_add_node', {'id': parent.id is defined ? parent.id : null}) : path('cp_edit_node', {'id': node.id}) }}" class="form-horizontal" method="post" novalidate data-remote>
+{% import 'BtnAdminBundle:Macros:link.html.twig' as lnk %}
+{{ form_start(form) }}
     <div class="row">
         <div class="col-md-6">
-            {% if node.id %}
-                <h3>{{ node.name }}</h3>
+            {% if entity.id %}
+                <h3>{{ entity.name }}</h3>
             {% else %}
-                <h3>{{ 'btn_control.nodes.new_menu_item'|trans }}</h3>
+                <h3>{% trans %}btn_node.new_menu_item{% endtrans %}</h3>
             {% endif %}
         </div>
         <div class="col-md-6">
             <div class="btn-group pull-right top-offset">
-              <input type="submit" class="btn btn-small btn-success" value="{{ 'btn_admin.save'|trans }}"/>
-              {% if node.id %}
-                  {#<a href="#" class="btn btn-small">{{ 'btn_control.preview'|trans }}</a>#}
-                  <a href="{{ url('cp_add_node', {'id': node.id}) }}" class="btn btn-small">{{ 'btn_control.nodes.add_subpage'|trans }}</a>
-                  <a href="{{ url('cp_remove_node', {'id': node.id}) }}" data-btn-confirm="{% trans %}node.delete_confirm{% endtrans %}" class="btn btn-small btn-danger">{{ 'btn_control.delete'|trans }}</a>
+                {{ form_widget(form.save) }}
+                {% if entity.id %}
+                    {#<a href="#" class="btn btn-small">{{ 'btn_control.preview'|trans }}</a>#}
+                    {{ lnk.blank('btn_node.node.add_subpage', 'btn_node_nodecontrol_new', {parent: entity.id}) }}
+                    {{ lnk.delete('btn_node_nodecontrol_delete', {id: entity.id}) }}
               {% endif %}
             </div>
         </div>
@@ -21,9 +22,9 @@
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="#general" role="tab" data-toggle="tab">{{ 'btn_control.nodes.content_tab'|trans }}</a></li>
-        <li><a href="#seo" role="tab" data-toggle="tab">{{ 'btn_control.nodes.seo_tab'|trans }}</a></li>
-        <li><a href="#social" role="tab" data-toggle="tab">{{ 'btn_control.nodes.social_tab'|trans }}</a></li>
+        <li class="active"><a href="#general" role="tab" data-toggle="tab">{{ 'btn_node.node.content_tab'|trans }}</a></li>
+        <li><a href="#seo" role="tab" data-toggle="tab">{{ 'btn_node.node.seo_tab'|trans }}</a></li>
+        <li><a href="#social" role="tab" data-toggle="tab">{{ 'btn_node.node.social_tab'|trans }}</a></li>
     </ul>
 
     {{ form_errors(form) }}
@@ -41,10 +42,10 @@
 
             <hr/>
 
-            {% if node.provider %}
+            {% if entity.provider %}
                 <h4>Current content provider</h4>
-                {{ node.provider }} &nbsp;
-                {% if node.controlRoute and node.controlRouteParameters %}<a href="{{ path(node.controlRoute, node.controlRouteParameters) }}">edit</a>{% endif %}
+                {{ entity.provider }} &nbsp;
+                {% if entity.controlRoute and entity.controlRouteParameters %}<a href="{{ path(node.controlRoute, node.controlRouteParameters) }}">edit</a>{% endif %}
             {% endif %}
             {% if providers is defined %}
                 <hr/>
@@ -64,7 +65,7 @@
                             <td>{{ provider.name }}</td>
                             <td>-</td>
                             <td>-</td>
-                            <td><a href="{{ url('cp_assign_content_for_node', {'id': id, 'node': node.id}) }}" class="select-bundle btn btn-success">select</a></td>
+                            <td><a href="{{ url('btn_node_nodecontrol_assigncontent', {id: entity.id, provider: id}) }}" class="select-bundle btn btn-success">{% trans %}btn_admin.select{% endtrans %}</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
