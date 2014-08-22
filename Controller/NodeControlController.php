@@ -24,8 +24,8 @@ class NodeControlController extends AbstractControlController
     }
 
     /**
-     * @Route("/new", name="btn_node_nodecontrol_new")
-     * @Route("/create", name="btn_node_nodecontrol_create")
+     * @Route("/new", name="btn_node_nodecontrol_new", methods={"GET"})
+     * @Route("/create", name="btn_node_nodecontrol_create", methods={"POST"})
      * @Template()
      */
     public function createAction(Request $request)
