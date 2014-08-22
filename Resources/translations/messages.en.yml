@@ -29,3 +29,6 @@ btn_node.node.ogImage_empty_value: 'Choose image'
 btn_node.node.link: 'Direct url'
 
 btn_node.route_node_content_provider.name: 'Route provider'
+
+btn_node.form.type.node_content_provider.label: 'Provider'
+btn_node.form.type.node_content_provider.empty_value: 'Select provider'

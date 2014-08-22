@@ -98,14 +98,14 @@ class Node implements NodeInterface
     private $controlRoute;
 
     /**
-     * @ORM\Column(name="provider_id", type="string", nullable=true)
+     * @ORM\Column(name="provider", type="string", nullable=true)
      */
-    private $providerId;
+    private $provider;
 
     /**
-     * @ORM\Column(name="provider_name", type="string", nullable=true)
+     * @ORM\Column(name="provider_parameters", type="array", nullable=true)
      */
-    private $providerName;
+    private $providerParameters;
 
     /**
      * @ORM\Column(name="url", type="string", nullable=true)
@@ -499,49 +499,49 @@ class Node implements NodeInterface
     }
 
     /**
-     * Set providerId
+     * Set provider
      *
-     * @param  string $providerId
+     * @param  string $provider
      * @return Node
      */
-    public function setProviderId($providerId)
+    public function setProvider($provider)
     {
-        $this->providerId = $providerId;
+        $this->provider = $provider;
 
         return $this;
     }
 
     /**
-     * Get providerId
+     * Get provider
      *
      * @return string
      */
-    public function getProviderId()
+    public function getProvider()
     {
-        return $this->providerId;
+        return $this->provider;
     }
 
     /**
-     * Set providerName
+     * Set providerParameters
      *
-     * @param  string $providerName
+     * @param  string $providerParameters
      * @return Node
      */
-    public function setProviderName($providerName)
+    public function setProviderParameters(array $providerParameters = null)
     {
-        $this->providerName = $providerName;
+        $this->providerParameters = $providerParameters;
 
         return $this;
     }
 
     /**
-     * Get providerName
+     * Get providerParameters
      *
      * @return string
      */
-    public function getProviderName()
+    public function getProviderParameters()
     {
-        return $this->providerName;
+        return $this->providerParameters;
     }
 
     /**

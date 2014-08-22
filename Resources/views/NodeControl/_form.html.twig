@@ -33,48 +33,14 @@
     <div class="tab-content">
         <div class="tab-pane active" id="general">
             {{ form_row(form.title) }}
-
             {{ form_row(form.slug) }}
-
             {{ form_row(form.link) }}
-
             {{ form_row(form.visible) }}
-
-            <hr/>
-
-            {% if entity.providerId %}
-                <h4>Current content provider</h4>
-                {{ entity.providerName|trans }} &nbsp;
-                {% if entity.controlRoute and entity.controlRouteParameters %}
-                    {{ lnk.edit(entity.controlRoute, entity.controlRouteParameters) }}
-                {% endif %}
-            {% endif %}
-            {% if providers is defined %}
-                <hr>
-                <h4>Select content provider</h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Provider name</th>
-                            <th>Description</th>
-                            <th>Version</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for providerId, provider in providers %}
-                        <tr>
-                            <td>{{ provider.name|trans }}</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>{{ lnk.success('btn_admin.select', 'btn_node_nodecontrol_assigncontent', {id: entity.id, providerId: providerId}) }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            {{ form_row(form.provider) }}
+            {% if form.providerParameters is defined %}
+                {{ form_row(form.providerParameters) }}
             {% endif %}
         </div>
-
         <div class="tab-pane" id="seo">
             {{ form_row(form.metaTitle) }}
             {{ form_row(form.metaKeywords) }}

@@ -43,7 +43,7 @@ class NodeControlController extends AbstractControlController
             'action' => $this->generateUrl('btn_node_nodecontrol_create'),
         ));
 
-        if ($this->handleForm($form, $request)) {
+        if ($this->get('btn_node.form.handler.node')->handle($form, $request)) {
             $this->setFlash('btn_admin.flash.created');
 
             return $this->redirect($this->generateUrl('btn_node_nodecontrol_edit', array('id' => $entity->getId())));
@@ -70,7 +70,7 @@ class NodeControlController extends AbstractControlController
         ));
 
         //form processing
-        if ($this->handleForm($form, $request)) {
+        if ($this->get('btn_node.form.handler.node')->handle($form, $request)) {
             $this->setFlash('btn_admin.flash.updated');
 
             return $this->redirect($this->generateUrl('btn_node_nodecontrol_edit', array('id' => $entity->getId())));
@@ -166,7 +166,7 @@ class NodeControlController extends AbstractControlController
         }
 
         $entity   = $this->findEntityOr404($this->getEntityProvider()->getClass(), $id);
-        $entity->setProviderId($providerId);
+        $entity->setProvider($providerId);
 
         $provider = $this->get($providerId);
 
