@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Btn\AdminBundle\Controller\AbstractControlController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Btn\NodeBundle\Event\NodeEvent;
+use Btn\NodeBundle\BtnNodeEvents;
 use Btn\AdminBundle\Annotation\EntityProvider;
 
 /**
@@ -46,6 +48,8 @@ class NodeControlController extends AbstractControlController
         if ($this->get('btn_node.form.handler.node')->handle($form, $request)) {
             $this->setFlash('btn_admin.flash.created');
 
+            $this->get('event_dispatcher')->dispatch(BtnNodeEvents::NODE_CREATED, new NodeEvent($entity));
+
             return $this->redirect($this->generateUrl('btn_node_nodecontrol_edit', array('id' => $entity->getId())));
         }
 
@@ -73,6 +77,8 @@ class NodeControlController extends AbstractControlController
         if ($this->get('btn_node.form.handler.node')->handle($form, $request)) {
             $this->setFlash('btn_admin.flash.updated');
 
+            $this->get('event_dispatcher')->dispatch(BtnNodeEvents::NODE_UPDATED, new NodeEvent($entity));
+
             return $this->redirect($this->generateUrl('btn_node_nodecontrol_edit', array('id' => $entity->getId())));
         }
 
@@ -98,6 +104,8 @@ class NodeControlController extends AbstractControlController
 
         $entityProvider = $this->getEntityProvider();
         $entity         = $this->findEntityOr404($entityProvider->getClass(), $id);
+
+        $this->get('event_dispatcher')->dispatch(BtnNodeEvents::NODE_REMOVED, new NodeEvent($entity));
 
         $entityProvider->delete($entity);
 
