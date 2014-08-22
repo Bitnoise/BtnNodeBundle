@@ -1,19 +1,19 @@
 {% extends 'BtnNodeBundle::layout.html.twig' %}
 
 {% block sidebar %}
-    {{ render(controller('BtnNodeBundle:NodeControl:tree', {'id': node.id})) }}
+    {{ render(controller('BtnNodeBundle:NodeControl:tree', {'id': entity.id})) }}
 {% endblock %}
 
 {% block main %}
-    <h3>{{ 'btn_node.node.select_content_for'|trans }} {{ node.name }}</h3>
-    <form action="{{ path('btn_node_nodecontrol_assigncontent', {id: node.id, provider: id}) }}" class="form-horizontal" method="post" novalidate data-remote>
+    <h3>{{ 'btn_node.node.select_content_for'|trans }} {{ entity.name }}</h3>
+    <form action="{{ path('btn_node_nodecontrol_assigncontent', {id: entity.id, providerId: providerId}) }}" class="form-horizontal" method="post" novalidate data-remote>
         {{ form_errors(form) }}
         <p>
             {{ form_widget(form) }}
         </p>
 
         <div class="centered">
-            <a href="{{ path('btn_node_nodecontrol_edit', {id: node.id}) }}" class="btn btn-small">{{ 'btn_admin.cancel'|trans }}</a>
+            <a href="{{ path('btn_node_nodecontrol_edit', {id: entity.id}) }}" class="btn btn-small">{{ 'btn_admin.cancel'|trans }}</a>
             <input type="submit" class="btn btn-small btn-success" value="{{ 'btn_admin.save'|trans }}"/>
         </div>
 

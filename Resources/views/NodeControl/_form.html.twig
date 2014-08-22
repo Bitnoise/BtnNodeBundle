@@ -60,12 +60,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for id, provider in providers %}
+                        {% for providerId, provider in providers %}
                         <tr>
-                            <td>{{ provider.name }}</td>
+                            <td>{{ provider.name|trans }}</td>
                             <td>-</td>
                             <td>-</td>
-                            <td><a href="{{ url('btn_node_nodecontrol_assigncontent', {id: entity.id, provider: id}) }}" class="select-bundle btn btn-success">{% trans %}btn_admin.select{% endtrans %}</a></td>
+                            <td>{{ lnk.success('btn_admin.select', 'btn_node_nodecontrol_assigncontent', {id: entity.id, providerId: providerId}) }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

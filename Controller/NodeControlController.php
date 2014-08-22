@@ -154,15 +154,15 @@ class NodeControlController extends AbstractControlController
     /**
      * assignContent node content
      *
-     * @Route("/{id}/assign-content/{provider}", name="btn_node_nodecontrol_assigncontent", requirements={"id" = "\d+", "provider" = "[a-zA-Z0-9\._]+"})
+     * @Route("/{id}/assign-content/{providerId}", name="btn_node_nodecontrol_assigncontent", requirements={"id" = "\d+", "providerId" = "[a-zA-Z0-9\._]+"})
      * @Template()
      */
-    public function assignContentAction($id, $provider, Request $request)
+    public function assignContentAction(Request $request, $id, $providerId)
     {
         //get all content providers
-        $provider = $this->get($provider);
+        $provider = $this->get($providerId);
         // replace id with object - nasty piece of shit here but don't want to break something
-        $entity   = $this->findEntityOr404($this->entityProvider()->getClass(), $id);
+        $entity   = $this->findEntityOr404($this->getEntityProvider()->getClass(), $id);
 
         $form = $this->createForm($provider->getForm());
 
@@ -171,10 +171,9 @@ class NodeControlController extends AbstractControlController
 
         //prepare content
         return array(
-            'form'     => $form->createView(),
-            'provider' => $provider,
-            'id'       => $id,
-            'node'     => $node
+            'form'       => $form->createView(),
+            'providerId' => $providerId,
+            'entity'     => $entity,
         );
     }
 
