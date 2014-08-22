@@ -22,6 +22,9 @@ class NodeControlForm extends AbstractForm
                 'label'         => 'btn_node.node.slug',
                 'addon_prepend' => '/' . $options['data']->getFullSlug(true),
             ))
+            ->add('link', null, array(
+                'label' => 'btn_node.node.link',
+            ))
             ->add('visible', null, array(
                 'label' => 'btn_node.node.visible',
             ))
@@ -42,9 +45,6 @@ class NodeControlForm extends AbstractForm
             ))
             ->add('ogImage', 'btn_media', array(
                 'label' => 'btn_node.node.ogImage',
-            ))
-            ->add('link', null, array(
-                'label' => 'btn_node.node.link',
             ))
             ->add('save', $options['data']->getId() ? 'btn_update' : 'btn_create', array(
                 'row' => false,
