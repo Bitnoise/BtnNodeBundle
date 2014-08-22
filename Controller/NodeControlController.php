@@ -98,14 +98,14 @@ class NodeControlController extends AbstractControlController
      *
      * @Route("/{id}/delete/{csrf_token}", name="btn_node_nodecontrol_delete", requirements={"id" = "\d+"}, methods={"GET"})
      */
-    public function removeAction(Request $request, $id, $csrf_token)
+    public function deleteAction(Request $request, $id, $csrf_token)
     {
         $this->validateCsrfTokenOrThrowException('btn_node_nodecontrol_delete', $csrf_token);
 
         $entityProvider = $this->getEntityProvider();
         $entity         = $this->findEntityOr404($entityProvider->getClass(), $id);
 
-        $this->get('event_dispatcher')->dispatch(BtnNodeEvents::NODE_REMOVED, new NodeEvent($entity));
+        $this->get('event_dispatcher')->dispatch(BtnNodeEvents::NODE_DELETED, new NodeEvent($entity));
 
         $entityProvider->delete($entity);
 
