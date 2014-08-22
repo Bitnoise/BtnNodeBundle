@@ -83,12 +83,12 @@ class Node implements NodeInterface
     private $route;
 
     /**
-     * @ORM\Column(name="route_parameters", type="string", nullable=true)
+     * @ORM\Column(name="route_parameters", type="array", nullable=true)
      */
     private $routeParameters;
 
     /**
-     * @ORM\Column(name="control_route_parameters", type="string", nullable=true)
+     * @ORM\Column(name="control_route_parameters", type="array", nullable=true)
      */
     private $controlRouteParameters;
 
@@ -98,9 +98,14 @@ class Node implements NodeInterface
     private $controlRoute;
 
     /**
-     * @ORM\Column(name="provider", type="string", nullable=true)
+     * @ORM\Column(name="provider_id", type="string", nullable=true)
      */
-    private $provider;
+    private $providerId;
+
+    /**
+     * @ORM\Column(name="provider_name", type="string", nullable=true)
+     */
+    private $providerName;
 
     /**
      * @ORM\Column(name="url", type="string", nullable=true)
@@ -358,12 +363,12 @@ class Node implements NodeInterface
     /**
      * Set routeParameters
      *
-     * @param  string $routeParameters
+     * @param  array $routeParameters
      * @return Node
      */
-    public function setRouteParameters($routeParameters)
+    public function setRouteParameters(array $routeParameters)
     {
-        $this->routeParameters = serialize($routeParameters);
+        $this->routeParameters = $routeParameters;
 
         return $this;
     }
@@ -371,11 +376,11 @@ class Node implements NodeInterface
     /**
      * Get routeParameters
      *
-     * @return string
+     * @return array
      */
     public function getRouteParameters()
     {
-        return unserialize($this->routeParameters);
+        return $this->routeParameters;
     }
 
     /**
@@ -494,26 +499,49 @@ class Node implements NodeInterface
     }
 
     /**
-     * Set provider
+     * Set providerId
      *
-     * @param  string $provider
+     * @param  string $providerId
      * @return Node
      */
-    public function setProvider($provider)
+    public function setProviderId($providerId)
     {
-        $this->provider = $provider;
+        $this->providerId = $providerId;
 
         return $this;
     }
 
     /**
-     * Get provider
+     * Get providerId
      *
      * @return string
      */
-    public function getProvider()
+    public function getProviderId()
     {
-        return $this->provider;
+        return $this->providerId;
+    }
+
+    /**
+     * Set providerName
+     *
+     * @param  string $providerName
+     * @return Node
+     */
+    public function setProviderName($providerName)
+    {
+        $this->providerName = $providerName;
+
+        return $this;
+    }
+
+    /**
+     * Get providerName
+     *
+     * @return string
+     */
+    public function getProviderName()
+    {
+        return $this->providerName;
     }
 
     /**
@@ -557,9 +585,9 @@ class Node implements NodeInterface
      * @param  string $routeParameters
      * @return Node
      */
-    public function setControlRouteParameters($routeParameters)
+    public function setControlRouteParameters(array $controlRouteParameters)
     {
-        $this->routeParameters = serialize($routeParameters);
+        $this->controlRouteParameters = $controlRouteParameters;
 
         return $this;
     }
@@ -571,7 +599,7 @@ class Node implements NodeInterface
      */
     public function getControlRouteParameters()
     {
-        return unserialize($this->routeParameters);
+        return $this->controlRouteParameters;
     }
 
     /**

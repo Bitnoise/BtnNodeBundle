@@ -14,7 +14,7 @@ btn_node.new_menu_item: 'Create new item'
 btn_node.node.content_tab: 'Content'
 btn_node.node.seo_tab: 'SEO'
 btn_node.node.social_tab: 'Social'
-btn_node.node.select_content_for: 'Select content for '
+btn_node.node.select_content_for: 'Select content for %name%'
 
 btn_node.node.slug: 'Nice URL'
 btn_node.node.title: 'Menu name'

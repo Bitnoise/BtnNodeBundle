@@ -154,20 +154,33 @@ class NodeControlController extends AbstractControlController
     /**
      * assignContent node content
      *
-     * @Route("/{id}/assign-content/{providerId}", name="btn_node_nodecontrol_assigncontent", requirements={"id" = "\d+", "providerId" = "[a-zA-Z0-9\._]+"})
+     * @Route("/{id}/assign-content/{providerId}", name="btn_node_nodecontrol_assigncontent", requirements={"id" = "\d+", "providerId" = "[a-zA-Z0-9\._]+"}, methods={"GET", "POST"})
      * @Template()
      */
     public function assignContentAction(Request $request, $id, $providerId)
     {
-        //get all content providers
-        $provider = $this->get($providerId);
-        // replace id with object - nasty piece of shit here but don't want to break something
-        $entity   = $this->findEntityOr404($this->getEntityProvider()->getClass(), $id);
+        if (!$this->has($providerId)) {
+            throw $this->createNotFoundException(sprintf('Unable to find node content provider service with id "%s"', $providerId));
+        }
 
-        $form = $this->createForm($provider->getForm());
+        $entity   = $this->findEntityOr404($this->getEntityProvider()->getClass(), $id);
+        $entity->setProviderId($providerId);
+
+        $provider = $this->get($providerId);
+
+        $form = $this->createForm('btn_node_form_node_content_provider', $entity, array(
+            'action'        => $this->generateUrl('btn_node_nodecontrol_assigncontent', array('id' => $id, 'providerId' => $providerId)),
+            'provider_form' => $provider->getForm(),
+        ));
 
         //form processing
-        $result = $this->processContentForm($provider, $form, $request);
+        $formHandler = $this->get('btn_node.form.handler.node_content_provider')->setNodeContentProvider($provider);
+
+        if ($formHandler->handle($form, $request)) {
+            $this->setFlash('btn_admin.flash.updated');
+
+            return $this->redirect($this->generateUrl('btn_node_nodecontrol_edit', array('id' => $id)));
+        }
 
         //prepare content
         return array(
@@ -175,34 +188,5 @@ class NodeControlController extends AbstractControlController
             'providerId' => $providerId,
             'entity'     => $entity,
         );
-    }
-
-    private function processContentForm($service, &$form, $request)
-    {
-        if ($request->getMethod() == 'POST' && $request->get($form->getName())) {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                //get correct route name from service
-                $route                  = $service->resolveRoute($form->getData());
-                $routeParameters        = $service->resolveRouteParameters($form->getData());
-                $controlRoute           = $service->resolveControlRoute($form->getData());
-                $controlRouteParameters = $service->resolveControlRouteParameters($form->getData());
-
-                //set routeName to the node
-                $node = $this->getRepository('BtnNodeBundle:Node')->find($request->get('node'));
-                $node->setRoute($route);
-                $node->setRouteParameters($routeParameters);
-                $node->setControlRoute($controlRoute);
-                $node->setControlRouteParameters($controlRouteParameters);
-                $node->setProvider($service->getName());
-                $this->getManager()->persist($node);
-                $this->getManager()->flush();
-
-                return true;
-            } else {
-                return false;
-            }
-        }
     }
 }

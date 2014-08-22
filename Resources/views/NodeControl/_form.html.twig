@@ -42,13 +42,15 @@
 
             <hr/>
 
-            {% if entity.provider %}
+            {% if entity.providerId %}
                 <h4>Current content provider</h4>
-                {{ entity.provider }} &nbsp;
-                {% if entity.controlRoute and entity.controlRouteParameters %}<a href="{{ path(node.controlRoute, node.controlRouteParameters) }}">edit</a>{% endif %}
+                {{ entity.providerName|trans }} &nbsp;
+                {% if entity.controlRoute and entity.controlRouteParameters %}
+                    {{ lnk.edit(entity.controlRoute, entity.controlRouteParameters) }}
+                {% endif %}
             {% endif %}
             {% if providers is defined %}
-                <hr/>
+                <hr>
                 <h4>Select content provider</h4>
                 <table class="table">
                     <thead>

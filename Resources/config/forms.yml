@@ -1,6 +1,8 @@
 parameters:
     btn_node.form.type.node.class: Btn\NodeBundle\Form\Type\NodeType
     btn_node.form.node_control.class: Btn\NodeBundle\Form\NodeControlForm
+    btn_node.form.handler.node_content_provider.class: Btn\NodeBundle\Form\Handler\NodeContentProviderFormHandler
+    btn_node.form.node_conetnt_provider.class: Btn\NodeBundle\Form\NodeContentProviderForm
 
 services:
     # custom form type to build nested tree in select
@@ -21,3 +23,14 @@ services:
             - [setClass, [%btn_node.node.class%]]
         tags:
             - { name: form.type, alias: btn_node_form_node_control }
+
+    btn_node.form.handler.node_content_provider:
+        class: %btn_node.form.handler.node_content_provider.class%
+        arguments:
+            entityProvider: @btn_node.provider.node
+
+    btn_node.form.node_conetnt_provider:
+        class: %btn_node.form.node_conetnt_provider.class%
+        parent: btn_admin.form.abstract
+        tags:
+            - { name: form.type, alias: btn_node_form_node_content_provider }

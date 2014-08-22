@@ -1,3 +1,4 @@
+{% import 'BtnAdminBundle:Macros:link.html.twig' as lnk %}
 {% extends 'BtnNodeBundle::layout.html.twig' %}
 
 {% block sidebar %}
@@ -5,18 +6,13 @@
 {% endblock %}
 
 {% block main %}
-    <h3>{{ 'btn_node.node.select_content_for'|trans }} {{ entity.name }}</h3>
-    <form action="{{ path('btn_node_nodecontrol_assigncontent', {id: entity.id, providerId: providerId}) }}" class="form-horizontal" method="post" novalidate data-remote>
-        {{ form_errors(form) }}
-        <p>
-            {{ form_widget(form) }}
-        </p>
 
-        <div class="centered">
-            <a href="{{ path('btn_node_nodecontrol_edit', {id: entity.id}) }}" class="btn btn-small">{{ 'btn_admin.cancel'|trans }}</a>
-            <input type="submit" class="btn btn-small btn-success" value="{{ 'btn_admin.save'|trans }}"/>
-        </div>
+    {{ form(form, {fieldset: true, legend: 'btn_node.node.select_content_for'|trans({'%name%': entity.name}) }) }}
 
-        {{ form_rest(form) }}
-    </form>
+    <div class="btn-group">
+            {{ lnk.back('btn_node_nodecontrol_edit', {id: entity.id}) }}
+{#         <button class="btn btn-update btn-success">{{ 'btn_admin.update'|trans }}</button> #}
+    </div>
+
+
 {% endblock %}
