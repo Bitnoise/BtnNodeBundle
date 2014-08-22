@@ -20,6 +20,14 @@ class RouteNodeContentProvider implements NodeContentProviderInterface
     /**
      *
      */
+    public function isEnabled()
+    {
+        return true;
+    }
+
+    /**
+     *
+     */
     public function getForm()
     {
         return new RouteContentType($this->availableRoutes);

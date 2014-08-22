@@ -20,7 +20,9 @@ class NodeContentProviders
      */
     public function addProvider(NodeContentProviderInterface $provider, $id)
     {
-        $this->providers[$id] = $provider;
+        if ($provider->isEnabled()) {
+            $this->providers[$id] = $provider;
+        }
     }
 
     /**
@@ -29,5 +31,26 @@ class NodeContentProviders
     public function getProviders()
     {
         return $this->providers;
+    }
+
+    /**
+     *
+     */
+    public function has($id)
+    {
+        return isset($this->providers[$id]) ? true : false;
+    }
+
+    /**
+     *
+     */
+    public function get($id)
+    {
+        if ($this->has($id)) {
+            return $this->providers[$id];
+        }
+
+        throw new \Exception(sprintf('NodeContentProvider with id "%s" was not found', $id));
+
     }
 }

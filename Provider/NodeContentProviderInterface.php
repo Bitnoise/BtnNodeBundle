@@ -8,6 +8,8 @@ interface NodeContentProviderInterface
 
     public function getForm();
 
+    public function isEnabled();
+
     public function resolveRoute($dataForm = array());
 
     public function resolveRouteParameters($dataForm = array());
