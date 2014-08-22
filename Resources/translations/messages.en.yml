@@ -27,3 +27,5 @@ btn_node.node.ogDescription: 'OG description'
 btn_node.node.ogImage: 'OG image'
 btn_node.node.ogImage_empty_value: 'Choose image'
 btn_node.node.link: 'Direct url'
+
+btn_node.route_node_content_provider.name: 'Route provider'

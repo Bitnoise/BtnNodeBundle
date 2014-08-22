@@ -2,7 +2,7 @@ parameters:
     btn_node.content_providers.class: Btn\NodeBundle\Provider\NodeContentProviders
     btn_node.event_listener.request_subscriber.class: Btn\NodeBundle\EventListener\RequestSubscriber
     btn_node.event_listener.node_subscriber.class: Btn\NodeBundle\EventListener\NodeSubscriber
-    btn_node.provider.route_content.class: Btn\NodeBundle\Provider\RouteContentProvider
+    btn_node.provider.route_node_content.class: Btn\NodeBundle\Provider\RouteNodeContentProvider
     btn_node.routing.router.class: Btn\NodeBundle\Routing\Router
 services:
     # entity provider
@@ -48,8 +48,8 @@ services:
         class: %btn_node.content_providers.class%
 
     # internal routes content provider - user can assign content to nodes as specific route name
-    btn_node.provider.route_content:
-        class: %btn_node.provider.route_content.class%
+    btn_node.provider.route_node_content:
+        class: %btn_node.provider.route_node_content.class%
         arguments:
             availableRoutes: %btn_node.available_routes%
         tags:
