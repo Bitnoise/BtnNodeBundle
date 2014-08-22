@@ -2,7 +2,7 @@
 
 namespace Btn\NodeBundle;
 
-final class NodeEvents
+final class BtnNodeEvents
 {
     const NODE_CREATED = 'btn_node.node_created';
     const NODE_UPDATED = 'btn_node.node_updated';
