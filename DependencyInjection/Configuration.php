@@ -29,6 +29,8 @@ class Configuration implements ConfigurationInterface
                     ->cannotBeEmpty()
                     ->defaultValue(array())
                     ->prototype('scalar')->end()
+                ->end()
+
             ->end()
         ->end()
         ;
