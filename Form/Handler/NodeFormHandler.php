@@ -42,7 +42,7 @@ class NodeFormHandler implements FormHandlerInterface
             // get provider form data for resolver
             $providerData = $form->has('providerParameters') ? $form->get('providerParameters')->getData() : array();
 
-            $providerId = $entity->getProvider();
+            $providerId = $entity->getProviderId();
 
             if ($providerId) {
                 $contentProvider = $this->contentProviders->get($providerId);
