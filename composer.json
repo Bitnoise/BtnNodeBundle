@@ -6,6 +6,7 @@
     "homepage": "https://github.com/Bitnoise/BtnNodeBundle",
     "license": "MIT",
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Bitnoise Team",
@@ -17,10 +18,15 @@
         "symfony-cmf/routing-bundle": "~1.2.0",
         "bitnoise/admin-bundle": "2.0.*"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://bitnoise.github.io/packages/"
+        }
+    ],
     "autoload": {
-        "psr-0": { "Btn\\NodeBundle": "" }
+        "psr-0": { "Btn\\NodeBundle\\": "src/" }
     },
-    "target-dir": "Btn/NodeBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "2.0-dev"
