@@ -98,9 +98,9 @@ class Node implements NodeInterface
     private $controlRoute;
 
     /**
-     * @ORM\Column(name="provider", type="string", nullable=true)
+     * @ORM\Column(name="provider_id", type="string", nullable=true)
      */
-    private $provider;
+    private $providerId;
 
     /**
      * @ORM\Column(name="provider_parameters", type="array", nullable=true)
@@ -499,26 +499,26 @@ class Node implements NodeInterface
     }
 
     /**
-     * Set provider
+     * Set providerId
      *
-     * @param  string $provider
+     * @param  string $providerId
      * @return Node
      */
-    public function setProvider($provider)
+    public function setProviderId($providerId)
     {
-        $this->provider = $provider;
+        $this->providerId = $providerId;
 
         return $this;
     }
 
     /**
-     * Get provider
+     * Get providerId
      *
      * @return string
      */
-    public function getProvider()
+    public function getProviderId()
     {
-        return $this->provider;
+        return $this->providerId;
     }
 
     /**

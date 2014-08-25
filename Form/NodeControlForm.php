@@ -41,12 +41,12 @@ class NodeControlForm extends AbstractForm
             ->add('link', null, array(
                 'label' => 'btn_node.node.link',
             ))
-            ->add('provider', 'btn_node_content_provider', array(
+            ->add('providerId', 'btn_node_content_provider', array(
             ))
         ;
 
-        if ($options['data']->getProvider()) {
-            $providerParametersForm = $this->nodeContentProviders->get($options['data']->getProvider())->getForm();
+        if ($options['data']->getProviderId()) {
+            $providerParametersForm = $this->nodeContentProviders->get($options['data']->getProviderId())->getForm();
             $builder
                 ->add('providerParameters', $providerParametersForm, array(
                     'label'  => false,
