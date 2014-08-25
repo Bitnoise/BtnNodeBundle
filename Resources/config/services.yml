@@ -42,6 +42,7 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
         arguments:
             nodeClass: %btn_node.node.class%
+            eventDispatcher: @event_dispatcher
 
     # gather all content providers (services tagged as 'btn_node.content_provider')
     btn_node.content_providers:
