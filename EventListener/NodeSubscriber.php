@@ -4,12 +4,10 @@ namespace Btn\NodeBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Btn\NodeBundle\Model\NodeInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Btn\NodeBundle\NodeEvents;
-use Btn\NodeBundle\Event\NodeEvent;
 
 class NodeSubscriber implements EventSubscriber
 {
@@ -52,11 +50,9 @@ class NodeSubscriber implements EventSubscriber
                 $changeSet = $uow->getEntityChangeSet($entity);
 
                 if (isset($changeSet['providerId'])) {
-                    // dispatch event when providerd changed
-                    $this->eventDispatcher->dispatch(NodeEvents::PROVIDER_CHANGED, new NodeEvent($entity));
+                    $entity->setProviderEvent(NodeEvents::PROVIDER_CHANGED);
                 } elseif (isset($changeSet['providerParameters'])) {
-                    // dispatch event when providerd parameters changed
-                    $this->eventDispatcher->dispatch(NodeEvents::PROVIDER_MODIFIED, new NodeEvent($entity));
+                    $entity->setProviderEvent(NodeEvents::PROVIDER_MODIFIED);
                 }
 
                 if (!empty($changeSet['slug']) || !empty($changeSet['parent'])) {

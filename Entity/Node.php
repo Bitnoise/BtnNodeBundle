@@ -108,6 +108,11 @@ class Node implements NodeInterface
     private $providerParameters;
 
     /**
+     * @var string $providerEvent
+     */
+    private $providerEvent;
+
+    /**
      * @ORM\Column(name="url", type="string", nullable=true)
      */
     private $url;
@@ -543,6 +548,25 @@ class Node implements NodeInterface
     {
         return $this->providerParameters;
     }
+
+    /**
+     *
+     */
+    public function setProviderEvent($providerEvent)
+    {
+        $this->providerEvent = $providerEvent;
+
+        return $this;
+    }
+
+    /**
+     *
+     */
+    public function getProviderEvent()
+    {
+        return $this->providerEvent;
+    }
+
 
     /**
      *

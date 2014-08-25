@@ -77,7 +77,12 @@ class NodeControlController extends AbstractControlController
         if ($this->get('btn_node.form.handler.node')->handle($form, $request)) {
             $this->setFlash('btn_admin.flash.updated');
 
+            // trigger update event
             $this->get('event_dispatcher')->dispatch(NodeEvents::NODE_UPDATED, new NodeEvent($entity));
+            // trigger provider specific event
+            if ($entity->getProviderEvent()) {
+                $this->get('event_dispatcher')->dispatch($entity->getProviderEvent(), new NodeEvent($entity));
+            }
 
             return $this->redirect($this->generateUrl('btn_node_nodecontrol_edit', array('id' => $entity->getId())));
         }
