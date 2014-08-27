@@ -160,43 +160,4 @@ class NodeControlController extends AbstractControlController
             'isModal'  => true,
         );
     }
-
-    /**
-     * assignContent node content
-     *
-     * @Route("/{id}/assign-content/{providerId}", name="btn_node_nodecontrol_assigncontent", requirements={"id" = "\d+", "providerId" = "[a-zA-Z0-9\._]+"}, methods={"GET", "POST"})
-     * @Template()
-     */
-    public function assignContentAction(Request $request, $id, $providerId)
-    {
-        if (!$this->has($providerId)) {
-            throw $this->createNotFoundException(sprintf('Unable to find node content provider service with id "%s"', $providerId));
-        }
-
-        $entity   = $this->findEntityOr404($this->getEntityProvider()->getClass(), $id);
-        $entity->setProvider($providerId);
-
-        $provider = $this->get($providerId);
-
-        $form = $this->createForm('btn_node_form_node_content_provider', $entity, array(
-            'action'        => $this->generateUrl('btn_node_nodecontrol_assigncontent', array('id' => $id, 'providerId' => $providerId)),
-            'provider_form' => $provider->getForm(),
-        ));
-
-        //form processing
-        $formHandler = $this->get('btn_node.form.handler.node_content_provider')->setNodeContentProvider($provider);
-
-        if ($formHandler->handle($form, $request)) {
-            $this->setFlash('btn_admin.flash.updated');
-
-            return $this->redirect($this->generateUrl('btn_node_nodecontrol_edit', array('id' => $id)));
-        }
-
-        //prepare content
-        return array(
-            'form'       => $form->createView(),
-            'providerId' => $providerId,
-            'entity'     => $entity,
-        );
-    }
 }
