@@ -41,7 +41,7 @@ class NodeController extends AbstractController
                 );
 
                 //store as referrer
-                $this->get('session')->set('_btn_slug', $url);
+                $this->get('session')->set('_btn_node', $url);
                 $response = $this->forward($match['_controller'], array_merge($match, $context));
 
                 //something here?

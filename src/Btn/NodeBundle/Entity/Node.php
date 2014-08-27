@@ -603,7 +603,7 @@ class Node implements NodeInterface
             return array();
         } elseif ($this->getUrl()) {
             return array(
-                'uri' => $this->router ? $this->router->generate('_btn_slug', array('url' => $this->getUrl())) : $this->getUrl(),
+                'uri' => $this->router ? $this->router->generate('_btn_node', array('url' => $this->getUrl())) : $this->getUrl(),
             );
         } else {
             return array(

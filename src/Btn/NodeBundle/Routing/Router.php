@@ -42,7 +42,7 @@ class Router implements RouterInterface
         $routerPrefix = $this->container->getParameter('btn_node.router_prefix');
 
         $this->routeCollection->add(
-            '_btn_slug',
+            '_btn_node',
             new Route(
                 $routerPrefix . '{url}',
                 array(
