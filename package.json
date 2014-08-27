@@ -1,0 +1,16 @@
+{
+  "name": "bitnoise-node-bundle",
+  "version": "2.0.0-dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bitnoise/BtnNodeBundle"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-php-cs-fixer": "~0.0.5",
+    "grunt-exec": "~0.4.6",
+    "grunt-phpcs": "~0.2.0",
+    "grunt-phpmd": "~0.1.0"
+  }
+}
