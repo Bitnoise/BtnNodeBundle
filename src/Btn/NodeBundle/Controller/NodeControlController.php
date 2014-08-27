@@ -27,17 +27,18 @@ class NodeControlController extends AbstractControlController
     }
 
     /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @Route("/new", name="btn_node_nodecontrol_new", methods={"GET"})
      * @Route("/create", name="btn_node_nodecontrol_create", methods={"POST"})
      * @Template()
      */
     public function createAction(Request $request)
     {
-        $ep     = $this->getEntityProvider();
-        $entity = $ep->create();
+        $entityProvider = $this->getEntityProvider();
+        $entity         = $entityProvider->create();
 
         if ($request->query->has('parent')) {
-            $parent = $this->findEntityOr404($ep->getClass(), $request->query->getInt('parent'));
+            $parent = $this->findEntityOr404($entityProvider->getClass(), $request->query->getInt('parent'));
             $entity->setParent($parent);
         }
 
