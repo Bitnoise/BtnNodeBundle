@@ -601,7 +601,7 @@ class Node implements NodeInterface
     {
         if (!$this->getRoute()) {
             return array();
-        } elseif (($this->getUrl()) || ('' === $this->getUrl() && '' === $this->getSlug() && 1 === $this->getLvl())) {
+        } elseif ($this->getUrl() || ('' === $this->getUrl() && '' === $this->getSlug() && 1 === $this->getLvl())) {
             return array(
                 'uri' => $this->router ? $this->router->generate('_btn_node', array('url' => $this->getUrl())) : $this->getUrl(),
             );
