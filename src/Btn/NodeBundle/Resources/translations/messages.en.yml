@@ -17,6 +17,7 @@ btn_node.node.social_tab: 'Social'
 btn_node.node.select_content_for: 'Select content for %name%'
 
 btn_node.node.slug: 'Nice URL'
+btn_node.node.identifier: 'Identifier'
 btn_node.node.title: 'Menu name'
 btn_node.node.visible: 'Show in menu'
 btn_node.node.metaTitle: 'Meta title'

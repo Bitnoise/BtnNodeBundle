@@ -34,48 +34,64 @@ class NodeControlForm extends AbstractForm
             ->add('title', null, array(
                 'label' => 'btn_node.node.title',
             ))
-            ->add('slug', 'btn_slug', array(
-                'label'         => 'btn_node.node.slug',
-                'addon_prepend' => '/' . $options['data']->getFullSlug(true),
-            ))
-            ->add('link', null, array(
-                'label' => 'btn_node.node.link',
-            ))
-            ->add('providerId', 'btn_node_content_provider', array(
-            ))
         ;
 
-        if ($options['data']->getProviderId()) {
-            $providerParametersForm = $this->nodeContentProviders->get($options['data']->getProviderId())->getForm();
+        if (!$options['data']->getParent()) {
+            // fields for root node
             $builder
-                ->add('providerParameters', $providerParametersForm, array(
-                    'label'  => false,
+                ->add('slug', 'btn_slug', array(
+                    'label' => 'btn_node.node.identifier',
+                ))
+            ;
+        } else {
+            // fields for menu node
+            $builder
+                ->add('slug', 'btn_slug', array(
+                    'label'         => 'btn_node.node.slug',
+                    'addon_prepend' => '/' . $options['data']->getFullSlug(true),
+                ))
+                ->add('link', null, array(
+                    'label' => 'btn_node.node.link',
+                ))
+                ->add('providerId', 'btn_node_content_provider', array(
+                ))
+            ;
+
+            if ($options['data']->getProviderId()) {
+                $providerParametersForm = $this->nodeContentProviders->get($options['data']->getProviderId())->getForm();
+                $builder
+                    ->add('providerParameters', $providerParametersForm, array(
+                        'label'  => false,
+                    ))
+                ;
+            }
+
+            $builder
+                ->add('visible', null, array(
+                    'label' => 'btn_node.node.visible',
+                ))
+                ->add('metaTitle', null, array(
+                    'label' => 'btn_node.node.metaTitle',
+                ))
+                ->add('metaDescription', null, array(
+                    'label' => 'btn_node.node.metaDescription',
+                ))
+                ->add('metaKeywords', null, array(
+                    'label' => 'btn_node.node.metaKeywords',
+                ))
+                ->add('ogTitle', null, array(
+                    'label' => 'btn_node.node.ogTitle',
+                ))
+                ->add('ogDescription', null, array(
+                    'label' => 'btn_node.node.ogDescription',
+                ))
+                ->add('ogImage', 'btn_media', array(
+                    'label' => 'btn_node.node.ogImage',
                 ))
             ;
         }
 
         $builder
-            ->add('visible', null, array(
-                'label' => 'btn_node.node.visible',
-            ))
-            ->add('metaTitle', null, array(
-                'label' => 'btn_node.node.metaTitle',
-            ))
-            ->add('metaDescription', null, array(
-                'label' => 'btn_node.node.metaDescription',
-            ))
-            ->add('metaKeywords', null, array(
-                'label' => 'btn_node.node.metaKeywords',
-            ))
-            ->add('ogTitle', null, array(
-                'label' => 'btn_node.node.ogTitle',
-            ))
-            ->add('ogDescription', null, array(
-                'label' => 'btn_node.node.ogDescription',
-            ))
-            ->add('ogImage', 'btn_media', array(
-                'label' => 'btn_node.node.ogImage',
-            ))
             ->add('save', $options['data']->getId() ? 'btn_update' : 'btn_create', array(
                 'row' => false,
             ))

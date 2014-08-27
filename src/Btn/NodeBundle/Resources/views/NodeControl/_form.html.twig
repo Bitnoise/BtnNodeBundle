@@ -20,12 +20,14 @@
         </div>
     </div>
 
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="#general" role="tab" data-toggle="tab">{{ 'btn_node.node.content_tab'|trans }}</a></li>
-        <li><a href="#seo" role="tab" data-toggle="tab">{{ 'btn_node.node.seo_tab'|trans }}</a></li>
-        <li><a href="#social" role="tab" data-toggle="tab">{{ 'btn_node.node.social_tab'|trans }}</a></li>
-    </ul>
+    {% if entity.parent %}
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#general" role="tab" data-toggle="tab">{{ 'btn_node.node.content_tab'|trans }}</a></li>
+            <li><a href="#seo" role="tab" data-toggle="tab">{{ 'btn_node.node.seo_tab'|trans }}</a></li>
+            <li><a href="#social" role="tab" data-toggle="tab">{{ 'btn_node.node.social_tab'|trans }}</a></li>
+        </ul>
+    {% endif %}
 
     {{ form_errors(form) }}
 
@@ -34,23 +36,27 @@
         <div class="tab-pane active" id="general">
             {{ form_row(form.title) }}
             {{ form_row(form.slug) }}
-            {{ form_row(form.link) }}
-            {{ form_row(form.visible) }}
-            {{ form_row(form.providerId) }}
-            {% if form.providerParameters is defined %}
-                {{ form_row(form.providerParameters) }}
+            {% if entity.parent %}
+                {{ form_row(form.link) }}
+                {{ form_row(form.visible) }}
+                {{ form_row(form.providerId) }}
+                {% if form.providerParameters is defined %}
+                    {{ form_row(form.providerParameters) }}
+                {% endif %}
             {% endif %}
         </div>
-        <div class="tab-pane" id="seo">
-            {{ form_row(form.metaTitle) }}
-            {{ form_row(form.metaKeywords) }}
-            {{ form_row(form.metaDescription) }}
-        </div>
-        <div class="tab-pane" id="social">
-            {{ form_row(form.ogTitle) }}
-            {{ form_row(form.ogDescription) }}
-            {{ form_row(form.ogImage) }}
-        </div>
+        {% if entity.parent %}
+            <div class="tab-pane" id="seo">
+                {{ form_row(form.metaTitle) }}
+                {{ form_row(form.metaKeywords) }}
+                {{ form_row(form.metaDescription) }}
+            </div>
+            <div class="tab-pane" id="social">
+                {{ form_row(form.ogTitle) }}
+                {{ form_row(form.ogDescription) }}
+                {{ form_row(form.ogImage) }}
+            </div>
+        {% endif %}
     </div>
 
     {{ form_rest(form) }}
