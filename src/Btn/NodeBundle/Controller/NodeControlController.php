@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Btn\NodeBundle\Event\NodeEvent;
 use Btn\NodeBundle\NodeEvents;
 use Btn\AdminBundle\Annotation\EntityProvider;
+use Btn\NodeBundle\Model\NodeInterface;
 
 /**
  * @Route("/node")
@@ -34,12 +35,13 @@ class NodeControlController extends AbstractControlController
     {
         $ep     = $this->getEntityProvider();
         $entity = $ep->create();
-        $parent = null;
 
         if ($request->query->has('parent')) {
             $parent = $this->findEntityOr404($ep->getClass(), $request->query->getInt('parent'));
             $entity->setParent($parent);
         }
+
+        $this->checkPermissionsOrThrowException($entity);
 
         $form = $this->createForm('btn_node_form_node_control', $entity, array(
             'action' => $this->generateUrl('btn_node_nodecontrol_create'),
@@ -68,6 +70,9 @@ class NodeControlController extends AbstractControlController
     public function updateAction(Request $request, $id)
     {
         $entity = $this->findEntityOr404($this->getEntityProvider()->getClass(), $id);
+
+        $this->checkPermissionsOrThrowException($entity);
+
         $form   = $this->createForm('btn_node_form_node_control', $entity, array(
             'action' => $this->generateUrl('btn_node_nodecontrol_update', array('id' => $id)),
         ));
@@ -104,6 +109,8 @@ class NodeControlController extends AbstractControlController
 
         $entityProvider = $this->getEntityProvider();
         $entity         = $this->findEntityOr404($entityProvider->getClass(), $id);
+
+        $this->checkPermissionsOrThrowException($entity);
 
         $this->get('event_dispatcher')->dispatch(NodeEvents::NODE_DELETED, new NodeEvent($entity));
 
@@ -159,5 +166,15 @@ class NodeControlController extends AbstractControlController
             'expanded' => false,
             'isModal'  => true,
         );
+    }
+
+    /**
+     *
+     */
+    protected function checkPermissionsOrThrowException(NodeInterface $node)
+    {
+        if ($node->isRoot() && !$this->get('security.context')->isGranted('ROLE_NODE_ROOT_MANAGEMENT')) {
+            throw $this->createAccessDeniedException('You don\'t have permission to manage menu root elements');
+        }
     }
 }

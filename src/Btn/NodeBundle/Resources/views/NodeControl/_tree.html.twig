@@ -1,13 +1,16 @@
-<li id="{{ node.id }}"
-    class="{% if node.lvl < 1 %}jstree-open{% endif %}"
-    data-jstree='{"icon":"glyphicon glyphicon-file"{{ currentNode and (node.id in pathToCurrentNode) ? ',"opened":true'}}{{ currentNode and (node.id == currentNode.id) ? ',"selected":true' }}}'
->
-    <a href="{{ url('btn_node_nodecontrol_edit', {id: node.id}) }}" data-remote="formContainer" class="btn-admin-tree-title">{{ node.title }}</a>
-    {% if node.children|length %}
+{% set isSelected = (currentNode and (node.id == currentNode.id)) ? true : false %}
+{% set isOpened = (node.isRoot or isSelected) ? true : false %}
+<li id="{{ node.id }}" data-jstree='{"icon":"glyphicon glyphicon-file"{{ isOpened ? ',"opened":true' }}{{ isSelected ? ',"selected":true' }}}'>
+    {%- if node.isRoot and not is_granted('ROLE_NODE_ROOT_MANAGEMENT') %}
+        {{ node.title }}
+    {% else %}
+        <a href="{{ url('btn_node_nodecontrol_edit', {id: node.id}) }}" data-remote="formContainer" class="btn-admin-tree-title">{{ node.title }}</a>
+    {% endif -%}
+    {%- if node.children|length -%}
         <ul>
             {% for node in node.children %}
                 {% include 'BtnNodeBundle:NodeControl:_tree.html.twig' %}
             {% endfor %}
         </ul>
-    {% endif %}
+    {%- endif -%}
 </li>

@@ -343,6 +343,16 @@ class Node implements NodeInterface
     }
 
     /**
+     * Is root
+     *
+     * @return bool
+     */
+    public function isRoot()
+    {
+        return !$this->getParent() ? true : false;
+    }
+
+    /**
      * Set route
      *
      * @param  string $route
