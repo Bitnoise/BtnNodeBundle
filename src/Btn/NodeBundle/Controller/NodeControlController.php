@@ -56,8 +56,7 @@ class NodeControlController extends AbstractControlController
         //prepare content
         return array(
             'form'   => $form->createView(),
-            'entity'   => $entity,
-            'parent' => $parent,
+            'entity' => $entity,
         );
     }
 
@@ -87,14 +86,10 @@ class NodeControlController extends AbstractControlController
             return $this->redirect($this->generateUrl('btn_node_nodecontrol_edit', array('id' => $entity->getId())));
         }
 
-        // get content providers
-        $providers = $this->get('btn_node.content_providers')->getProviders();
-
         //prepare content
         return array(
-            'form'      => $form->createView(),
-            'entity'    => $entity,
-            'providers' => $providers,
+            'form'   => $form->createView(),
+            'entity' => $entity,
         );
     }
 
