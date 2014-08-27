@@ -78,9 +78,8 @@ class Router implements RouterInterface
 
         $result = $urlMatcher->match($pathinfo);
         if (!empty($result)) {
-            $em = $this->container->get('doctrine.orm.entity_manager');
-            $nodeRepo = $em->getRepository('BtnNodeBundle:Node');
-            $node = $nodeRepo->getNodeForUrl($result['url']);
+            $nodeRepo       = $this->container->get('btn_node.provider.node')->getRepository();
+            $node           = $nodeRepo->getNodeForUrl($result['url']);
             $result['node'] = $node;
 
             if (is_null($node)) {
