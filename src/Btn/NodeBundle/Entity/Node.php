@@ -577,7 +577,6 @@ class Node implements NodeInterface
         return $this->providerEvent;
     }
 
-
     /**
      *
      */
