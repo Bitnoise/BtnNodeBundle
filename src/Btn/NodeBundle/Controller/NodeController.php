@@ -4,7 +4,7 @@ namespace Btn\NodeBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Btn\BaseBundle\Controller\AbstractController;
-use Btn\NodeBundle\Entity\Node;
+use Btn\NodeBundle\Model\NodeInterface;
 
 /**
  * Nodes resolver.
@@ -15,7 +15,7 @@ class NodeController extends AbstractController
     /**
      * Resolve slug router
      */
-    public function resolveAction($url = null, Node $node = null)
+    public function resolveAction($url = null, NodeInterface $node = null)
     {
         $provider = $this->get('btn_node.provider.node');
 
