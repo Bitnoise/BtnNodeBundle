@@ -83,9 +83,9 @@ class Router implements RouterInterface
             $result['node'] = $node;
 
             if (is_null($node)) {
-                throw new ResourceNotFoundException(sprintf('No page found for slug %s', $pathinfo));
+                throw new ResourceNotFoundException(sprintf('No node found for url "%s"', $pathinfo));
             } elseif (!$node->getRoute() && !$node->getLink()) {
-                throw new ResourceNotFoundException(sprintf('Empty route and link for slug %s', $pathinfo));
+                throw new ResourceNotFoundException(sprintf('Empty route and link for url "%s"', $pathinfo));
             }
         }
 

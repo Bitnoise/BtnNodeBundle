@@ -50,6 +50,6 @@ class NodeController extends AbstractController
         }
 
         //nothing matched
-        throw $this->createNotFoundException(sprintf('No page found for slug "%s"', $url));
+        throw $this->createNotFoundException(sprintf('No node found for url "%s"', $url));
     }
 }
