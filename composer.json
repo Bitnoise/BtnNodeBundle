@@ -25,6 +25,9 @@
         "sebastian/phpcpd": "~2.0.0",
         "asm89/twig-lint": "~1.0.1"
     },
+    "config": {
+        "preferred-install": "source"
+    },
     "repositories": [
         {
             "type": "composer",
