@@ -1,5 +1,6 @@
 language: php
 php:
+    - 5.6
     - 5.5
     - 5.4
     - 5.3
@@ -10,3 +11,8 @@ install:
     - npm install
 
 script: grunt test
+
+notifications:
+    hipchat:
+        rooms:
+            secure: Ocyt4buCiBt6/mngFXXgxWejl0ZFOS0PLmlrI/nHQL6fjvJ50LbYZ67x8Q5n+zrvCaSx07C+krV9ZjRKDCZNgh5KTg5rkAOuHMyszEoX5rknlHVJtcOCfZ5lLdpBa05ku1XBITF83qFxAiAGxO/OlyYud9JKX4GkludsTlSzvpA=
