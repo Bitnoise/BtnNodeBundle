@@ -12,7 +12,7 @@ class RouteNodeContentProvider implements NodeContentProviderInterface
     /**
      *
      */
-    public function __construct($availableRoutes)
+    public function __construct(array $availableRoutes)
     {
         $this->availableRoutes = $availableRoutes;
     }
@@ -22,7 +22,7 @@ class RouteNodeContentProvider implements NodeContentProviderInterface
      */
     public function isEnabled()
     {
-        return true;
+        return !empty($this->availableRoutes) ? true : false;
     }
 
     /**
