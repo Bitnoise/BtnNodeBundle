@@ -24,10 +24,11 @@ class NodeRepository extends NestedTreeRepository
         ;
 
         if (empty($url)) {
-            $qb->andWhere('n.url = :url OR n.url IS NULL');
+            $qb->andWhere('n.url = :url AND n.url IS NOT NULL');
         } else {
             $qb->andWhere('n.url = :url');
         }
+
         $qb->andWhere('n.lvl > 0');
         $qb->setParameter('url', $url);
 
