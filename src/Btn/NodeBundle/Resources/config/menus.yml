@@ -22,7 +22,7 @@ services:
         arguments:
           - @knp_menu.factory
           - @btn_node.menu.loader.node_menu
-          - @doctrine.orm.entity_manager
+          - @btn_node.provider.node
         tags:
           - { name: knp_menu.provider }
 
