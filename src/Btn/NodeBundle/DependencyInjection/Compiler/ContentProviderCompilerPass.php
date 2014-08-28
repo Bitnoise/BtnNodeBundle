@@ -18,6 +18,7 @@ class ContentProviderCompilerPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds('btn_node.content_provider') as $id => $tags) {
             $definition->addMethodCall('addProvider', array(new Reference($id), $id));
+            unset($tags);
         }
     }
 }

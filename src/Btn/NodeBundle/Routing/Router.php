@@ -44,7 +44,7 @@ class Router implements RouterInterface
         $this->routeCollection->add(
             '_btn_node',
             new Route(
-                $routerPrefix . '{url}',
+                $routerPrefix.'{url}',
                 array(
                     '_controller'   => 'BtnNodeBundle:Node:resolve',
                     'url'           => '',

@@ -5,25 +5,27 @@ namespace Btn\NodeBundle\Menu\Provider;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
 use Knp\Menu\Loader\LoaderInterface;
+use Btn\BaseBundle\Provider\EntityProviderInterface;
 
 class NodeMenuProvider implements MenuProviderInterface
 {
-    /**
-     * @var FactoryInterface
-     */
+    /** @var \Knp\Menu\FactoryInterface $factory */
     protected $factory = null;
+    /** @var \Knp\Menu\Loader\LoaderInterface */
     protected $loader = null;
-    protected $em = null;
+    /** @var \Btn\BaseBundle\Provider\EntityProviderInterface $ep */
+    protected $ep = null;
+    /** @var array $nodeArrayCache */
     protected $nodeArrayCache = array();
 
     /**
      * @param FactoryInterface $factory the menu factory used to create the menu item
      */
-    public function __construct(FactoryInterface $factory, LoaderInterface $loader, $em)
+    public function __construct(FactoryInterface $factory, LoaderInterface $loader, EntityProviderInterface $ep)
     {
         $this->factory = $factory;
         $this->loader  = $loader;
-        $this->em      = $em;
+        $this->ep      = $ep;
     }
 
     /**
@@ -38,13 +40,13 @@ class NodeMenuProvider implements MenuProviderInterface
     {
         $menu = $this->getNodeForSlugWithCache($name);
 
-        if ($menu === null) {
+        if (null === $menu) {
             throw new \InvalidArgumentException(sprintf('The menu "%s" is not defined.', $name));
         }
 
         // if it's root element of menu then get full nodes list by root
         if ($menu->getId() === $menu->getRoot()) {
-            $nodes = $this->em->getRepository('BtnNodeBundle:Node')->getNodesForRoot($menu->getRoot());
+            $nodes = $this->ep->getRepository()->getNodesForRoot($menu->getRoot());
             $nodes[0] = $menu;
             //clear children object to prevent unnecessary requests
             foreach ($nodes as $node) {
@@ -91,7 +93,7 @@ class NodeMenuProvider implements MenuProviderInterface
     protected function getNodeForSlugWithCache($name)
     {
         if (!array_key_exists($name, $this->nodeArrayCache)) {
-            $this->nodeArrayCache[$name] = $this->em->getRepository('BtnNodeBundle:Node')->getNodeForSlug($name);
+            $this->nodeArrayCache[$name] = $this->ep->getRepository()->getNodeForSlug($name);
         }
 
         return $this->nodeArrayCache[$name];

@@ -19,6 +19,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  * )
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="Btn\NodeBundle\Repository\NodeRepository")
+ *
+ * @todo Do something with this Complexity
+ * @SuppressWartoodnings(PHPMD.ExcessivePublicCount)
+ * @SuppressWarnings(PHPMD.TooManyFields)
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Node implements NodeInterface
 {
@@ -431,12 +436,12 @@ class Node implements NodeInterface
         if (null !== $parentNode) {
             $parentSlug = $parentNode->getFullSlug();
             if (!empty($parentSlug)) {
-                $slug = rtrim($parentSlug, '/') . '/';
+                $slug = rtrim($parentSlug, '/').'/';
             }
         }
 
         if (!$withoutThisNode) {
-            $slug = $this->getLvl() !== 0 ? $slug . $this->getSlug() : '';
+            $slug = $this->getLvl() !== 0 ? $slug.$this->getSlug() : '';
         }
 
         return $slug;
@@ -472,8 +477,8 @@ class Node implements NodeInterface
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-     public function updateUrl()
-     {
+    public function updateUrl()
+    {
         $result = false;
 
         //don't update url for root nodes
@@ -488,7 +493,7 @@ class Node implements NodeInterface
         }
 
         return $result;
-     }
+    }
 
     /**
      * Set controlRoute
@@ -596,13 +601,21 @@ class Node implements NodeInterface
     /**
      *
      */
+    public function generateUrl()
+    {
+        return $this->router ? $this->router->generate('_btn_node', array('url' => $this->getUrl())) : $this->getUrl();
+    }
+
+    /**
+     *
+     */
     public function getOptions()
     {
         if (!$this->getRoute()) {
             return array();
         } elseif ($this->getUrl() || ('' === $this->getUrl() && '' === $this->getSlug() && 1 === $this->getLvl())) {
             return array(
-                'uri' => $this->router ? $this->router->generate('_btn_node', array('url' => $this->getUrl())) : $this->getUrl(),
+                'uri' => $this->generateUrl(),
             );
         } else {
             return array(
@@ -788,8 +801,6 @@ class Node implements NodeInterface
 
     /**
      * Get visible
-     *
-     * @return boolean
      */
     public function getVisible()
     {

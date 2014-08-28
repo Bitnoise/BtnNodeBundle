@@ -27,7 +27,6 @@ class NodeControlController extends AbstractControlController
     }
 
     /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @Route("/new", name="btn_node_nodecontrol_new", methods={"GET"})
      * @Route("/create", name="btn_node_nodecontrol_create", methods={"POST"})
      * @Template()
@@ -45,7 +44,10 @@ class NodeControlController extends AbstractControlController
         $this->checkPermissionsOrThrowException($entity);
 
         $form = $this->createForm('btn_node_form_node_control', $entity, array(
-            'action' => $this->generateUrl('btn_node_nodecontrol_create', array('parent' => $request->query->get('parent'))),
+            'action' => $this->generateUrl(
+                'btn_node_nodecontrol_create',
+                array('parent' => $request->query->get('parent'))
+            ),
         ));
 
         if ($this->get('btn_node.form.handler.node')->handle($form, $request)) {
@@ -102,7 +104,9 @@ class NodeControlController extends AbstractControlController
     /**
      * Delete route
      *
-     * @Route("/{id}/delete/{csrf_token}", name="btn_node_nodecontrol_delete", requirements={"id" = "\d+"}, methods={"GET"})
+     * @Route("/{id}/delete/{csrf_token}", name="btn_node_nodecontrol_delete",
+     *     requirements={"id" = "\d+"}, methods={"GET"}
+     * )
      */
     public function deleteAction(Request $request, $id, $csrf_token)
     {

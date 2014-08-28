@@ -32,8 +32,10 @@ class NodeController extends AbstractController
             $match = $this->get('router')->match($uri);
 
             //prevent recursive loop here
-            if (isset($match['_controller']) && $match['_controller'] !== 'Btn\NodeBundle\Controller\NodeController::resolveAction') {
-
+            if (
+                isset($match['_controller']) &&
+                'Btn\NodeBundle\Controller\NodeController::resolveAction' !== $match['_controller']
+            ) {
                 //some additional controller attributes
                 $context = array(
                     'url'  => $url,

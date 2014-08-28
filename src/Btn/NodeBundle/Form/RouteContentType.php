@@ -7,14 +7,20 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class RouteContentType extends AbstractType
 {
-
+    /** @var array $data */
     private $data;
 
+    /**
+     *
+     */
     public function __construct($data = array())
     {
         $this->data = $data;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -22,6 +28,9 @@ class RouteContentType extends AbstractType
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'btn_node_routecontent';

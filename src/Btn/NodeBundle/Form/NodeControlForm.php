@@ -4,7 +4,6 @@ namespace Btn\NodeBundle\Form;
 
 use Btn\AdminBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Btn\NodeBundle\Provider\NodeContentProviders;
 
 class NodeControlForm extends AbstractForm
@@ -48,7 +47,7 @@ class NodeControlForm extends AbstractForm
             $builder
                 ->add('slug', 'btn_slug', array(
                     'label'         => 'btn_node.node.slug',
-                    'addon_prepend' => '/' . $options['data']->getFullSlug(true),
+                    'addon_prepend' => '/'.$options['data']->getFullSlug(true),
                 ))
                 ->add('link', null, array(
                     'label' => 'btn_node.node.link',
@@ -57,10 +56,9 @@ class NodeControlForm extends AbstractForm
                 ))
             ;
 
-            if ($options['data']->getProviderId()) {
-                $providerParametersForm = $this->nodeContentProviders->get($options['data']->getProviderId())->getForm();
+            if (($providerId = $options['data']->getProviderId())) {
                 $builder
-                    ->add('providerParameters', $providerParametersForm, array(
+                    ->add('providerParameters', $this->nodeContentProviders->get($providerId)->getForm(), array(
                         'label'  => false,
                     ))
                 ;
@@ -101,23 +99,6 @@ class NodeControlForm extends AbstractForm
     /**
      * {@inheritdoc}
      */
-    // public function setDefaultOptions(OptionsResolverInterface $resolver)
-    // {
-    //     parent::setDefaultOptions($resolver);
-
-    //     $resolver->setOptional(array(
-    //         'provider_form',
-    //     ));
-
-    //     $resolver->setDefaults(array(
-    //         'provider_form' => null,
-    //     ));
-
-    //     $resolver->setAllowedTypes(array(
-    //         'provider_form' => array('null', 'string', 'Symfony\\Component\\Form\\AbstractType'),
-    //     ));
-    // }
-
     public function getName()
     {
         return 'btn_node_form_node_control';
