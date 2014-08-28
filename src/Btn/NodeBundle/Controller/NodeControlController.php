@@ -37,7 +37,7 @@ class NodeControlController extends AbstractControlController
         $entityProvider = $this->getEntityProvider();
         $entity         = $entityProvider->create();
 
-        if ($request->query->has('parent')) {
+        if ($request->query->has('parent') && $request->query->get('parent')) {
             $parent = $this->findEntityOr404($entityProvider->getClass(), $request->query->getInt('parent'));
             $entity->setParent($parent);
         }
@@ -45,7 +45,7 @@ class NodeControlController extends AbstractControlController
         $this->checkPermissionsOrThrowException($entity);
 
         $form = $this->createForm('btn_node_form_node_control', $entity, array(
-            'action' => $this->generateUrl('btn_node_nodecontrol_create'),
+            'action' => $this->generateUrl('btn_node_nodecontrol_create', array('parent' => $request->query->get('parent'))),
         ));
 
         if ($this->get('btn_node.form.handler.node')->handle($form, $request)) {
