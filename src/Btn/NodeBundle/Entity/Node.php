@@ -21,7 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="Btn\NodeBundle\Repository\NodeRepository")
  *
  * @todo Do something with this Complexity
- * @SuppressWartoodnings(PHPMD.ExcessivePublicCount)
+ * @SuppressWarnings(PHPMD.ExcessivePublicCount)
  * @SuppressWarnings(PHPMD.TooManyFields)
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
