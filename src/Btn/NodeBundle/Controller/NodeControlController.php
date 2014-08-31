@@ -129,7 +129,6 @@ class NodeControlController extends AbstractControlController
     /**
      * Lists all Nodes.
      *
-     * @Route("/tree", name="btn_node_nodecontrol_tree")
      * @Template()
      */
     public function treeAction(Request $request)
