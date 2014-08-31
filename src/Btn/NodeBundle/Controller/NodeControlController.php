@@ -146,8 +146,6 @@ class NodeControlController extends AbstractControlController
             }
         }
 
-        $this->get('btn_base.asset_loader')->load('btn_admin_jstree');
-
         return array(
             'topNodes'          => $topNodes,
             'currentNode'       => $node,
