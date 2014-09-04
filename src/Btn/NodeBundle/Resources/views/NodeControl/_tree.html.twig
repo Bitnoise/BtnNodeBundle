@@ -1,6 +1,6 @@
 {% set isSelected = (currentNode and (node.id == currentNode.id)) ? true : false %}
 {% set isOpened = (node.isRoot or isSelected) ? true : false %}
-<li id="{{ node.id }}" data-jstree='{"icon":"glyphicon glyphicon-file"{{ isOpened ? ',"opened":true' }}{{ isSelected ? ',"selected":true' }}}'>
+<li id="{{ node.id }}" data-jstree='{"icon":"glyphicon glyphicon-file"{{ isOpened ? ', "opened":true' }}{{ isSelected ? ', "selected":true' }}, "draggable":{{ node.isRoot ? 'false' : 'true' }}}'>
     {%- if node.isRoot and not is_granted('ROLE_NODE_ROOT_MANAGEMENT') %}
         {{ node.title }}
     {% else %}
