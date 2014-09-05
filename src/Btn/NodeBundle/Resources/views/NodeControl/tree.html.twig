@@ -1,4 +1,4 @@
-<div id="btn-node-tree" class="top-offset" btn-jstree btn-jstree-change="reload">
+<div id="btn-node-tree" class="top-offset" btn-jstree btn-jstree-change="reload" btn-sort-tree="{{ path('btn_node_nodecontrol_tree_sort') }}">
     <ul>
         {% for node in topNodes %}
             {% include 'BtnNodeBundle:NodeControl:_tree.html.twig' %}
@@ -7,13 +7,6 @@
 </div>
 
 {% if is_granted('ROLE_NODE_ROOT_MANAGEMENT') %}
-    <div class="top-offset">
-        <a href="#" class="btn btn-success btn-sm"
-            btn-jstree-startdnd="true"
-            btn-start-txt="{{ 'btn_node.start_sort'|trans }}"
-            btn-stop-txt="{{ 'btn_node.stop_sort'|trans }}"
-            >{{ 'btn_node.start_sort'|trans }}</a>
-    </div>
     <div class="top-offset">
         <a href="{{ url('btn_node_nodecontrol_new') }}" class="btn btn-primary btn-sm">{% trans %}btn_node.create_new_menu{% endtrans %}</a>
     </div>

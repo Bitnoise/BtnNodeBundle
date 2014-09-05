@@ -70,4 +70,20 @@ class NodeRepository extends NestedTreeRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param Node $node
+     * @param Node $newParent
+     *
+     * @return void
+     */
+    public function setNewParent($node, $newParent)
+    {
+        $meta = $this->getClassMetadata();
+
+        $this->listener
+            ->getStrategy($this->_em, $meta->name)
+            ->updateNode($this->_em, $node, $newParent)
+        ;
+    }
 }
