@@ -23,7 +23,18 @@ class NodeControlController extends AbstractControlController
      */
     public function indexAction()
     {
-        return array();
+        $repo       = $this->getEntityProvider()->getRepository();
+        $rootNodes  = $repo->getRootNodes();
+        $nodesArray = [];
+
+        foreach ($rootNodes as $key => $value) {
+            $nodesArray[$key] = $repo->getNodesForRoot($value);
+        }
+
+        return array(
+            'rootNodes' => $rootNodes,
+            'nodes'     => $nodesArray,
+        );
     }
 
     /**
