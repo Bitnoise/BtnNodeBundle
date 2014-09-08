@@ -165,6 +165,45 @@ class NodeControlController extends AbstractControlController
     }
 
     /**
+     * Sort all children nodes of parent
+     *
+     * @Route("/tree/sort", name="btn_node_nodecontrol_tree_sort", methods={"POST"})
+     */
+    public function sortTreeAction(Request $request)
+    {
+        $entityProvider = $this->getEntityProvider();
+        if (($data = $request->get('data'))) {
+            // $nodes = $repo->getNodesForRoot();
+            $repo = $entityProvider->getRepository();
+            $node = $repo->findOneById($data['id']);
+            $result = null;
+            if ($data['newParent'] === $data['oldParent']) {
+                $method = '';
+                if ($data['oldPosition'] > $data['newPosition']) {
+                    $result = $repo->moveUp($node, $data['oldPosition'] - $data['newPosition']);
+                } elseif ($data['oldPosition'] < $data['newPosition']) {
+                    $result = $repo->moveDown($node, $data['newPosition'] - $data['oldPosition']);
+                }
+            } else {
+                //set as first child of new parent
+                $newParent = $repo->findOneById($data['newParent']);
+                $repo->setNewParent($node, $newParent);
+                //set new parent and save
+                $node->setParent($newParent);
+                $entityProvider->save($node);
+                //move it down to expected position
+                if ($data['newPosition'] > 1) {
+                    $result = $repo->moveDown($node, $data['newPosition'] - 1);
+                }
+            }
+        }
+
+        return $this->json(array(
+            'result' => $result
+            ));
+    }
+
+    /**
      * List all nodes for modal picker
      *
      * @Route("/list-modal", name="btn_node_nodecontrol_listmodal")
