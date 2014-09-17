@@ -178,7 +178,6 @@ class NodeControlController extends AbstractControlController
             $node = $repo->findOneById($data['id']);
             $result = null;
             if ($data['newParent'] === $data['oldParent']) {
-                $method = '';
                 if ($data['oldPosition'] > $data['newPosition']) {
                     $result = $repo->moveUp($node, $data['oldPosition'] - $data['newPosition']);
                 } elseif ($data['oldPosition'] < $data['newPosition']) {
