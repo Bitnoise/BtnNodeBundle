@@ -22,7 +22,9 @@
                         {{ node.title }}
                         </td>
                         <td class="btn-admin-column-action">
-                            <a href="{{ url('btn_node_nodecontrol_edit', {id: node.id}) }}" class="btn btn-primary btn-edit">Edit</a>
+                            {% if node.isRoot and is_granted('ROLE_NODE_ROOT_MANAGEMENT') or not node.isRoot %}
+                                <a href="{{ url('btn_node_nodecontrol_edit', {id: node.id}) }}" class="btn btn-primary btn-edit">Edit</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
