@@ -33,7 +33,7 @@ class NodeMenuVoter implements VoterInterface
      */
     public function matchItem(ItemInterface $item)
     {
-        if (ltrim($item->getUri(), '/') === ltrim($this->container->get('request')->getPathInfo(), '/')) {
+        if (ltrim($item->getUri(), '/') === ltrim($this->container->get('request')->getRequestUri(), '/')) {
             return true;
         }
 
