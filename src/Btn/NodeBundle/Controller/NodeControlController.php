@@ -87,7 +87,7 @@ class NodeControlController extends AbstractControlController
 
         $this->checkPermissionsOrThrowException($entity);
 
-        $form   = $this->createForm('btn_node_form_node_control', $entity, array(
+        $form = $this->createForm('btn_node_form_node_control', $entity, array(
             'action' => $this->generateUrl('btn_node_nodecontrol_update', array('id' => $id)),
         ));
 
