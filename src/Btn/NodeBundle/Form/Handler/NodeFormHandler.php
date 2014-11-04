@@ -58,11 +58,18 @@ class NodeFormHandler implements FormHandlerInterface
                 $entity->setRouteParameters($routeParameters);
                 $entity->setControlRoute($controlRoute);
                 $entity->setControlRouteParameters($controlRouteParameters);
+            } else {
+                $entity->setRoute(null);
+                $entity->setRouteParameters(array());
+                $entity->setControlRoute(null);
+                $entity->setControlRouteParameters(array());
             }
 
-            $this->entityProvider->save($entity);
+            if ($form->get('save')->isClicked()) {
+                $this->entityProvider->save($entity);
 
-            return true;
+                return true;
+            }
         }
     }
 }

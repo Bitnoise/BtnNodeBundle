@@ -1,4 +1,4 @@
-{% extends 'BtnNodeBundle::layout.html.twig' %}
+{% extends app.request.isXmlHttpRequest ? 'BtnNodeBundle::layout-ajax.html.twig' : 'BtnNodeBundle::layout.html.twig' %}
 
 {% block main %}
     {% include 'BtnNodeBundle:NodeControl:_form.html.twig' %}

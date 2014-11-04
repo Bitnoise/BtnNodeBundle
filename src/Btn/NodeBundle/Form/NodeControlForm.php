@@ -5,6 +5,7 @@ namespace Btn\NodeBundle\Form;
 use Btn\AdminBundle\Form\AbstractForm;
 use Symfony\Component\Form\FormBuilderInterface;
 use Btn\NodeBundle\Provider\NodeContentProviders;
+use Btn\NodeBundle\Form\EventListener\ProviderParametersSubscriber;
 
 class NodeControlForm extends AbstractForm
 {
@@ -53,16 +54,12 @@ class NodeControlForm extends AbstractForm
                     'label' => 'btn_node.node.link',
                 ))
                 ->add('providerId', 'btn_node_content_provider', array(
+                    'ajax-reload' => true,
                 ))
+                ->add('providerParameters', 'hidden')
             ;
 
-            if (($providerId = $options['data']->getProviderId())) {
-                $builder
-                    ->add('providerParameters', $this->nodeContentProviders->get($providerId)->getForm(), array(
-                        'label'  => false,
-                    ))
-                ;
-            }
+            $builder->addEventSubscriber(new ProviderParametersSubscriber($this->nodeContentProviders));
 
             $builder
                 ->add('visible', null, array(
