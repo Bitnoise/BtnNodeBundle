@@ -24,7 +24,10 @@ class RouteContentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('route', 'choice', array('choices' => $this->data))
+            ->add('route', 'choice', array(
+                'empty_value' => 'btn_node.route_node_content_provider.empty_value',
+                'choices'     => $this->data,
+            ))
         ;
     }
 
