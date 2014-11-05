@@ -1,0 +1,18 @@
+{% use 'BtnAdminBundle:Form:layout.html.twig' with choice_widget_collapsed as base_choice_widget_collapsed %}
+
+{% block choice_widget_collapsed %}
+    {% set node = form.parent.parent.vars.data %}
+    <div class="input-group">
+        {{ block('base_choice_widget_collapsed') }}
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                {% if node.controlRoute %}
+                    {% if value and node.controlRouteParameters %}
+                        <li><a href="{{ path(node.controlRoute, node.controlRouteParameters) }}">Edit content</a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
