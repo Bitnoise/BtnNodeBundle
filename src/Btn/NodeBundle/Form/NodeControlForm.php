@@ -54,7 +54,7 @@ class NodeControlForm extends AbstractForm
                     'label' => 'btn_node.node.link',
                 ))
                 ->add('providerId', 'btn_node_content_provider', array(
-                    'ajax-reload' => true,
+                    'ajax_reload' => true,
                 ))
                 ->add('providerParameters', 'hidden')
             ;
