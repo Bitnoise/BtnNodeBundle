@@ -5,6 +5,7 @@ namespace Btn\NodeBundle\Form\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Btn\NodeBundle\Provider\NodeContentProviders;
 
 class ProviderParametersSubscriber implements EventSubscriberInterface
@@ -65,16 +66,18 @@ class ProviderParametersSubscriber implements EventSubscriberInterface
     /**
      *
      */
-    protected function addProviderParametersForm($form, $providerId, array $options = array())
+    protected function addProviderParametersForm(FormInterface $form, $providerId, array $options = array())
     {
         if (!isset($options['label'])) {
             $options['label'] = false;
         }
 
+        // hacky way to disable error messages when changing providers
         if (!isset($options['extra_fields_message'])) {
             $options['extra_fields_message'] = false;
         }
 
+        // hacky way to disable error messages when changing providers
         if (!isset($options['invalid_message'])) {
             $options['invalid_message'] = false;
         }
