@@ -28,6 +28,7 @@ class NodeExtension extends \Twig_Extension
             'btn_node_prev_siblings' => new \Twig_Function_Method($this, 'getPrevSiblings'),
             'btn_node_next_sibling' => new \Twig_Function_Method($this, 'getNextSibling'),
             'btn_node_prev_sibling' => new \Twig_Function_Method($this, 'getPrevSibling'),
+            'btn_node_root' => new \Twig_Function_Method($this, 'getRoot'),
         );
     }
 
@@ -71,6 +72,17 @@ class NodeExtension extends \Twig_Extension
         $prevSiblings = $this->getPrevSiblings($node, false);
 
         return !empty($prevSiblings) ? $prevSiblings[count($prevSiblings) - 1] : false;
+    }
+
+    /**
+     *
+     */
+    public function getRoot(NodeInterface $node)
+    {
+        $repo = $this->nodeProvider->getRepository();
+        $root = $repo->find($node->getRoot());
+
+        return $root;
     }
 
     /**
