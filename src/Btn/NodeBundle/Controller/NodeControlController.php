@@ -198,7 +198,7 @@ class NodeControlController extends AbstractControlController
         }
 
         return $this->json(array(
-            'result' => $result
+            'result' => $result,
             ));
     }
 

@@ -148,7 +148,7 @@ class Node implements NodeInterface
     private $ogDescription;
 
     /**
-    * @ORM\Column(name="og_image", type="string", nullable=true)
+     * @ORM\Column(name="og_image", type="string", nullable=true)
      */
     private $ogImage;
 
@@ -620,7 +620,7 @@ class Node implements NodeInterface
         } else {
             return array(
                 'route'           => $this->getRoute(),
-                'routeParameters' => is_array($this->getRouteParameters()) ? $this->getRouteParameters() : array()
+                'routeParameters' => is_array($this->getRouteParameters()) ? $this->getRouteParameters() : array(),
             );
         }
     }

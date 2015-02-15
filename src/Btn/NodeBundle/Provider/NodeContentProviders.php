@@ -51,6 +51,5 @@ class NodeContentProviders
         }
 
         throw new \Exception(sprintf('NodeContentProvider with id "%s" was not found', $id));
-
     }
 }

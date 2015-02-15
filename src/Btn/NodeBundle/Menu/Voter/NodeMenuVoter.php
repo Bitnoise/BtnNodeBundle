@@ -37,6 +37,6 @@ class NodeMenuVoter implements VoterInterface
             return true;
         }
 
-        return null;
+        return;
     }
 }

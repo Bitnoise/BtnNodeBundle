@@ -54,7 +54,7 @@ class RouteNodeContentProvider implements NodeContentProviderInterface
      */
     public function resolveControlRoute($formData = array())
     {
-        return null;
+        return;
     }
 
     /**

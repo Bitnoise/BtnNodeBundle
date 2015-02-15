@@ -20,7 +20,7 @@ class NodeRepository extends NestedTreeRepository
         $qb = $this->createQueryBuilder('n')
             ->select('n')
             ->setFirstResult(0)
-            ->setMaxResults(1);
+            ->setMaxResults(1)
         ;
 
         if (empty($url)) {
@@ -45,7 +45,7 @@ class NodeRepository extends NestedTreeRepository
         $qb = $this->createQueryBuilder('n')
             ->select('n')
             ->setFirstResult(0)
-            ->setMaxResults(1);
+            ->setMaxResults(1)
         ;
 
         $qb->andWhere('n.slug = :slug');
