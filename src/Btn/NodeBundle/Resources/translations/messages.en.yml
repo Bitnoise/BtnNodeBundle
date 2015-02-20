@@ -34,3 +34,6 @@ btn_node.route_node_content_provider.empty_value: 'Select route'
 
 btn_node.form.type.node_content_provider.label: 'Provider'
 btn_node.form.type.node_content_provider.empty_value: 'Select provider'
+
+btn_node.type.node.label: 'Node'
+btn_node.type.node.empty_value: 'Select node'
