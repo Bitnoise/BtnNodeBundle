@@ -4,6 +4,8 @@ namespace Btn\NodeBundle\Form\Type;
 
 use Btn\AdminBundle\Form\Type\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 use Doctrine\ORM\EntityRepository;
 
 class NodeType extends AbstractType
@@ -37,6 +39,16 @@ class NodeType extends AbstractType
             'required' => true,
             'expanded' => false,
         ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        parent::buildView($view, $form, $options);
+
+        $view->vars['attr']['btn-select2-tree'] = null;
     }
 
     /**
