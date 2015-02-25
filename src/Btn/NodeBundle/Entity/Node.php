@@ -846,8 +846,20 @@ class Node implements NodeInterface
     /**
      *
      */
+    public function getTitleLvlPrefixed()
+    {
+        if ($this->lvl > 1) {
+            return str_repeat('_', $this->lvl).'|_'.$this->title;
+        }
+
+        return $this->title;
+    }
+
+    /**
+     *
+     */
     public function __toString()
     {
-        return str_pad($this->title, strlen($this->title) + $this->lvl, "_", STR_PAD_LEFT);
+        return $this->getTitle();
     }
 }
