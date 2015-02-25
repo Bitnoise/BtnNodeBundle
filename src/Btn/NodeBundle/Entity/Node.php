@@ -15,8 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="btn_node", indexes={
  *     @ORM\Index(name="idx_slug", columns={"slug"}),
  *     @ORM\Index(name="idx_url", columns={"url"}),
- *     @ORM\Index(name="idx_root", columns={"root"})},
- * )
+ * })
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="Btn\NodeBundle\Repository\NodeRepository")
  *
@@ -68,6 +67,12 @@ class Node implements NodeInterface
      * @ORM\Column(name="root", type="integer", nullable=true)
      */
     private $root;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Node")
+     * @ORM\JoinColumn(name="root", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $rootEntity;
 
     /**
      * @Gedmo\TreeParent()
@@ -368,6 +373,14 @@ class Node implements NodeInterface
         $this->route = $route;
 
         return $this;
+    }
+
+    /**
+     * @return Node
+     */
+    public function getRootEntity()
+    {
+        return $this->rootEntity;
     }
 
     /**
