@@ -2,17 +2,21 @@
 
 {% block choice_widget_collapsed %}
     {% set node = form.parent.parent.vars.data %}
-    <div class="input-group">
-        {{ block('base_choice_widget_collapsed') }}
-        <div class="input-group-btn">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                {% if node.controlRoute %}
-                    {% if value and node.controlRouteParameters %}
-                        <li><a href="{{ path(node.controlRoute, node.controlRouteParameters) }}">Edit content</a></li>
+    {% if node.controlRoute and value and node.controlRouteParameters %}
+        <div class="input-group">
+            {{ block('base_choice_widget_collapsed') }}
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    {% if node.controlRoute %}
+                        {% if value and node.controlRouteParameters %}
+                            <li><a href="{{ path(node.controlRoute, node.controlRouteParameters) }}">Edit content</a></li>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
+    {% else %}
+        {{ block('base_choice_widget_collapsed') }}
+    {% endif %}
 {% endblock %}
