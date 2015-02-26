@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="btn_node", indexes={
  *     @ORM\Index(name="idx_slug", columns={"slug"}),
  *     @ORM\Index(name="idx_url", columns={"url"}),
+ *     @ORM\Index(name="idx_root_lft_rgt", columns={"root", "lft", "rgt"}),
  * })
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="Btn\NodeBundle\Repository\NodeRepository")
