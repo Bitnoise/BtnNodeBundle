@@ -3,7 +3,7 @@
 namespace Btn\NodeBundle\Form\Type;
 
 use Btn\AdminBundle\Form\Type\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Btn\NodeBundle\Provider\NodeContentProviders;
 
 class NodeContentProviderType extends AbstractType
@@ -22,7 +22,7 @@ class NodeContentProviderType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         parent::setDefaultOptions($resolver);
 
