@@ -25,7 +25,7 @@ class RouteContentType extends AbstractType
     {
         $builder
             ->add('route', 'btn_select2_choice', array(
-                'empty_value' => 'btn_node.route_node_content_provider.empty_value',
+                'placeholder' => 'btn_node.route_node_content_provider.placeholder',
                 'choices'     => $this->data,
             ))
         ;

@@ -26,14 +26,14 @@ btn_node.node.metaKeywords: 'Meta keywords'
 btn_node.node.ogTitle: 'OG title'
 btn_node.node.ogDescription: 'OG description'
 btn_node.node.ogImage: 'OG image'
-btn_node.node.ogImage_empty_value: 'Choose image'
+btn_node.node.ogImage.placeholder: 'Choose image'
 btn_node.node.link: 'Direct url'
 
 btn_node.route_node_content_provider.name: 'Route provider'
-btn_node.route_node_content_provider.empty_value: 'Select route'
+btn_node.route_node_content_provider.placeholder: 'Select route'
 
 btn_node.form.type.node_content_provider.label: 'Provider'
-btn_node.form.type.node_content_provider.empty_value: 'Select provider'
+btn_node.form.type.node_content_provider.placeholder: 'Select provider'
 
 btn_node.type.node.label: 'Node'
-btn_node.type.node.empty_value: 'Select node'
+btn_node.type.node.placeholder: 'Select node'

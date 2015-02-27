@@ -34,7 +34,7 @@ class NodeContentProviderType extends AbstractType
 
         $resolver->setDefaults(array(
             'label'       => 'btn_node.form.type.node_content_provider.label',
-            'empty_value' => 'btn_node.form.type.node_content_provider.empty_value',
+            'placeholder' => 'btn_node.form.type.node_content_provider.placeholder',
             'choices'     => $choices,
         ));
     }

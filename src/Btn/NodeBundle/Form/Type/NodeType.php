@@ -18,7 +18,7 @@ class NodeType extends AbstractType
         parent::configureOptions($resolver);
 
         $resolver->setDefaults(array(
-            'empty_value' => 'btn_node.type.node.empty_value',
+            'placeholder' => 'btn_node.type.node.placeholder',
             'label'       => 'btn_node.type.node.label',
             'class'       => $this->entityProvider->getClass(),
             'attr'        => array(
