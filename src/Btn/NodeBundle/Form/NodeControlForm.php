@@ -81,7 +81,7 @@ class NodeControlForm extends AbstractForm
                     'label' => 'btn_node.node.ogDescription',
                 ))
                 ->add('ogImage', 'btn_media', array(
-                    'label' => 'btn_node.node.ogImage',
+                    'label' => 'btn_node.node.ogImage.label',
                 ))
             ;
         }
