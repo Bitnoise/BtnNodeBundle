@@ -16,7 +16,7 @@
     ],
     "require": {
         "symfony-cmf/routing-bundle": "~1.2.0",
-        "bitnoise/admin-bundle": "2.0.*"
+        "bitnoise/admin-bundle": "2.1.*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "~2.0.0",
@@ -39,7 +39,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-2.0": "2.0-dev"
+            "dev-2.1": "2.1-dev"
         }
     }
 }
