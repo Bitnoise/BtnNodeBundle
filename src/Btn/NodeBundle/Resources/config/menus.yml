@@ -28,6 +28,7 @@ services:
 
     # register in admin panel as top menu item
     btn_node.btn_admin_menu_top_item:
+        public: false
         class: %btn_admin.menu_item.class%
         factory_service: btn_admin.menu_builder
         factory_method: createMenu
