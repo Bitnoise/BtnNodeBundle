@@ -3,7 +3,7 @@
 namespace Btn\NodeBundle\Form\Type;
 
 use Btn\AdminBundle\Form\Type\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Doctrine\ORM\EntityRepository;
@@ -13,7 +13,7 @@ class NodeType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
 
