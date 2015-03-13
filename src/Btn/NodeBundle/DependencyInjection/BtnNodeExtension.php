@@ -20,6 +20,13 @@ class BtnNodeExtension extends AbstractExtension
         $container->setParameter('btn_node.router_priority', $config['router_priority']);
         $container->setParameter('btn_node.router_prefix', $config['router_prefix']);
         $container->setParameter('btn_node.available_routes', $config['available_routes']);
+
+        if ('dev' !== $container->getParameter('kernel.environment')) {
+            $this->addClassesToCompile(array(
+                'Btn\\NodeBundle\\EventListener\\RequestSubscriber',
+                'Btn\\NodeBundle\\Routing\\Router',
+            ));
+        }
     }
 
     /**
