@@ -17,6 +17,7 @@ class BtnNodeExtension extends AbstractExtension
         $config = $this->getProcessedConfig($container, $configs);
 
         $container->setParameter('btn_node.node.class', $config['node']['class']);
+        $container->setParameter('btn_node.node.cache_lifetime', $config['node']['cache_lifetime']);
         $container->setParameter('btn_node.router_priority', $config['router_priority']);
         $container->setParameter('btn_node.router_prefix', $config['router_prefix']);
         $container->setParameter('btn_node.available_routes', $config['available_routes']);

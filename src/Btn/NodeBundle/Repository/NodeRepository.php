@@ -3,13 +3,24 @@
 namespace Btn\NodeBundle\Repository;
 
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
-use Kunstmaan\NodeBundle\Entity\Node;
+use Btn\NodeBundle\Entity\Node;
 
 /**
  * NodeRepository
  */
 class NodeRepository extends NestedTreeRepository
 {
+    /** @var integer $cacheLifetime */
+    protected $cacheLifetime;
+
+    /**
+     * @param integer $cacheLifetime
+     */
+    public function setCacheLifetime($cacheLifetime)
+    {
+        $this->cacheLifetime = $cacheLifetime;
+    }
+
     /**
      * @param string $slug The slug
      *
@@ -32,7 +43,13 @@ class NodeRepository extends NestedTreeRepository
         $qb->andWhere('n.lvl > 0');
         $qb->setParameter('url', $url);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        $query = $qb->getQuery();
+
+        if ($this->cacheLifetime) {
+            $query->useResultCache(true, $this->cacheLifetime);
+        }
+
+        return $query->getOneOrNullResult();
     }
 
     /**
@@ -51,7 +68,13 @@ class NodeRepository extends NestedTreeRepository
         $qb->andWhere('n.slug = :slug');
         $qb->setParameter('slug', $slug);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        $query = $qb->getQuery();
+
+        if ($this->cacheLifetime) {
+            $query->useResultCache(true, $this->cacheLifetime);
+        }
+
+        return $query->getOneOrNullResult();
     }
 
     /**
@@ -68,7 +91,13 @@ class NodeRepository extends NestedTreeRepository
             ->setParameter(':root', $root)
         ;
 
-        return $qb->getQuery()->getResult();
+        $query = $qb->getQuery();
+
+        if ($this->cacheLifetime) {
+            $query->useResultCache(true, $this->cacheLifetime);
+        }
+
+        return $query->getResult();
     }
 
     /**

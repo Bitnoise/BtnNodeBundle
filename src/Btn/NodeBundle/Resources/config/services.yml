@@ -1,15 +1,27 @@
 parameters:
+    btn_node.repository.node.class: Btn\NodeBundle\Repository\NodeRepository
     btn_node.content_providers.class: Btn\NodeBundle\Provider\NodeContentProviders
     btn_node.event_listener.request_subscriber.class: Btn\NodeBundle\EventListener\RequestSubscriber
     btn_node.event_listener.node_subscriber.class: Btn\NodeBundle\EventListener\NodeSubscriber
     btn_node.provider.route_node_content.class: Btn\NodeBundle\Provider\RouteNodeContentProvider
     btn_node.routing.router.class: Btn\NodeBundle\Routing\Router
 services:
+    # entity repository
+    btn_node.repository.node:
+        class: %btn_node.repository.node.class%
+        arguments: [%btn_node.node.class%]
+        factory: [@doctrine.orm.entity_manager, getRepository]
+        calls:
+            - [ setCacheLifetime, [%btn_node.node.cache_lifetime%]]
+
     # entity provider
     btn_node.provider.node:
         class: %btn_base.provider.entity.class%
         parent: btn_base.provider.abstract_entity
-        arguments: [%btn_node.node.class%]
+        arguments:
+            - %btn_node.node.class% 
+            - @doctrine.orm.entity_manager
+            - @btn_node.repository.node
 
     # entity as nested tree behavior
     gedmo.listener.tree:
