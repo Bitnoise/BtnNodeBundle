@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('class')->cannotBeEmpty()->defaultValue('Btn\\NodeBundle\\Entity\\Node')->end()
-                        ->integerNode('cache_lifetime')->end()
+                        ->integerNode('cache_lifetime')->defaultValue(0)->end()
                     ->end()
                 ->end()
                 ->scalarNode('router_priority')->defaultValue(0)->end()
