@@ -26,7 +26,7 @@ class NodeRepository extends NestedTreeRepository
      *
      * @return Node|null
      */
-    public function getNodeForUrl($url)
+    public function getNodeForUrl($url, $cache = null)
     {
         $qb = $this->createQueryBuilder('n')
             ->select('n')
@@ -45,8 +45,8 @@ class NodeRepository extends NestedTreeRepository
 
         $query = $qb->getQuery();
 
-        if ($this->cacheLifetime) {
-            $query->useResultCache(true, $this->cacheLifetime);
+        if ($cache) {
+            $query->useResultCache(true, $this->resolveCacheLifetime($cache));
         }
 
         return $query->getOneOrNullResult();
@@ -57,7 +57,7 @@ class NodeRepository extends NestedTreeRepository
      *
      * @return Node|null
      */
-    public function getNodeForSlug($slug)
+    public function getNodeForSlug($slug, $cache = null)
     {
         $qb = $this->createQueryBuilder('n')
             ->select('n')
@@ -70,8 +70,8 @@ class NodeRepository extends NestedTreeRepository
 
         $query = $qb->getQuery();
 
-        if ($this->cacheLifetime) {
-            $query->useResultCache(true, $this->cacheLifetime);
+        if ($cache) {
+            $query->useResultCache(true, $this->resolveCacheLifetime($cache));
         }
 
         return $query->getOneOrNullResult();
@@ -82,7 +82,7 @@ class NodeRepository extends NestedTreeRepository
      *
      * @return Node[]
      */
-    public function getNodesForRoot($root)
+    public function getNodesForRoot($root, $cache = null)
     {
         $qb = $this->createQueryBuilder('n')
             ->select('n')
@@ -93,8 +93,8 @@ class NodeRepository extends NestedTreeRepository
 
         $query = $qb->getQuery();
 
-        if ($this->cacheLifetime) {
-            $query->useResultCache(true, $this->cacheLifetime);
+        if ($cache) {
+            $query->useResultCache(true, $this->resolveCacheLifetime($cache));
         }
 
         return $query->getResult();
@@ -114,5 +114,19 @@ class NodeRepository extends NestedTreeRepository
             ->getStrategy($this->_em, $meta->name)
             ->updateNode($this->_em, $node, $newParent)
         ;
+    }
+
+    /**
+     *
+     */
+    private function resolveCacheLifetime($cacheLifetime)
+    {
+        if (true === $cacheLifetime) {
+            return $this->cacheLifetime;
+        } elseif (is_int($cacheLifetime)) {
+            return $cacheLifetime;
+        }
+
+        return 0;
     }
 }

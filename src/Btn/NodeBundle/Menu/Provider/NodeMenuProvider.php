@@ -46,7 +46,7 @@ class NodeMenuProvider implements MenuProviderInterface
 
         // if it's root element of menu then get full nodes list by root
         if ($menu->getId() === $menu->getRoot()) {
-            $nodes = $this->ep->getRepository()->getNodesForRoot($menu->getRoot());
+            $nodes = $this->ep->getRepository()->getNodesForRoot($menu->getRoot(), true);
             $nodes[0] = $menu;
             //clear children object to prevent unnecessary requests
             foreach ($nodes as $node) {
@@ -93,7 +93,7 @@ class NodeMenuProvider implements MenuProviderInterface
     protected function getNodeForSlugWithCache($name)
     {
         if (!array_key_exists($name, $this->nodeArrayCache)) {
-            $this->nodeArrayCache[$name] = $this->ep->getRepository()->getNodeForSlug($name);
+            $this->nodeArrayCache[$name] = $this->ep->getRepository()->getNodeForSlug($name, true);
         }
 
         return $this->nodeArrayCache[$name];
