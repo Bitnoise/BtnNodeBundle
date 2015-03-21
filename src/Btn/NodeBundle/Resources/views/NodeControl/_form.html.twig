@@ -39,7 +39,9 @@
             {% if entity.parent %}
                 {{ form_row(form.link) }}
                 {{ form_row(form.visible) }}
-                {{ form_row(form.providerId) }}
+                {% if form.providerId is defined %}
+                    {{ form_row(form.providerId) }}
+                {% endif %}
                 {% if form.providerParameters is defined %}
                     {% for item in form.providerParameters %}
                         {% if loop.first %}

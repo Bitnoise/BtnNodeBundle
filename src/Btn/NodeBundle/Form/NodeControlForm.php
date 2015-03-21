@@ -53,13 +53,17 @@ class NodeControlForm extends AbstractForm
                 ->add('link', null, array(
                     'label' => 'btn_node.node.link',
                 ))
-                ->add('providerId', 'btn_node_content_provider', array(
-                    'ajax_reload' => true,
-                ))
-                ->add('providerParameters', 'hidden')
             ;
 
-            $builder->addEventSubscriber(new ProviderParametersSubscriber($this->nodeContentProviders));
+            if (!$options['data']->isProviderLocked()) {
+                $builder
+                    ->add('providerId', 'btn_node_content_provider', array(
+                        'ajax_reload' => true,
+                    ))
+                    ->add('providerParameters', 'hidden')
+                ;
+                $builder->addEventSubscriber(new ProviderParametersSubscriber($this->nodeContentProviders));
+            }
 
             $builder
                 ->add('visible', null, array(
