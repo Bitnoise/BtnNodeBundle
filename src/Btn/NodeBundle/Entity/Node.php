@@ -119,6 +119,11 @@ class Node implements NodeInterface
     private $providerParameters;
 
     /**
+     * @ORM\Column(name="provider_locked", type="boolean", nullable=true)
+     */
+    private $providerLocked;
+
+    /**
      * @var string $providerEvent
      */
     private $providerEvent;
@@ -178,9 +183,10 @@ class Node implements NodeInterface
      */
     public function __construct()
     {
-        $this->children = new ArrayCollection();
-        $this->visible  = true;
-        $this->router   = null;
+        $this->children       = new ArrayCollection();
+        $this->visible        = true;
+        $this->router         = null;
+        $this->providerLocked = false;
     }
 
     /**
@@ -586,6 +592,22 @@ class Node implements NodeInterface
         $this->providerEvent = $providerEvent;
 
         return $this;
+    }
+
+    /**
+     *
+     */
+    public function isProviderLocked()
+    {
+        return $this->providerLocked;
+    }
+
+    /**
+     *
+     */
+    public function setProviderLocked($providerLocked = true)
+    {
+        $this->providerLocked = $providerLocked;
     }
 
     /**
