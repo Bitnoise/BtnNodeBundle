@@ -20,7 +20,7 @@ services:
         class: %btn_base.provider.entity.class%
         parent: btn_base.provider.abstract_entity
         arguments:
-            - %btn_node.node.class% 
+            - %btn_node.node.class%
             - @doctrine.orm.entity_manager
             - @btn_node.repository.node
 
