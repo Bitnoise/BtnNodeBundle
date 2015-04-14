@@ -224,7 +224,7 @@ class NodeControlController extends AbstractControlController
      */
     protected function checkPermissionsOrThrowException(NodeInterface $node)
     {
-        if ($node->isRoot() && !$this->get('security.context')->isGranted('ROLE_NODE_ROOT_MANAGEMENT')) {
+        if ($node->isRoot() && !$this->get('security.authorization_checker')->isGranted('ROLE_NODE_ROOT_MANAGEMENT')) {
             throw $this->createAccessDeniedException('You don\'t have permission to manage menu root elements');
         }
     }
