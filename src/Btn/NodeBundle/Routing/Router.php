@@ -64,7 +64,7 @@ class Router implements RouterInterface
      */
     public function match($pathinfo)
     {
-        $requestAttributes = $this->container->get('request')->attributes;
+        $requestAttributes = $this->container->get('request_stack')->getCurrentRequest()->attributes;
 
         if ($requestAttributes->has('_controller')) {
             throw new ResourceNotFoundException('Routing is already done');
@@ -141,7 +141,7 @@ class Router implements RouterInterface
     {
         if (!isset($this->context)) {
             /* @var Request $request */
-            $request = $this->container->get('request');
+            $request = $this->container->get('request_stack')->getCurrentRequest();
 
             $this->context = new RequestContext();
             $this->context->fromRequest($request);
