@@ -45,20 +45,22 @@ class Router implements RouterInterface
         $locale = $this->container->getParameter('btn_node.router.locale');
         $defaultLocale = $this->container->getParameter('kernel.default_locale');
 
-        $defaults = array(
+        $defaults = [
             '_controller' => $controller,
             'url'         => '',
-        );
+        ];
 
-        $requirements = array(
+        $requirements = [
             'url' => '[a-zA-Z0-9\-_\/]+',
-        );
+        ];
 
         $path = $routerPrefix;
-        if ($locale) {
+        if ($locale['enabled']) {
             $path .= '{_locale}/';
             $defaults['_locale'] = $defaultLocale;
-            $requirements['_locale'] = is_string($locale) ? $locale : $defaultLocale.'|[a-z]{2}';
+            if ($locale['requirements']) {
+                $requirements['_locale'] = $locale['requirements'];
+            }
         }
         $path .= '{url}';
 
@@ -87,7 +89,18 @@ class Router implements RouterInterface
 
         $urlMatcher = new UrlMatcher($this->routeCollection, $this->getContext());
 
+        // Inject default lang prefix to url if not present
+        $locale = $this->container->getParameter('btn_node.router.locale');
+        if ($locale['enabled'] && $locale['skip_default']) {
+            $defaultLocale = $this->container->getParameter('kernel.default_locale');
+            $routerPrefix = $this->container->getParameter('btn_node.router.prefix');
+            if (!preg_match('~^'.preg_quote($routerPrefix).'[a-z]{2}\/~', $pathinfo)) {
+                $pathinfo = preg_replace('~^'.preg_quote($routerPrefix).'~', $routerPrefix.$defaultLocale.'/', $pathinfo);
+            }
+        }
+
         $result = $urlMatcher->match($pathinfo);
+
         if (!empty($result)) {
             $nodeRepo       = $this->container->get('btn_node.provider.node')->getRepository();
             $node           = $nodeRepo->getNodeForUrl($result['url']);
@@ -112,11 +125,28 @@ class Router implements RouterInterface
      *
      * @return null|string
      */
-    public function generate($name, $parameters = array(), $absolute = false)
+    public function generate($name, $parameters = [], $absolute = false)
     {
         $this->urlGenerator = new UrlGenerator($this->routeCollection, $this->context);
 
-        return $this->urlGenerator->generate($name, $parameters, $absolute);
+        $url = $this->urlGenerator->generate($name, $parameters, $absolute);
+
+        // Remove default lang url if it should be skiped from url
+        if (
+            $name === $this->container->getParameter('btn_node.router.name') &&
+            $this->container->getParameter('btn_node.router.locale')['skip_default']
+        ) {
+            $defaultLocale = $this->container->getParameter('kernel.default_locale');
+            $routerPrefix = $this->container->getParameter('btn_node.router.prefix');
+            if (
+                array_key_exists('_locale', $this->context->getParameters()) &&
+                $this->context->getParameters()['_locale'] === $defaultLocale
+            ) {
+                $url = preg_replace('~^'.preg_quote($routerPrefix.$defaultLocale).'\/~', $routerPrefix, $url);
+            }
+        }
+
+        return $url;
     }
 
     /**
