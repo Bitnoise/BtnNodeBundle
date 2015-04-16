@@ -39,19 +39,30 @@ class Router implements RouterInterface
         $this->container       = $container;
         $this->routeCollection = new RouteCollection();
 
-        $routerPrefix = $this->container->getParameter('btn_node.router_prefix');
+        $routerName = $this->container->getParameter('btn_node.router.name');
+        $routerPrefix = $this->container->getParameter('btn_node.router.prefix');
+        $controller = $this->container->getParameter('btn_node.router.controller');
+        $locale = $this->container->getParameter('btn_node.router.locale');
+        $defaultLocale = $this->container->getParameter('kernel.default_locale');
 
-        $this->routeCollection->add(
-            '_btn_node',
-            new Route(
-                $routerPrefix.'{url}',
-                array(
-                    '_controller'   => 'BtnNodeBundle:Node:resolve',
-                    'url'           => '',
-                ),
-                array('url' => "[a-zA-Z0-9\-_\/]+")
-            )
+        $defaults = array(
+            '_controller' => $controller,
+            'url'         => '',
         );
+
+        $requirements = array(
+            'url' => '[a-zA-Z0-9\-_\/]+',
+        );
+
+        $path = $routerPrefix;
+        if ($locale) {
+            $path .= '{_locale}/';
+            $defaults['_locale'] = $defaultLocale;
+            $requirements['_locale'] = is_string($locale) ? $locale : $defaultLocale.'|[a-z]{2}';
+        }
+        $path .= '{url}';
+
+        $this->routeCollection->add($routerName, new Route($path, $defaults, $requirements));
     }
 
     /**
