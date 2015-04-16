@@ -18,8 +18,11 @@ class BtnNodeExtension extends AbstractExtension
 
         $container->setParameter('btn_node.node.class', $config['node']['class']);
         $container->setParameter('btn_node.node.cache_lifetime', $config['node']['cache_lifetime']);
-        $container->setParameter('btn_node.router_priority', $config['router_priority']);
-        $container->setParameter('btn_node.router_prefix', $config['router_prefix']);
+        $container->setParameter('btn_node.router.controller', $config['router']['controller']);
+        $container->setParameter('btn_node.router.name', $config['router']['name']);
+        $container->setParameter('btn_node.router.priority', $config['router']['priority']);
+        $container->setParameter('btn_node.router.prefix', $config['router']['prefix']);
+        $container->setParameter('btn_node.router.locale', $config['router']['locale']);
         $container->setParameter('btn_node.available_routes', $config['available_routes']);
 
         if ('dev' !== $container->getParameter('kernel.environment')) {

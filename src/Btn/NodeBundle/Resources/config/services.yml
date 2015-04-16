@@ -36,7 +36,7 @@ services:
         class: %btn_node.routing.router.class%
         arguments: [@service_container]
         tags:
-            - { name: router, priority: %btn_node.router_priority% }
+            - { name: router, priority: %btn_node.router.priority% }
 
     # alias for btn_node.routing.router
     btn_node.router: @btn_node.routing.router
