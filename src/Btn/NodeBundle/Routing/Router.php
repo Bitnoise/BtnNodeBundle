@@ -95,7 +95,11 @@ class Router implements RouterInterface
             $defaultLocale = $this->container->getParameter('kernel.default_locale');
             $routerPrefix = $this->container->getParameter('btn_node.router.prefix');
             if (!preg_match('~^'.preg_quote($routerPrefix).'[a-z]{2}\/~', $pathinfo)) {
-                $pathinfo = preg_replace('~^'.preg_quote($routerPrefix).'~', $routerPrefix.$defaultLocale.'/', $pathinfo);
+                $pathinfo = preg_replace(
+                    '~^'.preg_quote($routerPrefix).'~',
+                    $routerPrefix.$defaultLocale.'/',
+                    $pathinfo
+                );
             }
         }
 

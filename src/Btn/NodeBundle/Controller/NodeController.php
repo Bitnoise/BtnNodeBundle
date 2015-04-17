@@ -2,7 +2,6 @@
 
 namespace Btn\NodeBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Btn\BaseBundle\Controller\AbstractController;
 use Btn\NodeBundle\Model\NodeInterface;
 
