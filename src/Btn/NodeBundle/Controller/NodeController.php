@@ -28,7 +28,7 @@ class NodeController extends AbstractController
             }
 
             $uri = $this->get('router')->generate($node->getRoute(), $node->getRouteParameters());
-            $uri = str_replace($this->get('request')->getBaseUrl(), '', $uri);
+            $uri = str_replace($this->get('request_stack')->getCurrentRequest()->getBaseUrl(), '', $uri);
             $match = $this->get('router')->match($uri);
 
             //prevent recursive loop here
