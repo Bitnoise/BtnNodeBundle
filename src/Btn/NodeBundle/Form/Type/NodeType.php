@@ -35,7 +35,7 @@ class NodeType extends AbstractType
                 ;
             },
             'group_by' => 'rootEntity.name',
-            'property' => 'titleLvlPrefixed',
+            'choice_label' => 'titleLvlPrefixed',
             'required' => true,
             'expanded' => false,
         ));
