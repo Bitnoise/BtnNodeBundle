@@ -30,6 +30,7 @@ btn_node.node.ogImage.placeholder: 'Choose image'
 btn_node.node.link: 'Direct url'
 
 btn_node.route_node_content_provider.name: 'Route provider'
+btn_node.route_node_content_provider.label: 'Route'
 btn_node.route_node_content_provider.placeholder: 'Select route'
 
 btn_node.form.type.node_content_provider.label: 'Provider'
