@@ -30,6 +30,7 @@ btn_node.node.ogImage.empty_value: 'Wybierz obrazek'
 btn_node.node.link: 'Link docelowy'
 
 btn_node.route_node_content_provider.name: 'Strony statyczne'
+btn_node.route_node_content_provider.label: 'Strona'
 btn_node.route_node_content_provider.empty_value: 'wybierz stornę statyczną'
 
 btn_node.form.type.node_content_provider.label: 'Zawartość'
