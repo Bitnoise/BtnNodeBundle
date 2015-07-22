@@ -5,22 +5,22 @@ namespace Btn\NodeBundle\Menu\Loader;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\NodeInterface;
 use Knp\Menu\Loader\LoaderInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class NodeMenuLoader implements LoaderInterface
 {
     /** @var \Knp\Menu\FactoryInterface $factory */
     protected $factory;
-    /** @var \Symfony\Component\DependencyInjection\ContainerInterface */
-    protected $container;
+    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    protected $router;
 
     /**
      *
      */
-    public function __construct(FactoryInterface $factory, ContainerInterface $container)
+    public function __construct(FactoryInterface $factory, UrlGeneratorInterface $router)
     {
-        $this->factory   = $factory;
-        $this->container = $container;
+        $this->factory = $factory;
+        $this->router  = $router;
     }
 
     /**
@@ -35,8 +35,7 @@ class NodeMenuLoader implements LoaderInterface
             );
         }
 
-        //put the reuqest there
-        $data->setRouter($this->container->get('router'));
+        $data->setRouter($this->router);
 
         $item = $this->factory->createItem($data->getName(), $data->getOptions());
 

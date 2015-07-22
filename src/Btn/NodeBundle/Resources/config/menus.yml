@@ -14,7 +14,7 @@ services:
     # menu loader for menu provider
     btn_node.menu.loader.node_menu:
         class: %btn_node.menu.loader.node_menu.class%
-        arguments: [@knp_menu.factory, @service_container]
+        arguments: [@knp_menu.factory, @router]
 
     # menu provider for knp menu based on the nested tree
     btn_node.menu.provider.node_menu:
