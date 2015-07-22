@@ -37,7 +37,12 @@ class NodeMenuLoader implements LoaderInterface
 
         $data->setRouter($this->router);
 
-        $item = $this->factory->createItem($data->getName(), $data->getOptions());
+        $options = $data->getOptions();
+        if (!array_key_exists('skipTrans', $options)) {
+            $options['skipTrans'] = true;
+        }
+
+        $item = $this->factory->createItem($data->getName(), $options);
 
         foreach ($data->getChildren() as $childNode) {
             if ($childNode->getVisible()) {
