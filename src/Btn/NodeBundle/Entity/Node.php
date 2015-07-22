@@ -647,7 +647,11 @@ class Node implements NodeInterface
      */
     public function getOptions()
     {
-        if (!$this->getRoute()) {
+        if ($this->getLink() && null === $this->getRoute()) {
+            return array(
+                'uri' => $this->getLink(),
+            );
+        } else if (!$this->getRoute()) {
             return array();
         } elseif ($this->getUrl() || ('' === $this->getUrl() && '' === $this->getSlug() && 1 === $this->getLvl())) {
             return array(
