@@ -45,7 +45,7 @@ class NodeRepository extends NestedTreeRepository
 
         $query = $qb->getQuery();
 
-        if ($cache) {
+        if ($this->resolveCacheLifetime($cache)) {
             $query->useResultCache(true, $this->resolveCacheLifetime($cache));
         }
 
@@ -70,7 +70,7 @@ class NodeRepository extends NestedTreeRepository
 
         $query = $qb->getQuery();
 
-        if ($cache) {
+        if ($this->resolveCacheLifetime($cache)) {
             $query->useResultCache(true, $this->resolveCacheLifetime($cache));
         }
 
@@ -93,7 +93,7 @@ class NodeRepository extends NestedTreeRepository
 
         $query = $qb->getQuery();
 
-        if ($cache) {
+        if ($this->resolveCacheLifetime($cache)) {
             $query->useResultCache(true, $this->resolveCacheLifetime($cache));
         }
 
