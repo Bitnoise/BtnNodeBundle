@@ -44,7 +44,9 @@ class NodeFormHandler implements FormHandlerInterface
 
             $providerId = $entity->getProviderId();
 
-            if ($providerId) {
+            if ($providerId && $entity->isProviderLocked()) {
+                // don't modify nothing if provider is locked 
+            } elseif ($providerId) {
                 $contentProvider = $this->contentProviders->get($providerId);
 
                 //get correct route name from service
