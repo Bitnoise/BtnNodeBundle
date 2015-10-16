@@ -43,6 +43,7 @@ class NodeMenuLoader implements LoaderInterface
         }
 
         $item = $this->factory->createItem($data->getName(), $options);
+        $item->setExtra('node', $data);
 
         foreach ($data->getChildren() as $childNode) {
             if ($childNode->getVisible()) {
