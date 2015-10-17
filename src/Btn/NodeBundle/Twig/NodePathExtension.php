@@ -33,7 +33,7 @@ class NodePathExtension extends \Twig_Extension
      */
     public function nodePath($input, $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
     {
-        $this->urlGenerator->generate($input, $referenceType);
+        return $this->urlGenerator->generate($input, $referenceType);
     }
 
     /**
