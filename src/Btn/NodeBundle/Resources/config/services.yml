@@ -5,6 +5,8 @@ parameters:
     btn_node.event_listener.node_subscriber.class: Btn\NodeBundle\EventListener\NodeSubscriber
     btn_node.provider.route_node_content.class: Btn\NodeBundle\Provider\RouteNodeContentProvider
     btn_node.routing.router.class: Btn\NodeBundle\Routing\Router
+    btn_node.routing.url_generator.class: Btn\NodeBundle\Routing\UrlGenerator
+
 services:
     # entity repository
     btn_node.repository.node:
@@ -40,6 +42,13 @@ services:
 
     # alias for btn_node.routing.router
     btn_node.router: @btn_node.routing.router
+
+    btn_node.routing.url_generator:
+        class: %btn_node.routing.url_generator.class%
+        arguments:
+            router: @router
+
+    btn_node.url_generator: @btn_node.routing.url_generator
 
     # request listener - helper
     btn_node.event_listener.request_subscriber:
