@@ -1,6 +1,7 @@
 parameters:
     btn_node.twig.node_menu.class: Btn\NodeBundle\Twig\NodeMenuExtension
     btn_node.twig.node.class: Btn\NodeBundle\Twig\NodeExtension
+    btn_node.twig.node_path.class: Btn\NodeBundle\Twig\NodePathExtension
 
 services:
     # twig extension to render menu
@@ -15,5 +16,12 @@ services:
         class: %btn_node.twig.node.class%
         arguments:
             nodeProvider: @btn_node.provider.node
+        tags:
+            - { name: twig.extension }
+
+    btn_node.twig.node_path:
+        class: %btn_node.twig.node_path.class%
+        arguments:
+            urlGenerator: @btn_node.routing.url_generator
         tags:
             - { name: twig.extension }
