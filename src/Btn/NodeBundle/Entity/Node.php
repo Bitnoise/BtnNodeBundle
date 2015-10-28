@@ -70,6 +70,11 @@ class Node implements NodeInterface
     private $root;
 
     /**
+     * @ORM\Column(name="tree", type="integer", nullable=true)
+     */
+    private $tree;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Node")
      * @ORM\JoinColumn(name="root", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -367,6 +372,29 @@ class Node implements NodeInterface
     public function isRoot()
     {
         return !$this->getParent() ? true : false;
+    }
+
+    /**
+     * Set tree
+     *
+     * @param  integer $tree
+     * @return Node
+     */
+    public function setTree($tree)
+    {
+        $this->tree = $tree;
+
+        return $this;
+    }
+
+    /**
+     * Get tree
+     *
+     * @return integer
+     */
+    public function getTree()
+    {
+        return $this->tree;
     }
 
     /**

@@ -12,6 +12,8 @@ class NodeRepository extends NestedTreeRepository
 {
     /** @var integer $cacheLifetime */
     protected $cacheLifetime;
+    /** @var integer $tree */
+    protected $tree;
 
     /**
      * @param integer $cacheLifetime
@@ -19,6 +21,14 @@ class NodeRepository extends NestedTreeRepository
     public function setCacheLifetime($cacheLifetime)
     {
         $this->cacheLifetime = $cacheLifetime;
+    }
+
+    /**
+     * @param integer $tree
+     */
+    public function setTree($tree)
+    {
+        $this->tree = $tree;
     }
 
     /**
@@ -86,7 +96,7 @@ class NodeRepository extends NestedTreeRepository
     {
         $qb = $this->createQueryBuilder('n')
             ->select('n')
-            ->where('n.root = :root')
+            ->andWhere('n.root = :root')
             ->orderBy('n.lft', 'ASC')
             ->setParameter(':root', $root)
         ;
@@ -114,6 +124,21 @@ class NodeRepository extends NestedTreeRepository
             ->getStrategy($this->_em, $meta->name)
             ->updateNode($this->_em, $node, $newParent)
         ;
+    }
+
+    /**
+     *
+     */
+    public function createQueryBuilder($alias)
+    {
+        $qb = parent::createQueryBuilder($alias);
+
+        if ('n' === $alias && $this->tree) {
+            $qb->andWhere('n.tree = :tree');
+            $qb->setParameter('tree', $this->tree);
+        }
+
+        return $qb;
     }
 
     /**
