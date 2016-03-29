@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="btn_node", indexes={
+ *     @ORM\Index(name="idx_slug_prefix", columns={"slug_prefix", "slug"}),
  *     @ORM\Index(name="idx_slug", columns={"slug"}),
  *     @ORM\Index(name="idx_url", columns={"url"}),
  *     @ORM\Index(name="idx_root_lft_rgt", columns={"root", "lft", "rgt"}),
@@ -39,6 +40,11 @@ class Node implements NodeInterface
      * @Assert\NotBlank()
      */
     private $title;
+
+    /**
+     * @ORM\Column(name="slug_prefix", type="string", length=255, nullable=true)
+     */
+    private $slugPrefix;
 
     /**
      * @ORM\Column(name="slug", type="string", length=64, nullable=true)
@@ -218,6 +224,35 @@ class Node implements NodeInterface
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlugPrefix()
+    {
+        return $this->slugPrefix;
+    }
+
+    /**
+     *
+     * Update full slug prefix for this node
+     *
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function updateSlugPrefix()
+    {
+        $result = false;
+
+        $currentSlugPrefix = $this->getSlugPrefix();
+        $slugPrefix = $this->getFullSlug(true);
+        if ($slugPrefix !== $currentSlugPrefix) {
+            $this->slugPrefix = $slugPrefix;
+            $result = true;
+        }
+
+        return $result;
     }
 
     /**

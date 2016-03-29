@@ -48,7 +48,7 @@ class NodeControlForm extends AbstractForm
             $builder
                 ->add('slug', 'btn_slug', array(
                     'label'         => 'btn_node.node.slug',
-                    'addon_prepend' => '/'.$options['data']->getFullSlug(true),
+                    'addon_prepend' => '/'.$options['data']->getSlugPrefix(),
                 ))
                 ->add('link', null, array(
                     'label' => 'btn_node.node.link',
