@@ -227,6 +227,20 @@ class Node implements NodeInterface
     }
 
     /**
+     *
+     */
+    public function getTitlePath()
+    {
+        $titlePath = '';
+        $parentNode = $this->getParent();
+        if ($parentNode && !$parentNode->isRoot()) {
+            $titlePath .= $parentNode->getTitlePath() . ' / ';
+        }
+
+        return $titlePath . $this->getTitle();
+    }
+
+    /**
      * @return mixed
      */
     public function getSlugPrefix()
