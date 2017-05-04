@@ -185,6 +185,11 @@ class Node implements NodeInterface
     private $link;
 
     /**
+     * @ORM\Column(name="moved_permanently", type="boolean", nullable=true)
+     */
+    private $movedPermanently;
+
+    /**
      * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface $router
      */
     private $router;
@@ -945,6 +950,29 @@ class Node implements NodeInterface
     public function getLink()
     {
         return $this->link;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMovedPermanently()
+    {
+        return $this->movedPermanently;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isMovedPermanently() {
+        return $this->getMovedPermanently() ? true : false;
+    }
+
+    /**
+     * @param boolean $movedPermanently
+     */
+    public function setMovedPermanently($movedPermanently)
+    {
+        $this->movedPermanently = (boolean) $movedPermanently;
     }
 
     /**
