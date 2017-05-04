@@ -53,6 +53,9 @@ class NodeControlForm extends AbstractForm
                 ->add('link', null, array(
                     'label' => 'btn_node.node.link',
                 ))
+                ->add('moved_permanently', 'checkbox', array(
+                    'label' => 'btn_node.node.moved_permanently',
+                ))
             ;
 
             if (!$options['data']->isProviderLocked()) {

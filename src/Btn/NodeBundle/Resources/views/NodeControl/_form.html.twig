@@ -38,6 +38,7 @@
             {{ form_row(form.slug) }}
             {% if entity.parent %}
                 {{ form_row(form.link) }}
+                {{ form_row(form.moved_permanently) }}
                 {{ form_row(form.visible) }}
                 {% if form.providerId is defined %}
                     {{ form_row(form.providerId) }}

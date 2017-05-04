@@ -23,7 +23,7 @@ class NodeController extends AbstractController
             //if node contains valid url - redirect
             $link = $node->getLink();
             if (!empty($link)) {
-                return $this->redirect($link);
+                return $this->redirect($link, $node->isMovedPermanently() ? 301 : 302);
             }
 
             $uri = $this->get('router')->generate($node->getRoute(), $node->getRouteParameters());

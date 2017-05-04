@@ -28,6 +28,7 @@ btn_node.node.ogDescription: 'Opis'
 btn_node.node.ogImage.label: 'Obrazek'
 btn_node.node.ogImage.placeholder: 'Wybierz obrazek'
 btn_node.node.link: 'Link docelowy'
+btn_node.node.moved_permanently: 'Przeniesione na stałe'
 
 btn_node.route_node_content_provider.name: 'Strony statyczne'
 btn_node.route_node_content_provider.label: 'Strona'
